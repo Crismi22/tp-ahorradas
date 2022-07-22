@@ -4,6 +4,10 @@
     font-family: 'Playfair Display', serif;
 }
 
+.prueba{
+    display: none;
+}
+
 .mi-nav{
     height: 14vh;
     padding: 20px;
