@@ -1,0 +1,22 @@
+*{
+    margin:0;
+    padding: 0;
+    font-family: 'Playfair Display', serif;
+}
+
+.mi-nav{
+    height: 14vh;
+    padding: 20px;
+    font-family: 'Playfair Display', serif;
+}
+.navbar-titulo{
+    display: flex ;
+    align-items: center;
+    font-size: 40px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+.items{
+    display: inline-flex;
+    align-items:center ;
+}
