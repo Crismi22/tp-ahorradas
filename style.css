@@ -4,15 +4,12 @@
     font-family: 'Playfair Display', serif;
 }
 
-.prueba{
-    display: none;
-}
-
 .mi-nav{
     height: 14vh;
     padding: 20px;
     font-family: 'Playfair Display', serif;
 }
+
 .navbar-titulo{
     display: flex ;
     align-items: center;
@@ -20,7 +17,32 @@
     font-family: 'Playfair Display', serif;
     font-weight: 700;
 }
+
 .items{
     display: inline-flex;
     align-items:center ;
+}
+
+.oculto{
+    display: none;
+}
+
+.main{
+    /* display: flex;
+    justify-content: center; */
+    /* padding-top: 5%; */
+}
+
+.card-contenedor{
+    /* height: 40vh; */
+    display: flex;
+    align-items: center;
+}
+
+.card-balance{
+    height: 250px;
+}
+
+.card-operaciones{
+    width: 100%;
 }
