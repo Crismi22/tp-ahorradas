@@ -27,22 +27,23 @@
     display: none;
 }
 
-.main{
-    /* display: flex;
-    justify-content: center; */
-    /* padding-top: 5%; */
+.container{
+    padding: 30px 50px;
 }
 
 .card-contenedor{
     /* height: 40vh; */
     display: flex;
     align-items: center;
+    margin-bottom: 10%;
 }
 
 .card-balance{
     height: 250px;
+    margin-bottom: 5%;
+    /* width: auto; */
 }
 
-.card-operaciones{
-    width: 100%;
-}
+/* .card-operaciones{
+    
+} */
