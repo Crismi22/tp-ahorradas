@@ -4,6 +4,15 @@
     font-family: 'Playfair Display', serif;
 }
 
+.oculto{
+    display: none;
+}
+
+
+/* /////////////////////////////////////////////////
+HEADER
+///////////////////////////////////////////////// */
+
 .mi-nav{
     height: 14vh;
     padding: 20px;
@@ -23,27 +32,110 @@
     align-items:center ;
 }
 
-.oculto{
-    display: none;
-}
 
-.container{
-    padding: 30px 50px;
-}
 
-.card-contenedor{
-    /* height: 40vh; */
+
+
+
+/* /////////////////////////////////////////////////
+SECTION GENERAL
+///////////////////////////////////////////////// */
+
+.contenedor-section{
+    height: 10%;
     display: flex;
+    justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.card-contenedor-categorias-reportes{
+    width: 60%;
+    justify-content: center;
+}
+
+.card-subtitulo-categorias-reporte{
+    font-size: 2.5em;
+    font-weight: 700;
+    padding-bottom: 5%;
+}
+
+
+/* /////////////////////////////////////////////////
+SECTION BALANCE
+///////////////////////////////////////////////// */
+
+
+.contenedor-operaciones{
+    width: 80%;
+
+}
+
+.card-operaciones{
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenedor-img-operaciones{
+    display: flex;
+    justify-content: center;
+}
+
+.img-operaciones{
+    width: 40%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+
+/* /////////////////////////////////////////////////
+SECTION CATEGORIAS
+///////////////////////////////////////////////// */
+
+.categoria-nombre{
+    font-weight: 700;
+    padding-bottom: 1%;
+}
+
+.contenedor-nueva-categoria{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.contenedor-categoria-input{
+    width: 83%;
+}
+
+.carga-categoria{
+    width: 100%;
+}
+
+.agregar-categoria{
+    width: 15%;
+}
+
+.btn-agregar-categoria{
+    width: 100%;
+
+}
+
+/* /////////////////////////////////////////////////
+SECTION REPORTES
+///////////////////////////////////////////////// */
+
+.contenedor-img-reportes{
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 10%;
 }
 
-.card-balance{
-    height: 250px;
-    margin-bottom: 5%;
-    /* width: auto; */
+.img-reportes{
+    width: 50%;
 }
 
-/* .card-operaciones{
-    
-} */
+.reportes-operaciones{
+    font-weight: 700;
+    padding-top: 8%;
+    padding-bottom: 2%;
+}
