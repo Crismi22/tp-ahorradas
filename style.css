@@ -9,6 +9,9 @@
     padding: 20px;
     font-family: 'Playfair Display', serif;
 }
+.main{
+    background-color: rgb(228, 215, 240);
+}
 
 .navbar-titulo{
     display: flex ;
@@ -18,7 +21,7 @@
     font-weight: 700;
 }
 
-.items{
+.items-nav{
     display: inline-flex;
     align-items:center ;
 }
@@ -28,22 +31,25 @@
 }
 
 .container{
-    padding: 30px 50px;
+    padding: 50px;
 }
-
+.titulos{
+    font-weight: 600;
+}git
 .card-contenedor{
-    /* height: 40vh; */
     display: flex;
     align-items: center;
     margin-bottom: 10%;
+    background-color: #fff;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
 }
 
-.card-balance{
-    height: 250px;
-    margin-bottom: 5%;
-    /* width: auto; */
+/* card balance - vista balance */
+
+.items{
+    display: flex;
+    justify-content: space-between;
+    padding: 5%;
 }
 
-/* .card-operaciones{
-    
-} */
+/* card filtros - vista balance */
