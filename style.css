@@ -8,6 +8,9 @@
     display: none;
 }
 
+body{
+    background-color: rgb(228, 215, 240);
+}
 
 /* /////////////////////////////////////////////////
 HEADER
@@ -17,9 +20,6 @@ HEADER
     height: 14vh;
     padding: 20px;
     font-family: 'Playfair Display', serif;
-}
-.main{
-    background-color: rgb(228, 215, 240);
 }
 
 .navbar-titulo{
@@ -36,14 +36,13 @@ HEADER
 }
 
 
-
-
-
-
 /* /////////////////////////////////////////////////
 SECTION GENERAL
 ///////////////////////////////////////////////// */
-
+.card-contenedor{
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+    margin-bottom: 10%;
+}
 .contenedor-section{
     height: 10%;
     display: flex;
@@ -70,10 +69,20 @@ SECTION BALANCE
 
 
 .contenedor-operaciones{
-    width: 80%;
-
+    padding: 5%;
 }
 
+.btn-operacion{
+    background-color: #000;
+    border: none
+}
+.btn-operacion:hover{
+    background-color: #3a3241;
+}
+
+.subtitulo-balance{
+    font-weight: 800; 
+}
 .card-operaciones{
     display: flex;
     justify-content: space-between;
@@ -82,14 +91,36 @@ SECTION BALANCE
 .contenedor-img-operaciones{
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .img-operaciones{
-    width: 40%;
-    padding-top: 5%;
+    width: 50%;
+    padding-top: 10%;
     padding-bottom: 5%;
 }
-
+.items, .filtros-ocultar-mostrar{
+    display: flex;
+    justify-content: space-between;
+    padding: 5% 0;
+}
+select, input{
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    border: .2px solid #8a868d;
+    outline: none;
+    border-radius: 4px;
+}
+select:hover, input:hover{
+    border: .2px solid #3a3241;
+}
+label{
+    font-size: .9rem;
+    font-weight: 700;
+    padding: 6% 0 3% 0;
+}
 
 /* /////////////////////////////////////////////////
 SECTION CATEGORIAS
@@ -104,6 +135,7 @@ SECTION CATEGORIAS
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 }
 
 .contenedor-categoria-input{
@@ -118,10 +150,6 @@ SECTION CATEGORIAS
     width: 15%;
 }
 
-.btn-agregar-categoria{
-    width: 100%;
-
-}
 
 /* /////////////////////////////////////////////////
 SECTION REPORTES
@@ -141,4 +169,15 @@ SECTION REPORTES
     font-weight: 700;
     padding-top: 8%;
     padding-bottom: 2%;
+}
+
+
+/* RESPONSIVE// */
+@media screen and (max-width: 1024px) {
+    .navbar-collapses{
+        background-color: #212529;
+        position: relative;
+        z-index: 1;
+        margin-left: 60%;
+    }  
 }
