@@ -79,9 +79,9 @@
                       <div class="card-body">
                         <div class="filtros-ocultar-mostrar">
                           <h5 class="card-title subtitulo-balance">Filtros</h5>
-                        <a href="#">Ocultar filtros</a>
+                        <a href="#" id="btn-ocultar-filtros">Ocultar filtros</a>
                         </div>
-                        <div class="caja-filtros">
+                        <div class="caja-filtros" id="caja-filtros">
                           <div class="tipo-filtros">
                             <label for="tipo">Tipo</label>
                             <select id="tipo-filtros">
@@ -129,7 +129,7 @@
                 <div class="card contenedor-operaciones">
                   <div class="card-operaciones">
                     <h5 class="card-title subtitulo-balance">Operaciones</h5>
-                    <a href="#" class="btn btn-primary btn-operacion">+ Nueva operación</a>
+                    <a href="#" class="btn btn-primary btn-operacion" id="btn-operacion">+ Nueva operación</a>
                   </div>
                   <div class="contenedor-img-operaciones">
                     <img class="img-operaciones" src="./assets/imagenes/sin-resultado.svg" alt="calculadora">
@@ -142,7 +142,48 @@
           </div>
         </div>
       </section>
+<!--/////SECTION NUEVA OPERACION////-->
+      <section id="nueva-operacion" class="oculto">
+        <div class="contenedor-nueva-operacion">
+          <div class="row d-flex justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-8">
+              <div class="card">
+              <div class="card-body">
+            <h2 class="fw-bolder fs-1">Nueva operación</h2>
+            <div class="margen-filas">
+              <label for="descripcion-operacion" class="form-label fw-bold margen-superior">Descripción</label>
+              <input type="text" id="descripcion-operacion" class="form-control">
 
+              <label for="monto-operacion" class="form-label fw-bold margen-superior">Monto</label>
+              <input type="number" id="monto-operacion" class="form-control" value="0" />
+
+              <label for="tipo-operacion" class="form-label fw-bold margen-superior">Tipo</label>
+              <select id="tipo-operacion" class="form-select" aria-label="Tipo de operación">
+                <option value="Gasto" selected>Gasto</option>
+                <option value="Ganancia">Ganancia</option>
+              </select>
+
+              <label for="categoria-operacion" class="form-label fw-bold margen-superior">Categoría</label>
+              <select id="categoria-nueva-operacion" class="form-select categorias-select"
+                aria-label="Categoría de operación"></select>
+
+              <label for="fecha-operacion" class="form-label fw-bold margen-superior">Fecha</label>
+              <input type="date" id="fecha-operacion" class="form-control  inputs-fecha" />
+            </div>
+            <div class="d-flex flex-row-reverse">
+              <button id="btn-agregar-operacion" type="button" class="btn btn-dark">
+                Agregar
+              </button>
+              <button id="-btn-cancelar-operacion" type="button" class="btn btn-secondary margen-derecho">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      </section>
 
 
 

@@ -96,7 +96,7 @@ SECTION BALANCE
 }
 
 .img-operaciones{
-    width: 50%;
+    width: 70%;
     padding-top: 10%;
     padding-bottom: 5%;
 }
@@ -120,6 +120,13 @@ label{
     font-size: .9rem;
     font-weight: 700;
     padding: 6% 0 3% 0;
+}
+
+/* //NUEVA OPERACION// */
+
+#nueva-operacion{
+    display: none;
+    margin-top: 30%;
 }
 
 /* /////////////////////////////////////////////////
