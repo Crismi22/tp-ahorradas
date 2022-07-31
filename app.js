@@ -1,3 +1,5 @@
+// BOTNES DE NAV
+
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
@@ -23,3 +25,40 @@ btnReportes.addEventListener('click', () => {
     balance.classList.add('oculto');
     categorias.classList.add('oculto');
 })
+
+//BOTON OCULTAR FILTROS
+
+const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
+const cajaFiltros = document.getElementById('caja-filtros');
+
+btnOcultarFiltros.addEventListener('click', () => {
+    cajaFiltros.classList.toggle('oculto')
+});
+
+////BOTON NUEVA OPERACION///
+
+const btnNuevaOperacion = document.getElementById('btn-operacion');
+const nuevaOperacion = document.getElementById('nueva-operacion');
+
+btnNuevaOperacion.addEventListener("click", () => {
+    balance.classList.add('oculto');
+    nuevaOperacion.classList.remove('oculto');
+    categorias.classList.add('oculto');
+   
+   
+    reportes.classList.add('oculto');
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+const selectFiltros = document.getElementById('tipo-filtros');
