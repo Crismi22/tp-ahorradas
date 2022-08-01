@@ -41,7 +41,7 @@
             </div>
           </nav>
     </header>
-
+<!-- //SECCION BALANCE/// -->
     <main class="main">
       <section id="balance">
         <div class="contenedor-section">
@@ -109,12 +109,12 @@
                           <div class="ordenar-filtros">
                             <label for="ordenar">Ordenar por</label>
                             <select id="filtro-ordenar">
-                              <option value="">Más reciente</option>
-                              <option value="">Menos reciente</option>
-                              <option value="">Mayor monto</option>
-                              <option value="">Menor monto</option>
-                              <option value="">A/Z</option>
-                              <option value="">Z/A</option>
+                              <option value="RECIENTES">Más reciente</option>
+                              <option value="MENOS">Menos reciente</option>
+                              <option value="MONTO">Mayor monto</option>
+                              <option value="MENOR">Menor monto</option>
+                              <option value="AZ">A/Z</option>
+                              <option value="ZA">Z/A</option>
                             </select>
                           </div>
                         </div>
@@ -146,31 +146,38 @@
       <section id="nueva-operacion" class="oculto">
         <div class="contenedor-nueva-operacion">
           <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-8">
-              <div class="card">
+            <div class="col-sm-12 col-md-8">
+              <div class="card card-contenedor">
               <div class="card-body">
             <h2 class="fw-bolder fs-1">Nueva operación</h2>
             <div class="margen-filas">
-              <label for="descripcion-operacion" class="form-label fw-bold margen-superior">Descripción</label>
-              <input type="text" id="descripcion-operacion" class="form-control">
+              <label for="descripcion-operacion">Descripción</label>
+              <input type="text" id="descripcion-operacion">
 
-              <label for="monto-operacion" class="form-label fw-bold margen-superior">Monto</label>
-              <input type="number" id="monto-operacion" class="form-control" value="0" />
+              <label for="monto-operacion">Monto</label>
+              <input type="number" id="monto-operacion" value="0">
 
-              <label for="tipo-operacion" class="form-label fw-bold margen-superior">Tipo</label>
-              <select id="tipo-operacion" class="form-select" aria-label="Tipo de operación">
+              <label for="tipo-operacion">Tipo</label>
+              <select id="tipo-operacion" aria-label="Tipo de operación">
                 <option value="Gasto" selected>Gasto</option>
                 <option value="Ganancia">Ganancia</option>
               </select>
 
-              <label for="categoria-operacion" class="form-label fw-bold margen-superior">Categoría</label>
-              <select id="categoria-nueva-operacion" class="form-select categorias-select"
-                aria-label="Categoría de operación"></select>
+              <label for="categoria-operacion">Categoría</label>
+              <select id="categoria-nueva-operacion" aria-label="Categoría de operación">
+                <option value="todas">Todas</option>
+                <option value="comida">Comida</option>
+                <option value="servicios">Servicios</option>
+                <option value="salidas">Salidas</option>
+                <option value="educacion">Educacion</option>
+                <option value="transporte">Transporte</option>
+                <option value="trabajo">Trabajo</option>
+              </select>
 
-              <label for="fecha-operacion" class="form-label fw-bold margen-superior">Fecha</label>
-              <input type="date" id="fecha-operacion" class="form-control  inputs-fecha" />
+              <label for="fecha-operacion">Fecha</label>
+              <input type="date" id="fecha-operacion">
             </div>
-            <div class="d-flex flex-row-reverse">
+            <div class="d-flex flex-row-reverse btn-operaciones">
               <button id="btn-agregar-operacion" type="button" class="btn btn-dark">
                 Agregar
               </button>
