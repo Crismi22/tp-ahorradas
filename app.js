@@ -38,6 +38,100 @@ btnNuevaOperacion.addEventListener("click", () => {
     nuevaOperacion.classList.remove('oculto');
   });
 
+//AGREGAR NUEVA OPERACION//
+
+//arreglo de operaciones vacio donde se van a guardar los datos
+const operaciones = [];
+
+// let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+/////////////////////////////////////////
+//NO ESTA OCULTANDO LA IMAGEN - REVISAR
+//////////////////////////////////////////
+const verOperaciones = (arr) => {console.log(!arr.length)
+    if(!arr.length){  
+      document.getElementById('sin-operaciones').classList.remove('oculto')
+      document.getElementById('con-operaciones').classList.add('oculto')
+    } else {
+      document.getElementById('sin-operaciones').classList.add('oculto')
+      document.getElementById('con-operaciones').classList.remove('oculto')
+    }
+  } //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
+verOperaciones(operaciones);
+
+
+//inputs para agregar operacion
+const descripcionOperacion = document.getElementById('descripcion-operacion');
+const montoOperacion = document.getElementById('monto-operacion');
+const tipoOperacion = document.getElementById('tipo-operacion')
+const categoriaNuevaOperacion = document.getElementById('categoria-nueva-operacion');
+const fechaOperacion = document.getElementById('fecha-operacion');
+
+const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
+const btnCancelar = document.getElementById('btn-cancelar-operacion')
+
+//boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
+btnAgregarOperacion.addEventListener('click', () => {
+    const crearOperaciones = { //nuevo objeto creado por usuario
+        id: uuidv4(),
+        descripcion: descripcionOperacion.value,
+        monto: montoOperacion.value,
+        tipo: tipoOperacion.value,
+        categoria: categoriaNuevaOperacion.value,
+        fecha: fechaOperacion.value,   
+    }
+    operaciones.push(crearOperaciones)// con cada click en agregar se hace un push al array de operaciones y se muestra en la vista "con operaciones"
+    balance.classList.remove('oculto');
+    nuevaOperacion.classList.add('oculto');
+    //una vez que volvemos a la pantalla balance limpiamos los valores de los inputs para poder agregar otra operacion
+    descripcionOperacion.value = ''
+    montoOperacion.value = 0
+    tipoOperacion.value = 'gasto'
+    categoriaNuevaOperacion.value = 'todas'
+    // fechaOperacion.value = //revisar
+    verOperaciones(operaciones); //al tener operaciones hechas nos quita la imagen principal y nos muestra los datos que ingresamos.
+    imprimirOperaciones(operaciones)//va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
+    // console.log(operaciones)
+})
+
+const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las nuevas operaciones
+    let str = '';
+    arr.forEach((operacion) => {
+        console.log(operacion)
+        const {id, descripcion, categoria, fecha, monto} = operacion;
+        str = str + `
+        <div class="col-12">
+        <div id=${id} class = row aling-items-start" >
+        <span class = "col"> ${descripcion}</span>
+        <span class = "col"> ${categoria}</span>
+        <span class = "col"> ${fecha}</span>
+        <span class = "col"> ${monto}</span>
+        <span class = "col">
+            <a href="#">Borrar</a>
+            <a href="#">Editar</a>
+        </span>
+        </div>
+        </div>
+        `
+        
+    })
+    document.getElementById('operaciones').innerHTML = str;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //BOTON OCULTAR FILTROS
 
 const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');

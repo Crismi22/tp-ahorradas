@@ -5,7 +5,7 @@
 }
 
 .oculto{
-    display: none;
+    display: none !important;
 }
 
 body{
@@ -86,8 +86,12 @@ SECTION BALANCE
 .card-operaciones{
     display: flex;
     justify-content: space-between;
+    
 }
-
+.contenedor-operaciones{
+    width: 100%;
+    
+}
 .contenedor-img-operaciones{
     display: flex;
     justify-content: center;
@@ -134,6 +138,13 @@ label{
 }
 .btn-operaciones{
     margin:1%;
+}
+.subtitulo-operaciones{
+    font-weight: 700;
+}
+.operaciones-colum{
+    align-items: center;
+    margin-left: 10px;
 }
 
 /* /////////////////////////////////////////////////
