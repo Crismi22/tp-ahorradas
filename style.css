@@ -178,10 +178,11 @@ label{
     font-weight: 700;
     font-size: 1em;
 }
-.operaciones-colum{
+
+/* .operaciones-colum{ // reemplace por la class "row align-items-start"
     align-items: center;
     margin-left: 10px;
-}
+} */
 
 /* /////////////////////////////////////////////////
 SECTION CATEGORIAS

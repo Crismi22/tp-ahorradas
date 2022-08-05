@@ -133,7 +133,7 @@
                 </div>
               </div>
             </div>
-            <!-- -------------------------------- Contenedor OPERACIONES --------------------------------  -->
+            <!-- -------------------------------- Contenedor OPERACIONES SIN OPERACIONES --------------------------------  -->
             <div class="col-sm-12 col-md-8">
               <div class="card-contenedor">
                 <div class="card contenedor-operaciones" style="width: 700px"> <!-- agrande el width para que se vean bien los datos, la fecha se cortaba-->
@@ -146,6 +146,7 @@
                     <h4 class="reportes-operaciones">Sin resultados</h4>
                     <p>Cambia los filtros o agrega operaciones</p>
                   </div>
+                  <!-- -------------------------------- Contenedor OPERACIONES CON OPERACIONES --------------------------------  -->
                   <div class="contenedor-con-operaciones oculto" id="con-operaciones">
                     <div class="container">
                       <div class="row align-items-start">
@@ -156,23 +157,16 @@
                           <h6 class="subtitulo-operaciones">Categoria</h6>
                         </div>
                         <div class="col-2"> <!-- agregue el 2-->
-                          <h6 class="subtitulo-operaciones">Fecha</h6>
+                          <h6 class="subtitulo-operaciones text-rigth">Fecha</h6>
                         </div>
                         <div class="col-2"> <!-- agregue el 2-->
-                          <h6 class="subtitulo-operaciones">Monto</h6>
+                          <h6 class="subtitulo-operaciones text-rigth">Monto</h6>
                         </div>
                         <div class="col-2"> <!-- agregue el 2-->
-                          <h6 class="subtitulo-operaciones">Acciones</h6>
+                          <h6 class="subtitulo-operaciones text-rigth">Acciones</h6>
                         </div>
                       </div>
-                      <!-- <div class="row align-items-start"> EL PROFE LO PUSO ASI
-                        <div class="col-3">Descripción</div>
-                        <div class="col-3">Categoría</div>
-                        <div class="col-2 text-rigth">Fecha</div>
-                        <div class="col-2 text-rigth">Monto</div>
-                        <div class="col-2 text-rigth">Acciones</div>
-                      </div> -->
-                      <div class="operaciones-colum" id="operaciones">
+                      <div class="row align-items-start" id="operaciones"> <!-- le quite la class operaciones-colum-->
                         <!-- div vacio para que se vaya mostrando las operaciones guardadas en js dentro del array operaciones -->
                       </div>
                   </div> 

@@ -123,9 +123,9 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
             <div id=${id} class = "mi-flex row aling-items-start" >
                 <span class = "col-3 font-size-item"> ${descripcion}</span>
                 <span class = "col-3 font-size-item"> ${categoria}</span>
-                <span class = "col-2 font-size-item"> ${fecha}</span>
-                <span class = "col-2 font-size-item ${tipo == 'ganancia' ? 'green' : 'red'}"> $${monto}</span> 
-                <span class = "col-2 font-size-item">
+                <span class = "col-2 font-size-item text-rigth"> ${fecha}</span>
+                <span class = "col-2 font-size-item text-rigth ${tipo == 'ganancia' ? 'green' : 'red'}"> $${monto}</span> 
+                <span class = "col-2 font-size-item text-rigth">
                     <a href="#">Editar</a>
                     <a href="#">Eliminar</a>
                 </span>
