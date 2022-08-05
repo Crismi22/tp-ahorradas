@@ -90,7 +90,7 @@ SECTION BALANCE
 }
 .contenedor-operaciones{
     width: 100%;
-
+    
 }
 .contenedor-img-operaciones{
     display: flex;
@@ -124,10 +124,45 @@ select:hover, input:hover{
 select:focus, input:focus{
     box-shadow: 0 1px 2px 0 #212529;
 }
+
 label{
     font-size: .9rem;
     font-weight: 700;
     padding: 4% 0 3% 0;
+}
+
+.mi-flex{
+    display: flex;
+}
+
+.font-size-item{
+    font-size: 0.9em;
+}
+
+.text-rigth{
+    text-align: right;
+}
+
+.green{
+    color: green;
+    font-weight: bold;
+}
+
+.red{
+    color: red;
+    font-weight: bold;
+}
+
+.green::before{
+    content: '+';
+}
+
+.red::before{
+    content: '-';
+}
+
+.contenedor-con-operaciones{
+    padding-top: 5%;
 }
 
 /* //SECCION NUEVA OPERACION// */
@@ -141,28 +176,13 @@ label{
 }
 .subtitulo-operaciones{
     font-weight: 700;
-    margin-top: 20%;
+    font-size: 1em;
 }
 .operaciones-colum{
     align-items: center;
     margin-left: 10px;
 }
 
-.green{
-    color:green;
-    font-weight: 600;
-}
-.green::before{
-    content: '+$';
-}
-
-.red{
-    color: red;
-    font-weight: 600;
-}
-.red::before{
-    content: '-$';
-}
 /* /////////////////////////////////////////////////
 SECTION CATEGORIAS
 ///////////////////////////////////////////////// */
@@ -220,11 +240,5 @@ SECTION REPORTES
         position: relative;
         z-index: 1;
         margin-left: 60%;
-    }
-    .contenedor-operaciones{
-        width: 100%;
-    } 
-    .card-contenedor{
-        width: 100%;
-    } 
+    }  
 }
