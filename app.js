@@ -41,12 +41,10 @@ btnNuevaOperacion.addEventListener("click", () => {
 //AGREGAR NUEVA OPERACION//
 
 //arreglo de operaciones vacio donde se van a guardar los datos
-const operaciones = [];
+// const operaciones = [];
 
-// let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-/////////////////////////////////////////
-//NO ESTA OCULTANDO LA IMAGEN - REVISAR
-//////////////////////////////////////////
+let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
 const verOperaciones = (arr) => {console.log(!arr.length)
     if(!arr.length){  
       document.getElementById('sin-operaciones').classList.remove('oculto')
@@ -69,8 +67,14 @@ const fechaOperacion = document.getElementById('fecha-operacion');
 const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
 const btnCancelar = document.getElementById('btn-cancelar-operacion')
 
-//boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
+//boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click | 
+//validacion de campo descripcion
 btnAgregarOperacion.addEventListener('click', () => {
+    if(descripcionOperacion.value.trim().length === 0){
+        return
+    }
+
+//agregamos operaciones
     const crearOperaciones = { //nuevo objeto creado por usuario
         id: uuidv4(),
         descripcion: descripcionOperacion.value,
@@ -86,40 +90,59 @@ btnAgregarOperacion.addEventListener('click', () => {
     descripcionOperacion.value = ''
     montoOperacion.value = 0
     tipoOperacion.value = 'gasto'
-    categoriaNuevaOperacion.value = 'todas'
-    // fechaOperacion.value = //revisar
+    categoriaNuevaOperacion.value = 'seleccionar'
+    // fechaOperacion.value = new Date()
     verOperaciones(operaciones); //al tener operaciones hechas nos quita la imagen principal y nos muestra los datos que ingresamos.
-    imprimirOperaciones(operaciones)//va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
+
+    localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+    imprimirOperaciones(operaciones);//va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
     // console.log(operaciones)
-})
+});
+
 
 const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las nuevas operaciones
     let str = '';
     arr.forEach((operacion) => {
-        console.log(operacion)
-        const {id, descripcion, categoria, fecha, monto} = operacion;
+        // console.log(operacion)
+        const {id, descripcion, categoria, fecha, monto, tipo} = operacion;
         str = str + `
         <div class="col-12">
         <div id=${id} class = row aling-items-start" >
         <span class = "col"> ${descripcion}</span>
         <span class = "col"> ${categoria}</span>
         <span class = "col"> ${fecha}</span>
-        <span class = "col"> ${monto}</span>
+        <span class = "col ${tipo === 'ganancia'? 'green' : 'red'}"> ${monto}</span>
         <span class = "col">
-            <a href="#">Borrar</a>
-            <a href="#">Editar</a>
+            <a class="btn-editar" data-id= ${id} href="#">Editar</a>
+            <a class="btn-eliminar" data-id=  ${id} href="#">Eliminar</a>
         </span>
         </div>
         </div>
-        `
-        
+        `    
     })
-    document.getElementById('operaciones').innerHTML = str;
+    document.getElementById('operaciones').innerHTML = str
 }
+imprimirOperaciones(operaciones); 
 
+/////boton cancelar////
 
+btnCancelar.addEventListener('click', () =>{
+    balance.classList.remove('oculto');
+    nuevaOperacion.classList.add('oculto')
+})
 
+const btnsEliminar = document.querySelectorAll('.btn-eliminar');
+const btnsEditar = document.querySelectorAll('btn--editar');
 
+btnsEliminar.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(e);
+    const operaciones = operaciones.filter(
+      (operacion) => operacion.id !== e.target.dataset.id
+      
+    );
 
 
 
@@ -154,4 +177,4 @@ btnOcultarFiltros.addEventListener('click', () => {
 
 
 
-const selectFiltros = document.getElementById('tipo-filtros');
+const selectFiltros = document.getElementById('tipo-filtros')
