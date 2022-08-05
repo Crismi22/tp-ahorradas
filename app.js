@@ -1,15 +1,29 @@
-// BOTNES DE NAV
-
+// BTN 
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
 const btnNuevaOperacion = document.getElementById('btn-operacion');
+const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
+const btnCancelar = document.getElementById('btn-cancelar-operacion')
 
+
+
+// CONST
 const balance = document.getElementById('balance');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
 const nuevaOperacion = document.getElementById('nueva-operacion');
+const descripcionOperacion = document.getElementById('descripcion-operacion');
+const montoOperacion = document.getElementById('monto-operacion');
+const tipoOperacion = document.getElementById('tipo-operacion')
+const categoriaNuevaOperacion = document.getElementById('categoria-nueva-operacion');
+const fechaOperacion = document.getElementById('fecha-operacion');
 
+
+
+////////////////////////// HEADER ////////////////////////////////
+
+// -------------------------------- BTN Balance --------------------------------
 btnBalance.addEventListener('click', () => {
     balance.classList.remove('oculto');
     categorias.classList.add('oculto');
@@ -17,22 +31,30 @@ btnBalance.addEventListener('click', () => {
     nuevaOperacion.classList.add('oculto');
 })
 
+
+// -------------------------------- BTN Categorías --------------------------------
 btnCategorias.addEventListener('click', () => {
     categorias.classList.remove('oculto');
     balance.classList.add('oculto');
     reportes.classList.add('oculto');
     nuevaOperacion.classList.add('oculto');
-
 })
 
+
+// -------------------------------- BTN Reportes --------------------------------
 btnReportes.addEventListener('click', () => {
     reportes.classList.remove('oculto');
     balance.classList.add('oculto');
     categorias.classList.add('oculto');
     nuevaOperacion.classList.add('oculto');
 })
-////BOTON NUEVA OPERACION - seccion balance///
 
+
+
+//////////////////////////////// SECTION BALANCE ////////////////////////////////
+
+// -------------------------------- BTN Nueva Operación --------------------------------
+////BOTON NUEVA OPERACION - seccion balance///
 btnNuevaOperacion.addEventListener("click", () => {
     balance.classList.add('oculto');
     nuevaOperacion.classList.remove('oculto');
@@ -41,10 +63,10 @@ btnNuevaOperacion.addEventListener("click", () => {
 //AGREGAR NUEVA OPERACION//
 
 //arreglo de operaciones vacio donde se van a guardar los datos
-const operaciones = [];
+const operaciones = []; 
 
 // let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-/////////////////////////////////////////
+ /////////////////////////////////////////
 //NO ESTA OCULTANDO LA IMAGEN - REVISAR
 //////////////////////////////////////////
 const verOperaciones = (arr) => {console.log(!arr.length)
@@ -59,18 +81,16 @@ const verOperaciones = (arr) => {console.log(!arr.length)
 verOperaciones(operaciones);
 
 
-//inputs para agregar operacion
-const descripcionOperacion = document.getElementById('descripcion-operacion');
-const montoOperacion = document.getElementById('monto-operacion');
-const tipoOperacion = document.getElementById('tipo-operacion')
-const categoriaNuevaOperacion = document.getElementById('categoria-nueva-operacion');
-const fechaOperacion = document.getElementById('fecha-operacion');
 
-const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
-const btnCancelar = document.getElementById('btn-cancelar-operacion')
-
+// -------------------------------- BTN Agregar Operación --------------------------------
 //boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
 btnAgregarOperacion.addEventListener('click', () => {
+    //VALIDAR!! trim no contempla los espacios vacios como un dato que se completa!! y no lo da como válido
+    if(descripcionOperacion.value.trim().length == 0 || montoOperacion.value == 0 ){
+        alert('Todos los campos deben ser completados, y el monto mayor a 0')
+        return
+    }
+
     const crearOperaciones = { //nuevo objeto creado por usuario
         id: uuidv4(),
         descripcion: descripcionOperacion.value,
@@ -96,23 +116,22 @@ btnAgregarOperacion.addEventListener('click', () => {
 const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las nuevas operaciones
     let str = '';
     arr.forEach((operacion) => {
-        console.log(operacion)
-        const {id, descripcion, categoria, fecha, monto} = operacion;
+        // console.log(operacion)
+        const {id, descripcion, categoria, fecha, monto, tipo} = operacion;
         str = str + `
         <div class="col-12">
-        <div id=${id} class = row aling-items-start" >
-        <span class = "col"> ${descripcion}</span>
-        <span class = "col"> ${categoria}</span>
-        <span class = "col"> ${fecha}</span>
-        <span class = "col"> ${monto}</span>
-        <span class = "col">
-            <a href="#">Borrar</a>
-            <a href="#">Editar</a>
-        </span>
+            <div id=${id} class = "mi-flex row aling-items-start" >
+                <span class = "col-3 font-size-item"> ${descripcion}</span>
+                <span class = "col-3 font-size-item"> ${categoria}</span>
+                <span class = "col-2 font-size-item"> ${fecha}</span>
+                <span class = "col-2 font-size-item ${tipo == 'ganancia' ? 'green' : 'red'}"> $${monto}</span> 
+                <span class = "col-2 font-size-item">
+                    <a href="#">Editar</a>
+                    <a href="#">Eliminar</a>
+                </span>
+            </div>
         </div>
-        </div>
-        `
-        
+        ` // agregué numero al col-x // agregue clase dinámica en el monto
     })
     document.getElementById('operaciones').innerHTML = str;
 }
@@ -121,19 +140,8 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+// -------------------------------- BTN Ocultar Filtros --------------------------------
 //BOTON OCULTAR FILTROS
-
 const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
 const cajaFiltros = document.getElementById('caja-filtros');
 
@@ -142,16 +150,14 @@ btnOcultarFiltros.addEventListener('click', () => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 const selectFiltros = document.getElementById('tipo-filtros');
+
+// -------------------------------- Input Fecha --------------------------------
+////// FILTROS - FECHA ////// NO FUNCIONA!!! REVEER
+// const filtroFecha = document.getElementById('filtro-fecha');
+const anio = new Date().getFullYear();
+const mes = new Date().getMonth();
+const dia = new Date().getDate();
+
+const filtroFecha = `${dia}/${mes + 1}/${anio}`;
+console.log(filtroFecha)
