@@ -125,7 +125,7 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
                 <span class = "col-3 font-size-item"> ${categoria}</span>
                 <span class = "col-2 font-size-item text-rigth"> ${fecha}</span>
                 <span class = "col-2 font-size-item text-rigth ${tipo == 'ganancia' ? 'green' : 'red'}"> $${monto}</span> 
-                <span class = "col-2 font-size-item text-rigth">
+                <span class = "col-2 font-size-item-btn text-rigth">
                     <a href="#">Editar</a>
                     <a href="#">Eliminar</a>
                 </span>

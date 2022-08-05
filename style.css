@@ -139,6 +139,10 @@ label{
     font-size: 0.9em;
 }
 
+.font-size-item-btn{
+    font-size: 0.7em;
+}
+
 .text-rigth{
     text-align: right;
 }
