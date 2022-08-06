@@ -84,8 +84,9 @@ verOperaciones(operaciones);
 
 // -------------------------------- BTN Agregar Operación --------------------------------
 //boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
-btnAgregarOperacion.addEventListener('click', () => {
+btnAgregarOperacion.addEventListener('click', (e) => {
     //VALIDAR!! trim no contempla los espacios vacios como un dato que se completa!! y no lo da como válido
+    e.preventDefault()
     if(descripcionOperacion.value.trim().length == 0 || montoOperacion.value == 0 ){
         alert('Todos los campos deben ser completados, y el monto mayor a 0')
         return
@@ -107,10 +108,10 @@ btnAgregarOperacion.addEventListener('click', () => {
     montoOperacion.value = 0
     tipoOperacion.value = 'gasto'
     categoriaNuevaOperacion.value = 'todas'
-    // fechaOperacion.value = //revisar
+    fechaOperacion.valueAsDate = new Date()
     verOperaciones(operaciones); //al tener operaciones hechas nos quita la imagen principal y nos muestra los datos que ingresamos.
     imprimirOperaciones(operaciones)//va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
-    // console.log(operaciones)
+    console.log(crearOperaciones.fecha)
 })
 
 const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las nuevas operaciones
@@ -126,15 +127,26 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
                 <span class = "col-2 font-size-item"> ${fecha}</span>
                 <span class = "col-2 font-size-item ${tipo == 'ganancia' ? 'green' : 'red'}"> $${monto}</span> 
                 <span class = "col-2 font-size-item">
-                    <a href="#">Editar</a>
-                    <a href="#">Eliminar</a>
+                    <a class="btn-editar" data-id= ${id} href="#">Editar</a>
+                    <a class="btn-eliminar" data-id=  ${id} href="#">Eliminar</a>
                 </span>
             </div>
         </div>
-        ` // agregué numero al col-x // agregue clase dinámica en el monto
+        `
     })
     document.getElementById('operaciones').innerHTML = str;
 }
+
+/////boton cancelar////
+
+btnCancelar.addEventListener('click', () =>{
+    balance.classList.remove('oculto');
+    nuevaOperacion.classList.add('oculto')
+})
+
+///boton editar | eliminar operacion///
+const btnEditar = document.querySelector('btn-editar');
+const btnEliminar = document.querySelector('.btn-eliminar');
 
 
 
@@ -153,11 +165,13 @@ btnOcultarFiltros.addEventListener('click', () => {
 const selectFiltros = document.getElementById('tipo-filtros');
 
 // -------------------------------- Input Fecha --------------------------------
-////// FILTROS - FECHA ////// NO FUNCIONA!!! REVEER
-// const filtroFecha = document.getElementById('filtro-fecha');
-const anio = new Date().getFullYear();
-const mes = new Date().getMonth();
-const dia = new Date().getDate();
+////// FILTROS - FECHA ///// FUNCIONA!!! 
 
-const filtroFecha = `${dia}/${mes + 1}/${anio}`;
-console.log(filtroFecha)
+const inicializar = () => {
+    const inputsFecha = document.querySelectorAll('input[type="date"]')
+    inputsFecha.forEach( input => {
+      input.valueAsDate = new Date()
+    })
+}
+
+window.onload = inicializar
