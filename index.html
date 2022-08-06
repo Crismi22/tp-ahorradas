@@ -65,11 +65,11 @@
                         <h5 class="card-title subtitulo-balance">Balance</h5>
                         <div class="items">
                           <div>Ganancias</div>
-                          <div id="ganancias">+$0</div>
+                          <div class="text-success" id="ganancias">+$0</div>
                         </div>
                         <div class="items">
                           <div>Gastos</div>
-                          <div id="gastos">$0</div>
+                          <div class="text-danger" id="gastos">$0</div>
                         </div>
                         <div class="items">
                           <div><strong>Total</strong></div>
@@ -112,7 +112,7 @@
                               </select>
                           </div>
                           <div class="fecha-filtros">
-                            <label for="fecha">Fecha</label>
+                            <label for="filtro-fecha">Fecha</label>
                             <input type="date" id="filtro-fecha">
                           </div>
                           <div class="ordenar-filtros">
@@ -136,7 +136,7 @@
             <!-- -------------------------------- Contenedor OPERACIONES --------------------------------  -->
             <div class="col-sm-12 col-md-8">
               <div class="card-contenedor">
-                <div class="card contenedor-operaciones" style="width: 700px"> <!-- agrande el width para que se vean bien los datos, la fecha se cortaba-->
+                <div class="card contenedor-operaciones" style="width: 700px">
                   <div class="card-operaciones">
                     <h5 class="card-title subtitulo-balance">Operaciones</h5>
                     <a href="#" class="btn btn-primary btn-operacion" id="btn-operacion">+ Nueva operación</a>
