@@ -62,13 +62,10 @@ btnNuevaOperacion.addEventListener("click", () => {
 
 //AGREGAR NUEVA OPERACION//
 
-//arreglo de operaciones vacio donde se van a guardar los datos
-const operaciones = []; 
+//arreglo de operaciones vacio donde se van a guardar los datos | se guardan en ls 
 
-// let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
- /////////////////////////////////////////
-//NO ESTA OCULTANDO LA IMAGEN - REVISAR
-//////////////////////////////////////////
+let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+
 const verOperaciones = (arr) => {console.log(!arr.length)
     if(!arr.length){  
       document.getElementById('sin-operaciones').classList.remove('oculto')
@@ -78,7 +75,7 @@ const verOperaciones = (arr) => {console.log(!arr.length)
       document.getElementById('con-operaciones').classList.remove('oculto')
     }
   } //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
-verOperaciones(operaciones);
+
 
 
 
@@ -88,7 +85,7 @@ btnAgregarOperacion.addEventListener('click', (e) => {
     //VALIDAR!! trim no contempla los espacios vacios como un dato que se completa!! y no lo da como válido
     e.preventDefault()
     if(descripcionOperacion.value.trim().length == 0 || montoOperacion.value == 0 ){
-        alert('Todos los campos deben ser completados, y el monto mayor a 0')
+        alertify.success('Todos los campos deben ser completados, y el monto mayor a 0');
         return
     }
 
@@ -110,11 +107,17 @@ btnAgregarOperacion.addEventListener('click', (e) => {
     categoriaNuevaOperacion.value = 'todas'
     fechaOperacion.valueAsDate = new Date()
     verOperaciones(operaciones); //al tener operaciones hechas nos quita la imagen principal y nos muestra los datos que ingresamos.
+
+    //guardar el arreglo en LS
+    localStorage.setItem('operaciones', JSON.stringify(operaciones))
+
     imprimirOperaciones(operaciones)//va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
-    console.log(crearOperaciones.fecha)
+    // console.log(crearOperaciones.fecha)
+    alertify.success('Operación agregada con éxito');
 })
 
 const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las nuevas operaciones
+    document.getElementById('operaciones').innerHTML = '' //para que elimine la ultima funcion - vista limpia
     let str = '';
     arr.forEach((operacion) => {
         // console.log(operacion)
@@ -124,7 +127,7 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
             <div id=${id} class = "mi-flex row aling-items-start" >
                 <span class = "col-3 font-size-item"> ${descripcion}</span>
                 <span class = "col-3 font-size-item"> ${categoria}</span>
-                <span class = "col-2 font-size-item"> ${fecha}</span>
+                <span class = "col-2 fecha"> ${fecha}</span>
                 <span class = "col-2 font-size-item ${tipo == 'ganancia' ? 'green' : 'red'}"> $${monto}</span> 
                 <span class = "col-2 font-size-item">
                     <a class="btn-editar" data-id= ${id} href="#">Editar</a>
@@ -133,9 +136,23 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
             </div>
         </div>
         `
+        document.getElementById('operaciones').innerHTML = str;
     })
-    document.getElementById('operaciones').innerHTML = str;
+    const botonesEliminar = document.querySelectorAll('.btn-eliminar');
+    botonesEliminar.forEach((btn) => {
+        addEventListener('click', e => {
+           const opEliminado = operaciones.filter(operacion => operacion.id !== e.target.dataset.id)
+           localStorage.setItem('operaciones',JSON.stringify(opEliminado)) 
+           operaciones = JSON.parse(localStorage.getItem('operaciones'));
+           imprimirOperaciones(operaciones)
+           verOperaciones(operaciones)
+        //    alertify.success('Operación eliminada con éxito');
+        })
+    })
 }
+
+
+
 
 /////boton cancelar////
 
@@ -147,6 +164,7 @@ btnCancelar.addEventListener('click', () =>{
 ///boton editar | eliminar operacion///
 const btnEditar = document.querySelector('btn-editar');
 const btnEliminar = document.querySelector('.btn-eliminar');
+
 
 
 
@@ -172,6 +190,10 @@ const inicializar = () => {
     inputsFecha.forEach( input => {
       input.valueAsDate = new Date()
     })
+
+    verOperaciones(operaciones);
+    imprimirOperaciones(operaciones);
+    //agregar inicio de funcion nueva categoria para que se inicie al momento de abrir la pagina
 }
 
 window.onload = inicializar
