@@ -7,7 +7,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <!-- <link rel="stylesheet" href="https://undraw.co/illustrations"> -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link type="ico/png" sizes="64x64" rel="icon" href="./assets/iconos/cerdito.ico">
     <link rel="stylesheet" href="style.css">
@@ -47,14 +47,14 @@
     </header>
     
     
-    <main class="main">
+    <main class="main col-md-12">
 
 
 <!-- //////////////////////////////// SECTION BALANCE ////////////////////////////////  -->
 
       <section id="balance">        
         <div class="contenedor-section">
-          <div class="row">
+          <div class="row"  style="width: 1010px">
             <div class="col-sm-12 col-md-4">
               <!-- -------------------------------- Contenedor BALANCE --------------------------------  -->
               <div class="row">
@@ -136,7 +136,7 @@
             <!-- -------------------------------- Contenedor OPERACIONES --------------------------------  -->
             <div class="col-sm-12 col-md-8">
               <div class="card-contenedor">
-                <div class="card contenedor-operaciones" style="width: 700px">
+                <div class="card contenedor-operaciones">
                   <div class="card-operaciones">
                     <h5 class="card-title subtitulo-balance">Operaciones</h5>
                     <a href="#" class="btn btn-primary btn-operacion" id="btn-operacion">+ Nueva operación</a>
@@ -271,7 +271,7 @@
       </section>
     </main>
 
-
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>

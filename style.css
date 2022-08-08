@@ -69,7 +69,7 @@ SECTION BALANCE
 
 
 .contenedor-operaciones{
-    padding: 5%;
+    padding: 4%;
 }
 
 .btn-operacion{
@@ -130,13 +130,17 @@ label{
     font-weight: 700;
     padding: 4% 0 3% 0;
 }
+.fecha{
+    font-size: .8em;
+
+}
 
 .mi-flex{
     display: flex;
 }
 
 .font-size-item{
-    font-size: 0.9em;
+    font-size: .9em;
 }
 
 .text-rigth{
