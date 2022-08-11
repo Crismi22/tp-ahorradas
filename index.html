@@ -165,7 +165,7 @@
                           <h6 class="subtitulo-operaciones">Acciones</h6>
                         </div>
                       </div>
-                      <!-- <div class="row align-items-start"> EL PROFE LO PUSO ASI
+                      <!-- <div class="row align-items-start"> E
                         <div class="col-3">Descripción</div>
                         <div class="col-3">Categoría</div>
                         <div class="col-2 text-rigth">Fecha</div>
@@ -225,7 +225,49 @@
         </div>
       </section>
 
+<!-- -------------------------------- Formulario EDITAR OPERACION - OCULTO --------------------------------  -->
+      <section id="editar-operacion" class="oculto">
+        <div class="contenedor-editar-operacion">
+          <div class="row d-flex justify-content-center">
+            <div class="col-sm-9 col-md-7">
+              <div class="card card-contenedor ">
+              <div class="card-body">
+              <h2 class="fw-bolder fs-1">Editar operación</h2>
+              <div class="margen-filas">
+              <label for="descripcion-operacion">Descripción</label>
+              <input type="text" id="editar-descripcion-operacion" required>
 
+              <label for="monto-operacion">Monto</label>
+              <input type="number" id="editar-monto-operacion" value="0" required>
+
+              <label for="tipo-operacion">Tipo</label>
+              <select id="editar-tipo-operacion" aria-label="Tipo de operación">
+                <option value="gasto" selected>Gasto</option>
+                <option value="ganancia">Ganancia</option>
+              </select>
+
+              <label for="categoria-operacion">Categoría</label>
+              <select id="editar-categoria-nueva-operacion" aria-label="Categoría de operación">
+                <option value="todas" selected>Seleccionar</option>
+                <option value="comida">Comida</option>
+                <option value="servicios">Servicios</option>
+                <option value="salidas">Salidas</option>
+                <option value="educacion">Educacion</option>
+                <option value="transporte">Transporte</option>
+                <option value="trabajo">Trabajo</option>
+              </select>
+
+              <label for="fecha-operacion">Fecha</label>
+              <input type="date" id="editar-fecha-operacion">
+            </div>
+            <div class="d-flex justify-content-end mt-5">
+              <button type="submit" class="btn btn-secondary mx-2" id="btn-editar-cancelar-operacion">Cancelar</button>
+              <button type="submit" class="btn btn-dark" id="btn-editar-operacion">Editar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
 <!-- //////////////////////////////// SECTION CATEGORIAS ////////////////////////////////  -->
 
       <section class="oculto" id="categorias">

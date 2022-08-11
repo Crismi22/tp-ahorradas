@@ -8,17 +8,25 @@ const btnCancelar = document.getElementById('btn-cancelar-operacion')
 
 
 
-// CONST
+
+//  SECCIONES
 const balance = document.getElementById('balance');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
+//  OPERACIONES
 const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
 const montoOperacion = document.getElementById('monto-operacion');
 const tipoOperacion = document.getElementById('tipo-operacion')
 const categoriaNuevaOperacion = document.getElementById('categoria-nueva-operacion');
 const fechaOperacion = document.getElementById('fecha-operacion');
-
+//  EDITAR OPERACIONES
+const editarOperacionSection = document.getElementById('editar-operacion');
+const editarDescripcion = document.getElementById('editar-descripcion-operacion');
+const editarMonto = document.getElementById('editar-monto-operacion');
+const editarTipo = document.getElementById('editar-tipo-operacion')
+const editarCategoriaOp = document.getElementById('editar-categoria-nueva-operacion');
+const editarFechaOp = document.getElementById('editar-fecha-operacion');
 
 
 ////////////////////////// HEADER ////////////////////////////////
@@ -85,7 +93,7 @@ btnAgregarOperacion.addEventListener('click', (e) => {
     //VALIDAR!! trim no contempla los espacios vacios como un dato que se completa!! y no lo da como válido
     e.preventDefault()
     if(descripcionOperacion.value.trim().length == 0 || montoOperacion.value == 0 ){
-        alertify.success('Todos los campos deben ser completados, y el monto mayor a 0');
+        alertify.dark('Todos los campos deben ser completados, y el monto mayor a 0');
         return
     }
 
@@ -104,7 +112,7 @@ btnAgregarOperacion.addEventListener('click', (e) => {
     descripcionOperacion.value = ''
     montoOperacion.value = 0
     tipoOperacion.value = 'gasto'
-    categoriaNuevaOperacion.value = 'todas'
+    categoriaNuevaOperacion.value = 'seleccionar'
     fechaOperacion.valueAsDate = new Date()
     verOperaciones(operaciones); //al tener operaciones hechas nos quita la imagen principal y nos muestra los datos que ingresamos.
 
@@ -113,7 +121,7 @@ btnAgregarOperacion.addEventListener('click', (e) => {
 
     imprimirOperaciones(operaciones)//va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
     // console.log(crearOperaciones.fecha)
-    alertify.success('Operación agregada con éxito');
+    alertify.message('Operación agregada con éxito');
 })
 
 const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las nuevas operaciones
@@ -138,32 +146,72 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
         `
         document.getElementById('operaciones').innerHTML = str;
     })
+// -------------------------------- BTN Eliminar Operación -------------------------------- 
     const botonesEliminar = document.querySelectorAll('.btn-eliminar');
     botonesEliminar.forEach((btn) => {
-        addEventListener('click', e => {
+        btn.addEventListener('click', e => {
            const opEliminado = operaciones.filter(operacion => operacion.id !== e.target.dataset.id)
            localStorage.setItem('operaciones',JSON.stringify(opEliminado)) 
            operaciones = JSON.parse(localStorage.getItem('operaciones'));
            imprimirOperaciones(operaciones)
            verOperaciones(operaciones)
-        //    alertify.success('Operación eliminada con éxito');
+        //    alertify.message('Operación eliminada con éxito');
         })
     })
+// -------------------------------- BTN Editar Operación --------------------------------
+    const botonesEditar = document.querySelectorAll('.btn-editar');
+    console.log(botonesEditar)
+        botonesEditar.forEach((btn) => {
+        btn.addEventListener('click', e => {
+            const opEditar = operaciones.filter(operacion => operacion.id === e.target.dataset.id);
+            editarOperacion(opEditar) 
+            // botonesEditar.addEventListener('click', () => {
+            console.log(opEditar)
+    btnAgregarOperacionEditada.addEventListener('click', () => {
+        
+        const operacionEditada = {...opEditar[0]}
+        operacionEditada.descripcion = editarDescripcion.value
+        operacionEditada.monto = editarMonto.value
+        operacionEditada.tipo = editarTipo.value
+        operacionEditada.categoria = editarCategoriaOp.value
+        operacionEditada.fecha = editarFechaOp.valueAsDate 
+        console.log(operacionEditada)   
+    })  
+    })
+    
+})
+}
+const btnAgregarOperacionEditada = document.getElementById('btn-editar-operacion');
+const btnCancelarEdicion = document.getElementById('btn-editar-cancelar-operacion');
+
+
+const editarOperacion = arr => {
+
+    const {descripcion, categoria, fecha, monto, tipo} = arr[0];
+    balance.classList.add('oculto');
+    categorias.classList.add('oculto');
+    reportes.classList.add('oculto');
+    editarOperacionSection.classList.remove('oculto');
+    editarDescripcion.value = descripcion;
+    editarMonto.value = monto;
+    editarTipo.value = tipo;
+    editarCategoriaOp.value = categoria;
+    editarFechaOp.valueAsDate = new Date(fecha);
 }
 
 
 
 
-/////boton cancelar////
+
+
+// -------------------------------- BTN Cancelar Operación --------------------------------
 
 btnCancelar.addEventListener('click', () =>{
     balance.classList.remove('oculto');
     nuevaOperacion.classList.add('oculto')
 })
 
-///boton editar | eliminar operacion///
-const btnEditar = document.querySelector('btn-editar');
-const btnEliminar = document.querySelector('.btn-eliminar');
+
 
 
 
@@ -181,6 +229,13 @@ btnOcultarFiltros.addEventListener('click', () => {
 
 
 const selectFiltros = document.getElementById('tipo-filtros');
+
+//---filtros categoria--
+// const filtroCategorias = [
+//     {
+
+//     }
+// ]
 
 // -------------------------------- Input Fecha --------------------------------
 ////// FILTROS - FECHA ///// FUNCIONA!!! 
