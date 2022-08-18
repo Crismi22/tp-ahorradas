@@ -85,7 +85,12 @@ const verOperaciones = (arr) => {console.log(!arr.length)
   } //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
 
 
+// -------------------------------- BTN Cancelar Operación --------------------------------
 
+btnCancelar.addEventListener('click', () =>{
+    balance.classList.remove('oculto');
+    nuevaOperacion.classList.add('oculto')
+})
 
 // -------------------------------- BTN Agregar Operación --------------------------------
 //boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
@@ -93,7 +98,7 @@ btnAgregarOperacion.addEventListener('click', (e) => {
     //VALIDAR!! trim no contempla los espacios vacios como un dato que se completa!! y no lo da como válido
     e.preventDefault()
     if(descripcionOperacion.value.trim().length == 0 || montoOperacion.value == 0 ){
-        alertify.dark('Todos los campos deben ser completados, y el monto mayor a 0');
+        alertify.dark('Todo s los campos deben ser completados, y el monto mayor a 0');
         return
     }
 
@@ -146,6 +151,7 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
         `
         document.getElementById('operaciones').innerHTML = str;
     })
+
 // -------------------------------- BTN Eliminar Operación -------------------------------- 
     const botonesEliminar = document.querySelectorAll('.btn-eliminar');
     botonesEliminar.forEach((btn) => {
@@ -165,7 +171,6 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
         btn.addEventListener('click', e => {
             const opEditar = operaciones.filter(operacion => operacion.id === e.target.dataset.id);
             editarOperacion(opEditar) 
-            // botonesEditar.addEventListener('click', () => {
             console.log(opEditar)
     btnAgregarOperacionEditada.addEventListener('click', () => {
         
@@ -175,7 +180,9 @@ const imprimirOperaciones = arr => { //funcion que va escribiendo en el html las
         operacionEditada.tipo = editarTipo.value
         operacionEditada.categoria = editarCategoriaOp.value
         operacionEditada.fecha = editarFechaOp.valueAsDate 
-        console.log(operacionEditada)   
+        console.log(operacionEditada)
+        
+        
     })  
     })
     
@@ -198,18 +205,23 @@ const editarOperacion = arr => {
     editarCategoriaOp.value = categoria;
     editarFechaOp.valueAsDate = new Date(fecha);
 }
+// const opActualizada = operaciones.map((operacion) =>
+//         operacion.id === operacionEditada[0].id ? opEditar
+// )}
+
+ //Btn Cancelar de vista Editar Operación
+
+ btnCancelarEdicion.addEventListener("click", () => {
+  balance.classList.remove('oculto');
+  categorias.classList.add('oculto');
+  reportes.classList.add('oculto');
+  editarOperacionSection.classList.add('oculto');
+});
 
 
 
 
 
-
-// -------------------------------- BTN Cancelar Operación --------------------------------
-
-btnCancelar.addEventListener('click', () =>{
-    balance.classList.remove('oculto');
-    nuevaOperacion.classList.add('oculto')
-})
 
 
 
