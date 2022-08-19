@@ -109,6 +109,24 @@ btnNuevaOperacion.addEventListener("click", () => {
 
 //arreglo de operaciones vacio donde se van a guardar los datos | se guardan en ls
 
+<<<<<<< HEAD
+// -------------------------------- BTN Cancelar Operación --------------------------------
+
+btnCancelar.addEventListener('click', () =>{
+    balance.classList.remove('oculto');
+    nuevaOperacion.classList.add('oculto')
+})
+
+// -------------------------------- BTN Agregar Operación --------------------------------
+//boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
+btnAgregarOperacion.addEventListener('click', (e) => {
+    //VALIDAR!! trim no contempla los espacios vacios como un dato que se completa!! y no lo da como válido
+    e.preventDefault()
+    if(descripcionOperacion.value.trim().length == 0 || montoOperacion.value == 0 ){
+        alertify.dark('Todo s los campos deben ser completados, y el monto mayor a 0');
+        return
+    }
+=======
 // let operaciones = JSON.parse(localStorage.getItem("operaciones")) || []; // LA COMENTE PORQUE LA SUBI ARRIBA CON LAS CONST
 
 const verOperaciones = (arr) => {
@@ -136,6 +154,7 @@ btnAgregarOperacion.addEventListener("click", (e) => {
     );
     return;
   }
+>>>>>>> 27678a6556321d0483042a079ae9b094572c6cc1
 
   const crearOperaciones = {
     //nuevo objeto creado por usuario
@@ -188,6 +207,81 @@ const imprimirOperaciones = (arr) => {
                 </span>
             </div>
         </div>
+<<<<<<< HEAD
+        `
+        document.getElementById('operaciones').innerHTML = str;
+    })
+
+// -------------------------------- BTN Eliminar Operación -------------------------------- 
+    const botonesEliminar = document.querySelectorAll('.btn-eliminar');
+    botonesEliminar.forEach((btn) => {
+        btn.addEventListener('click', e => {
+           const opEliminado = operaciones.filter(operacion => operacion.id !== e.target.dataset.id)
+           localStorage.setItem('operaciones',JSON.stringify(opEliminado)) 
+           operaciones = JSON.parse(localStorage.getItem('operaciones'));
+           imprimirOperaciones(operaciones)
+           verOperaciones(operaciones)
+        //    alertify.message('Operación eliminada con éxito');
+        })
+    })
+// -------------------------------- BTN Editar Operación --------------------------------
+    const botonesEditar = document.querySelectorAll('.btn-editar');
+    console.log(botonesEditar)
+        botonesEditar.forEach((btn) => {
+        btn.addEventListener('click', e => {
+            const opEditar = operaciones.filter(operacion => operacion.id === e.target.dataset.id);
+            editarOperacion(opEditar) 
+            console.log(opEditar)
+    btnAgregarOperacionEditada.addEventListener('click', () => {
+        
+        const operacionEditada = {...opEditar[0]}
+        operacionEditada.descripcion = editarDescripcion.value
+        operacionEditada.monto = editarMonto.value
+        operacionEditada.tipo = editarTipo.value
+        operacionEditada.categoria = editarCategoriaOp.value
+        operacionEditada.fecha = editarFechaOp.valueAsDate 
+        console.log(operacionEditada)
+        
+        
+    })  
+    })
+    
+})
+}
+const btnAgregarOperacionEditada = document.getElementById('btn-editar-operacion');
+const btnCancelarEdicion = document.getElementById('btn-editar-cancelar-operacion');
+
+
+const editarOperacion = arr => {
+
+    const {descripcion, categoria, fecha, monto, tipo} = arr[0];
+    balance.classList.add('oculto');
+    categorias.classList.add('oculto');
+    reportes.classList.add('oculto');
+    editarOperacionSection.classList.remove('oculto');
+    editarDescripcion.value = descripcion;
+    editarMonto.value = monto;
+    editarTipo.value = tipo;
+    editarCategoriaOp.value = categoria;
+    editarFechaOp.valueAsDate = new Date(fecha);
+}
+// const opActualizada = operaciones.map((operacion) =>
+//         operacion.id === operacionEditada[0].id ? opEditar
+// )}
+
+ //Btn Cancelar de vista Editar Operación
+
+ btnCancelarEdicion.addEventListener("click", () => {
+  balance.classList.remove('oculto');
+  categorias.classList.add('oculto');
+  reportes.classList.add('oculto');
+  editarOperacionSection.classList.add('oculto');
+});
+
+
+
+
+=======
         `;
     document.getElementById("operaciones").innerHTML = str;
   });
@@ -234,6 +328,7 @@ const btnAgregarOperacionEditada = document.getElementById(
 const btnCancelarEdicion = document.getElementById(
   "btn-editar-cancelar-operacion"
 );
+>>>>>>> 27678a6556321d0483042a079ae9b094572c6cc1
 
 const editarOperacion = (arr) => {
   const { descripcion, categoria, fecha, monto, tipo } = arr[0];
@@ -248,12 +343,21 @@ const editarOperacion = (arr) => {
   editarFechaOp.valueAsDate = new Date(fecha);
 };
 
+<<<<<<< HEAD
+
+
+
+
+
+
+=======
 // -------------------------------- BTN Cancelar Operación --------------------------------
 
 btnCancelar.addEventListener("click", () => {
   balance.classList.remove("oculto");
   nuevaOperacion.classList.add("oculto");
 });
+>>>>>>> 27678a6556321d0483042a079ae9b094572c6cc1
 
 // -------------------------------- BTN Ocultar Filtros --------------------------------
 //BOTON OCULTAR FILTROS
