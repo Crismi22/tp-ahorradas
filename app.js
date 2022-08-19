@@ -12,9 +12,9 @@ const categorias = document.getElementById("categorias");
 const reportes = document.getElementById("reportes");
 
 //BALANCE
-const balanceGanancias = document.getElementById('balance-ganancias');
-const balanceGastos = document.getElementById('balance-gastos');
-const balanceTotal = document.getElementById('balance-total');
+// const montoGanancias = document.getElementById('monto-ganancias');
+// const montoGastos = document.getElementById('monto-gastos');
+// const montoTotal = document.getElementById('monto-total');
 
 //  OPERACIONES
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
@@ -71,27 +71,56 @@ btnReportes.addEventListener("click", () => {
 //////////////
 
 // -------------------------------- Ganancias --------------------------------
+// -------------------------------- Gastos --------------------------------
+// -------------------------------- Total --------------------------------
 
 const totalGanancias = arr =>
-    arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
-    prev + current.monto, 0)
+arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
+prev + current.monto, 0)
 
-
-    
-// -------------------------------- Gastos --------------------------------
-    
 const totalGastos = arr =>
-    arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
-    prev + current.monto, 0);
-    
-// -------------------------------- Total --------------------------------
-    
+arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
+prev + current.monto, 0);
+
 const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
-    
-    
-console.log(totalGanancias(operaciones));
-console.log(totalGastos(operaciones));
+
+totalGanancias(operaciones);   
+totalGastos(operaciones);    
 console.log(totalBalance);   
+
+// -------
+// -------
+
+// const pintarBalance = (arr) => {
+  
+//   const totalGanancias = arr =>
+//   arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
+//   prev + current.monto, 0)
+      
+//   const totalGastos = arr =>
+//   arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
+//   prev + current.monto, 0);
+  
+//   const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
+
+//   let str = `
+//     <div class="items">
+//       <p>Ganancias</p>
+//       <div class="text-success">+$${totalGanancias}</div>
+//     </div>  
+//     <div class="items">
+//       <p>Gastos</p>
+//       <div class="text-danger">-$${totalGastos}</div>
+//     </div>
+//     <div class="items">
+//       <p><strong>Total</strong></p>
+//       <div><strong>$${Math.abs(totalBalance)}</strong></div>
+//     </div>`
+
+//   document.getElementById('contenedor-balance-total').innerHTML = srt;
+// }
+
+// pintarBalance(operaciones)
 
 
 //////////////
