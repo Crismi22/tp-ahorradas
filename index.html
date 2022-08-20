@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+ 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
@@ -14,9 +14,9 @@
     <title>AhorrAdas</title>
 </head>
 <body>
-
+ 
 <!-- //////////////////////////////// HEADER ////////////////////////////////  -->
-
+ 
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav">
             <div class="container-fluid">
@@ -45,13 +45,13 @@
             </div>
           </nav>
     </header>
-    
-    
+   
+   
     <main class="main col-md-12">
-
-
+ 
+ 
 <!-- //////////////////////////////// SECTION BALANCE ////////////////////////////////  -->
-
+ 
       <section id="balance">        
         <div class="contenedor-section">
           <div class="row"  style="width: 1010px">
@@ -63,17 +63,19 @@
                     <div class="card" style="width: 100%;">
                       <div class="card-body card-balance">
                         <h5 class="card-title subtitulo-balance">Balance</h5>
-                        <div class="items">
-                          <div>Ganancias</div>
-                          <div class="text-success" id="balance-ganancias">+$0</div>
-                        </div>
-                        <div class="items">
-                          <div>Gastos</div>
-                          <div class="text-danger" id="balance-gastos">$0</div>
-                        </div>
-                        <div class="items">
-                          <div><strong>Total</strong></div>
-                          <div id="balance-total"><strong>$0</strong></div>
+                        <div id="contenedor-balance-total">
+                          <div class="items">
+                            <p>Ganancias</p>
+                            <div class="text-success">+$0</div>
+                          </div>
+                          <div class="items">
+                            <p>Gastos</p>
+                            <div class="text-danger">$0</div>
+                          </div>
+                          <div class="items">
+                            <p><strong>Total</strong></p>
+                            <div><strong>$0</strong></div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -175,7 +177,7 @@
                       <div class="operaciones-colum" id="operaciones">
                         <!-- div vacio para que se vaya mostrando las operaciones guardadas en js dentro del array operaciones -->
                       </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -193,16 +195,16 @@
               <div class="margen-filas">
               <label for="descripcion-operacion">Descripción</label>
               <input type="text" id="descripcion-operacion" required>
-
+ 
               <label for="monto-operacion">Monto</label>
               <input type="number" id="monto-operacion" value="0" required>
-
+ 
               <label for="tipo-operacion">Tipo</label>
               <select id="tipo-operacion" aria-label="Tipo de operación">
                 <option value="gasto" selected>Gasto</option>
                 <option value="ganancia">Ganancia</option>
               </select>
-
+ 
               <label for="categoria-operacion">Categoría</label>
               <select id="categoria-nueva-operacion" aria-label="Categoría de operación">
                 <option value="todas" selected>Seleccionar</option>
@@ -213,7 +215,7 @@
                 <option value="transporte">Transporte</option>
                 <option value="trabajo">Trabajo</option>
               </select>
-
+ 
               <label for="fecha-operacion">Fecha</label>
               <input type="date" id="fecha-operacion">
             </div>
@@ -224,7 +226,7 @@
           </div>
         </div>
       </section>
-
+ 
 <!-- -------------------------------- Formulario EDITAR OPERACION - OCULTO --------------------------------  -->
       <section id="editar-operacion" class="oculto">
         <div class="contenedor-editar-operacion">
@@ -236,16 +238,16 @@
               <div class="margen-filas">
               <label for="descripcion-operacion">Descripción</label>
               <input type="text" id="editar-descripcion-operacion" required>
-
+ 
               <label for="monto-operacion">Monto</label>
               <input type="number" id="editar-monto-operacion" value="0" required>
-
+ 
               <label for="tipo-operacion">Tipo</label>
               <select id="editar-tipo-operacion" aria-label="Tipo de operación">
                 <option value="gasto" selected>Gasto</option>
                 <option value="ganancia">Ganancia</option>
               </select>
-
+ 
               <label for="categoria-operacion">Categoría</label>
               <select id="editar-categoria-nueva-operacion" aria-label="Categoría de operación">
                 <option value="todas" selected>Seleccionar</option>
@@ -256,7 +258,7 @@
                 <option value="transporte">Transporte</option>
                 <option value="trabajo">Trabajo</option>
               </select>
-
+ 
               <label for="fecha-operacion">Fecha</label>
               <input type="date" id="editar-fecha-operacion">
             </div>
@@ -267,9 +269,9 @@
           </div>
         </div>
       </section>
-      
+     
 <!-- //////////////////////////////// SECTION CATEGORIAS ////////////////////////////////  -->
-
+ 
       <section class="oculto" id="categorias">
         <div class="contenedor-section">
           <div class="col-sm-12 col-md-4 card-contenedor-categorias-reportes">
@@ -290,11 +292,11 @@
           </div>
         </div>
       </section>
-
-
+ 
+ 
 <!-- //////////////////////////////// SECTION REPORTES ////////////////////////////////  -->
-
-
+ 
+ 
       <section class="oculto" id="reportes">
         <div class="contenedor-section">
           <div class="col-sm-12 col-md-4 card-contenedor-categorias-reportes">
@@ -312,7 +314,7 @@
         </div>
       </section>
     </main>
-
+ 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
