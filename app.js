@@ -17,7 +17,8 @@ const reportes = document.getElementById('reportes');
 // const montoTotal = document.getElementById('monto-total');
  
 //  OPERACIONES
-let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; //salta error
+console.log(operaciones)
 const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
 const montoOperacion = document.getElementById('monto-operacion');
@@ -159,10 +160,8 @@ btnAgregarOperacion.addEventListener('click', (e) => {
   if (
     descripcionOperacion.value.trim().length == 0 ||
     montoOperacion.value == 0
-  ) {
-    alertify.dark(
-      'Todos los campos deben ser completados, y el monto mayor a 0'
-    );
+  ){
+    alertify.error('Todos los campos deben ser completados, y el monto mayor a 0');
     return;
   }
  
@@ -276,6 +275,14 @@ const editarOperacion = (arr) => {
   editarCategoriaOp.value = categoria;
   editarFechaOp.valueAsDate = new Date(fecha);
 };
+const creaOpEditada = operaciones.map((operacion) => operacion.id == id
+? editarOperacionSection
+: operacion
+)
+localStorage.setItem('operaciones',JSON.stringify(creaOpEditada))
+operaciones = JSON.parse(localStorage.getItem('operaciones'))
+
+// alertify.message('Operación editada con éxito');
 
 // -------------------------------- BTN Cancelar Edicion --------------------------------
 btnCancelarEdicion.addEventListener('click', () => {
@@ -300,17 +307,41 @@ btnOcultarFiltros.addEventListener('click', () => {
   cajaFiltros.classList.toggle('oculto');
 });
  
+//-------------------------------- Filtros Tipo ---------------------------
 const selectFiltros = document.getElementById('tipo-filtros');
- 
-//---filtros categoria--
+
+selectFiltros.addEventListener('change', (e) => {
+  if(e.target.value !== 'todos'){
+    const xTipo = operaciones.filter(operacion => operacion.tipo === e.target.value)//nos retorna un nuevo arreglo que cumpla una condicion ya sea ganancia o gasto
+    localStorage.setItem('operaciones', xTipo)//guarda el arreglo con lo filtrado
+    imprimirOperaciones(xTipo)
+    console.log(xTipo)
+  }else {
+    imprimirOperaciones(operaciones)
+  }
+})//NO FILTRA GASTO SOLO GANANCIA Y TODOS
+
+//-------------------------------- Filtros categoria ---------------------------
 // const filtroCategorias = [
 //     {
  
 //     }
 // ]
  
-// -------------------------------- Input Fecha --------------------------------
+// -------------------------------- Input | Filtro Fecha --------------------------------
 ////// FILTROS - FECHA ///// FUNCIONA!!!
+// inputsFecha.addEventListener('change', e => {
+//   if(e.target.valueAsDate !== new Date()){
+//       const filtroFecha = operaciones.filter(operaciones =>  new Date(operaciones.fecha) > e.target.valueAsDate )
+//       localStorage.setItem('fechaOperacion',filtroFecha)
+//       localStorage.setItem('fechaOperacion',JSON.stringify(filtroFecha))
+//       imprimirOperaciones(filtroFecha);
+//   }else{
+//       imprimirOperaciones(operaciones);
+//   }
+
+// })
+
  
 const inicializar = () => {
   const inputsFecha = document.querySelectorAll('input[type="date"]');
