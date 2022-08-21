@@ -171,7 +171,7 @@ label{
 
 /* //SECCION NUEVA OPERACION// */
 
-#nueva-operacion{
+#nueva-operacion, #editar-operacion{
     margin-top: 5%;
     width: 100%;
 }
