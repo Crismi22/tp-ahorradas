@@ -1,4 +1,5 @@
 // BTN
+
 const btnBalance = document.getElementById('btn-balance');
 const btnCategorias = document.getElementById('btn-categorias');
 const btnReportes = document.getElementById('btn-reportes');
@@ -10,6 +11,19 @@ const btnCancelar = document.getElementById('btn-cancelar-operacion');
 const balance = document.getElementById('balance');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
+
+const btnBalance = document.getElementById("btn-balance");
+const btnCategorias = document.getElementById("btn-categorias");
+const btnReportes = document.getElementById("btn-reportes");
+const btnNuevaOperacion = document.getElementById("btn-operacion");
+const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
+const btnCancelar = document.getElementById("btn-cancelar-operacion");
+ 
+//  SECCIONES
+const balance = document.getElementById("balance");
+const categorias = document.getElementById("categorias");
+const reportes = document.getElementById("reportes");
+
  
 //BALANCE
 // const montoGanancias = document.getElementById('monto-ganancias');
@@ -37,7 +51,11 @@ const editarTipo = document.getElementById('editar-tipo-operacion');
 const editarCategoriaOp = document.getElementById(
   'editar-categoria-nueva-operacion'
 );
+
 const editarFechaOp = document.getElementById('editar-fecha-operacion');
+
+const editarFechaOp = document.getElementById("editar-fecha-operacion");
+
  
 ////////////////////////// HEADER ////////////////////////////////
  
@@ -114,6 +132,15 @@ console.log(totalBalance);
 //       <div class='text-danger'>-$${totalGastos}</div>
 //     </div>
 //     <div class='items'>
+//     <div class="items">
+//       <p>Ganancias</p>
+//       <div class="text-success">+$${totalGanancias}</div>
+//     </div>  
+//     <div class="items">
+//       <p>Gastos</p>
+//       <div class="text-danger">-$${totalGastos}</div>
+//     </div>
+//     <div class="items">
 //       <p><strong>Total</strong></p>
 //       <div><strong>$${Math.abs(totalBalance)}</strong></div>
 //     </div>`
@@ -139,6 +166,7 @@ btnNuevaOperacion.addEventListener('click', () => {
  
 //arreglo de operaciones vacio donde se van a guardar los datos | se guardan en ls
  
+
 // let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; // LA COMENTE PORQUE LA SUBI ARRIBA CON LAS CONST
  
 const verOperaciones = (arr) => {
@@ -202,6 +230,7 @@ const imprimirOperaciones = (arr) => {
     str =
       str +
       `
+     
         <div class='col-12'>
             <div id=${id} class = 'mi-flex row aling-items-start' >
                 <span class = 'col-3 font-size-item'> ${descripcion}</span>
@@ -213,6 +242,19 @@ const imprimirOperaciones = (arr) => {
                 <span class = 'col-2 font-size-item'>
                     <a class='btn-editar' data-id= ${id} href='#'>Editar</a>
                     <a class='btn-eliminar' data-id=  ${id} href='#'>Eliminar</a>
+
+        <div class="col-12">
+            <div id=${id} class = "mi-flex row aling-items-start" >
+                <span class = "col-3 font-size-item"> ${descripcion}</span>
+                <span class = "col-3 font-size-item"> ${categoria}</span>
+                <span class = "col-2 fecha"> ${fecha}</span>
+                <span class = "col-2 font-size-item ${
+                  tipo == "ganancia" ? "green" : "red"
+                }"> $${monto}</span>
+                <span class = "col-2 font-size-item">
+                    <a class="btn-editar" data-id= ${id} href="#">Editar</a>
+                    <a class="btn-eliminar" data-id=  ${id} href="#">Eliminar</a>
+
                 </span>
             </div>
         </div>
@@ -275,6 +317,7 @@ const editarOperacion = (arr) => {
   editarCategoriaOp.value = categoria;
   editarFechaOp.valueAsDate = new Date(fecha);
 };
+
 const creaOpEditada = operaciones.map((operacion) => operacion.id == id
 ? editarOperacionSection
 : operacion
@@ -296,10 +339,19 @@ btnCancelarEdicion.addEventListener('click', () => {
 btnCancelar.addEventListener('click', () => {
   balance.classList.remove('oculto');
   nuevaOperacion.classList.add('oculto');
+
+ 
+// -------------------------------- BTN Cancelar Operación --------------------------------
+ 
+btnCancelar.addEventListener("click", () => {
+  balance.classList.remove("oculto");
+  nuevaOperacion.classList.add("oculto");
+
 });
  
 // -------------------------------- BTN Ocultar Filtros --------------------------------
 //BOTON OCULTAR FILTROS
+
 const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
 const cajaFiltros = document.getElementById('caja-filtros');
  
@@ -322,12 +374,25 @@ selectFiltros.addEventListener('change', (e) => {
 })//NO FILTRA GASTO SOLO GANANCIA Y TODOS
 
 //-------------------------------- Filtros categoria ---------------------------
+
+const btnOcultarFiltros = document.getElementById("btn-ocultar-filtros");
+const cajaFiltros = document.getElementById("caja-filtros");
+ 
+btnOcultarFiltros.addEventListener("click", () => {
+  cajaFiltros.classList.toggle("oculto");
+});
+ 
+const selectFiltros = document.getElementById("tipo-filtros");
+ 
+//---filtros categoria--
+
 // const filtroCategorias = [
 //     {
  
 //     }
 // ]
  
+
 // -------------------------------- Input | Filtro Fecha --------------------------------
 ////// FILTROS - FECHA ///// FUNCIONA!!!
 // inputsFecha.addEventListener('change', e => {
@@ -342,6 +407,9 @@ selectFiltros.addEventListener('change', (e) => {
 
 // })
 
+
+// -------------------------------- Input Fecha --------------------------------
+////// FILTROS - FECHA ///// FUNCIONA!!!
  
 const inicializar = () => {
   const inputsFecha = document.querySelectorAll('input[type="date"]');
