@@ -23,6 +23,10 @@ let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; //salta
 const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
 const montoOperacion = document.getElementById('monto-operacion');
+
+
+
+
 const categoriaNuevaOperacion = document.getElementById(
   "categoria-nueva-operacion"
 );
@@ -240,6 +244,10 @@ const imprimirOperaciones = (arr) => {
 
   const botonesEditar = document.querySelectorAll('.btn-editar');
   // console.log(botonesEditar);
+
+
+
+
   botonesEditar.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const opEditar = operaciones.filter(
@@ -247,6 +255,12 @@ const imprimirOperaciones = (arr) => {
       );
       editarOperacion(opEditar);
       // botonesEditar.addEventListener('click', () => {
+
+      // console.log(opEditar);
+      btnAgregarOperacionEditada.addEventListener('click', () => {
+
+
+      
       // console.log(opEditar);
       btnAgregarOperacionEditada.addEventListener('click', () => {
 
@@ -298,6 +312,7 @@ btnCancelarEdicion.addEventListener('click', () => {
   editarOperacionSection.classList.add('oculto');
 });
 
+
 // -------------------------------- BTN Cancelar Operación --------------------------------
  
 btnCancelar.addEventListener("click", () => {
@@ -316,7 +331,9 @@ btnOcultarFiltros.addEventListener("click", () => {
  
 
 //-------------------------------- Filtros Tipo ---------------------------
+
 // const selectFiltros = document.getElementById('tipo-filtros');
+
 
 selectFiltros.addEventListener('change', (e) => {
   if(e.target.value !== 'todos'){
@@ -331,9 +348,11 @@ selectFiltros.addEventListener('change', (e) => {
 
 //-------------------------------- Filtros categoria ---------------------------
 
+
 const selectFiltros = document.getElementById("tipo-filtros");
  
 //---filtros categoria--
+
 // const filtroCategorias = [
 //     {
  
@@ -355,7 +374,7 @@ const selectFiltros = document.getElementById("tipo-filtros");
 
 // })
 
- 
+
 
 ////////////////////////// SECTION CATEGORIAS ////////////////////////////////
 
