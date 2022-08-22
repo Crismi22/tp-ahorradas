@@ -15,7 +15,7 @@ const reportes = document.getElementById("reportes");
 // const montoGanancias = document.getElementById('monto-ganancias');
 // const montoGastos = document.getElementById('monto-gastos');
 // const montoTotal = document.getElementById('monto-total');
- 
+
 //  OPERACIONES
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 const nuevaOperacion = document.getElementById("nueva-operacion");
@@ -73,36 +73,37 @@ btnReportes.addEventListener("click", () => {
 // -------------------------------- Ganancias --------------------------------
 // -------------------------------- Gastos --------------------------------
 // -------------------------------- Total --------------------------------
- 
+
+
 const totalGanancias = arr =>
 arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
 prev + current.monto, 0)
- 
+
 const totalGastos = arr =>
 arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
 prev + current.monto, 0);
- 
+
 const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
- 
-totalGanancias(operaciones);  
+
+totalGanancias(operaciones);   
 totalGastos(operaciones);    
-console.log(totalBalance);  
- 
+console.log(totalBalance);   
+
 // -------
 // -------
- 
+
 // const pintarBalance = (arr) => {
- 
+  
 //   const totalGanancias = arr =>
 //   arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
 //   prev + current.monto, 0)
-     
+      
 //   const totalGastos = arr =>
 //   arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
 //   prev + current.monto, 0);
- 
+  
 //   const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
- 
+
 //   let str = `
 //     <div class="items">
 //       <p>Ganancias</p>
@@ -116,13 +117,14 @@ console.log(totalBalance);
 //       <p><strong>Total</strong></p>
 //       <div><strong>$${Math.abs(totalBalance)}</strong></div>
 //     </div>`
- 
+
 //   document.getElementById('contenedor-balance-total').innerHTML = srt;
 // }
- 
+
 // pintarBalance(operaciones)
- 
- 
+
+
+
 //////////////
 // OPERACIONES
 //////////////
