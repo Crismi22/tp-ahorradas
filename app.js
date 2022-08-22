@@ -17,11 +17,13 @@ const reportes = document.getElementById("reportes");
 // const montoTotal = document.getElementById('monto-total');
 
 //  OPERACIONES
-let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
-const nuevaOperacion = document.getElementById("nueva-operacion");
-const descripcionOperacion = document.getElementById("descripcion-operacion");
-const montoOperacion = document.getElementById("monto-operacion");
-const tipoOperacion = document.getElementById("tipo-operacion");
+
+let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; //salta error
+// console.log(operaciones)
+const nuevaOperacion = document.getElementById('nueva-operacion');
+const descripcionOperacion = document.getElementById('descripcion-operacion');
+const montoOperacion = document.getElementById('monto-operacion');
+
 const categoriaNuevaOperacion = document.getElementById(
   "categoria-nueva-operacion"
 );
@@ -87,41 +89,41 @@ const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
 
 totalGanancias(operaciones);   
 totalGastos(operaciones);    
-console.log(totalBalance);   
+// console.log(totalBalance);   
 
 // -------
 // -------
 
-// const pintarBalance = (arr) => {
+const pintarBalance = (arr) => {
   
-//   const totalGanancias = arr =>
-//   arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
-//   prev + current.monto, 0)
+  const totalGanancias = arr =>
+  arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
+  prev + current.monto, 0)
       
-//   const totalGastos = arr =>
-//   arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
-//   prev + current.monto, 0);
+  const totalGastos = arr =>
+  arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
+  prev + current.monto, 0);
   
-//   const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
+  const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
 
-//   let str = `
-//     <div class="items">
-//       <p>Ganancias</p>
-//       <div class="text-success">+$${totalGanancias}</div>
-//     </div>  
-//     <div class="items">
-//       <p>Gastos</p>
-//       <div class="text-danger">-$${totalGastos}</div>
-//     </div>
-//     <div class="items">
-//       <p><strong>Total</strong></p>
-//       <div><strong>$${Math.abs(totalBalance)}</strong></div>
-//     </div>`
+  let str = `
+    <div class="items">
+      <p><strong>Ganancias</strong></p>
+      <div class="text-success"><strong>+$${totalGanancias(operaciones)}</strong></div>
+    </div>  
+    <div class="items">
+      <p><strong>Gastos</strong></p>
+      <div class="text-danger"><strong>-$${totalGastos(operaciones)}</strong></div>
+    </div>
+    <div class="items">
+      <p><strong>Total</strong></p>
+      <div><strong>$${Math.abs(totalBalance)}</strong></div>
+    </div>`
 
-//   document.getElementById('contenedor-balance-total').innerHTML = srt;
-// }
+  document.getElementById('contenedor-balance-total').innerHTML = str;
+}
 
-// pintarBalance(operaciones)
+pintarBalance(operaciones)
 
 
 
@@ -143,7 +145,7 @@ btnNuevaOperacion.addEventListener("click", () => {
 // let operaciones = JSON.parse(localStorage.getItem("operaciones")) || []; // LA COMENTE PORQUE LA SUBI ARRIBA CON LAS CONST
  
 const verOperaciones = (arr) => {
-  console.log(!arr.length);
+  // console.log(!arr.length);
   if (!arr.length) {
     document.getElementById("sin-operaciones").classList.remove("oculto");
     document.getElementById("con-operaciones").classList.add("oculto");
@@ -237,8 +239,10 @@ const imprimirOperaciones = (arr) => {
     });
   });
   // -------------------------------- BTN Editar Operación --------------------------------
-  const botonesEditar = document.querySelectorAll(".btn-editar");
-  console.log(botonesEditar);
+
+  const botonesEditar = document.querySelectorAll('.btn-editar');
+  // console.log(botonesEditar);
+
   botonesEditar.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const opEditar = operaciones.filter(
@@ -246,15 +250,16 @@ const imprimirOperaciones = (arr) => {
       );
       editarOperacion(opEditar);
       // botonesEditar.addEventListener('click', () => {
-      console.log(opEditar);
-      btnAgregarOperacionEditada.addEventListener("click", () => {
+      
+      // console.log(opEditar);
+      btnAgregarOperacionEditada.addEventListener('click', () => {
         const operacionEditada = { ...opEditar[0] };
         operacionEditada.descripcion = editarDescripcion.value;
         operacionEditada.monto = editarMonto.value;
         operacionEditada.tipo = editarTipo.value;
         operacionEditada.categoria = editarCategoriaOp.value;
         operacionEditada.fecha = editarFechaOp.valueAsDate;
-        console.log(operacionEditada);
+        // console.log(operacionEditada);
       });
     });
   });
@@ -278,7 +283,25 @@ const editarOperacion = (arr) => {
   editarCategoriaOp.value = categoria;
   editarFechaOp.valueAsDate = new Date(fecha);
 };
- 
+
+// const creaOpEditada = operaciones.map((operacion) => operacion.id == id
+// ? editarOperacionSection
+// : operacion
+// )
+// localStorage.setItem('operaciones',JSON.stringify(creaOpEditada))
+// operaciones = JSON.parse(localStorage.getItem('operaciones'))
+
+// alertify.message('Operación editada con éxito');
+
+// -------------------------------- BTN Cancelar Edicion --------------------------------
+btnCancelarEdicion.addEventListener('click', () => {
+  balance.classList.remove('oculto');
+  categorias.classList.add('oculto');
+  reportes.classList.add('oculto');
+  editarOperacionSection.classList.add('oculto');
+});
+
+
 // -------------------------------- BTN Cancelar Operación --------------------------------
  
 btnCancelar.addEventListener("click", () => {
@@ -295,9 +318,27 @@ btnOcultarFiltros.addEventListener("click", () => {
   cajaFiltros.classList.toggle("oculto");
 });
  
-const selectFiltros = document.getElementById("tipo-filtros");
+
+//-------------------------------- Filtros Tipo ---------------------------
+const selectFiltros = document.getElementById('tipo-filtros');
+
+selectFiltros.addEventListener('change', (e) => {
+  if(e.target.value !== 'todos'){
+    const xTipo = operaciones.filter(operacion => operacion.tipo === e.target.value)//nos retorna un nuevo arreglo que cumpla una condicion ya sea ganancia o gasto
+    localStorage.setItem('operaciones', xTipo)//guarda el arreglo con lo filtrado
+    imprimirOperaciones(xTipo)
+    // console.log(xTipo)
+  }else {
+    imprimirOperaciones(operaciones)
+  }
+})//NO FILTRA GASTO SOLO GANANCIA Y TODOS
+
+//-------------------------------- Filtros categoria ---------------------------
+
+//const selectFiltros = document.getElementById("tipo-filtros");
  
 //---filtros categoria--
+
 // const filtroCategorias = [
 //     {
  
@@ -306,7 +347,70 @@ const selectFiltros = document.getElementById("tipo-filtros");
  
 // -------------------------------- Input Fecha --------------------------------
 ////// FILTROS - FECHA ///// FUNCIONA!!!
- 
+
+// inputsFecha.addEventListener('change', e => {
+//   if(e.target.valueAsDate !== new Date()){
+//       const filtroFecha = operaciones.filter(operaciones => new Date(operaciones.fecha) > e.target.valueAsDate )
+//       localStorage.setItem('fechaOperacion',filtroFecha)
+//       localStorage.setItem('fechaOperacion',JSON.stringify(filtroFecha))
+//       imprimirOperaciones(filtroFecha);
+//   }else{
+//       imprimirOperaciones(operaciones);
+//   }
+
+// })
+
+
+////////////////////////// SECTION CATEGORIAS ////////////////////////////////
+
+// --------------------------------------------------------------------------------------
+// VER SI HACEMOS LOS SELECT DE CATEGORIA EN HTML O JS - FALTA TERMINAR (imagen whatsapp 21/08)
+// const categoriaInput = document.getElementById('categoria-input');
+
+// const categoria = [
+//     'Comida',
+//     'Servicios',
+//     'Salidas',
+//     'Educación',
+//     'Transporte',
+//     'Trabajo',
+// ];
+
+
+
+// const generarCategoria = () => {
+//   const selects = document.getElementsByClassName('select-categoria');
+//     for(let i = 0; i < selects.length; i++){
+//       const select = selects[i];
+//       if(select.classList.contains('filtro-categoria'))
+//     }
+// }
+
+// generarCategoria()
+// --------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+// -------------------------------- INICIALIZACION DE FUNCIONES --------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 const inicializar = () => {
   const inputsFecha = document.querySelectorAll('input[type="date"]');
   inputsFecha.forEach((input) => {
@@ -317,6 +421,5 @@ const inicializar = () => {
   imprimirOperaciones(operaciones);
   //agregar inicio de funcion nueva categoria para que se inicie al momento de abrir la pagina
 };
- 
+
 window.onload = inicializar;
- 
