@@ -15,9 +15,9 @@ const reportes = document.getElementById('reportes');
 // const montoGanancias = document.getElementById('monto-ganancias');
 // const montoGastos = document.getElementById('monto-gastos');
 // const montoTotal = document.getElementById('monto-total');
-
+ 
 //  OPERACIONES
-let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; //salta error
+let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; //salta error  
 console.log(operaciones)
 const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
@@ -74,58 +74,56 @@ btnReportes.addEventListener('click', () => {
 // -------------------------------- Ganancias --------------------------------
 // -------------------------------- Gastos --------------------------------
 // -------------------------------- Total --------------------------------
-
-
+ 
 const totalGanancias = arr =>
 arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
 prev + current.monto, 0)
-
+ 
 const totalGastos = arr =>
 arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
 prev + current.monto, 0);
-
+ 
 const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
-
-totalGanancias(operaciones);   
+ 
+totalGanancias(operaciones);  
 totalGastos(operaciones);    
-console.log(totalBalance);   
-
+console.log(totalBalance);  
+ 
 // -------
 // -------
-
+ 
 // const pintarBalance = (arr) => {
-  
+ 
 //   const totalGanancias = arr =>
 //   arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
 //   prev + current.monto, 0)
-      
+     
 //   const totalGastos = arr =>
 //   arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
 //   prev + current.monto, 0);
-  
+ 
 //   const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
-
+ 
 //   let str = `
-//     <div class="items">
+//     <div class='items'>
 //       <p>Ganancias</p>
-//       <div class="text-success">+$${totalGanancias}</div>
+//       <div class='text-success'>+$${totalGanancias}</div>
 //     </div>  
-//     <div class="items">
+//     <div class='items'>
 //       <p>Gastos</p>
-//       <div class="text-danger">-$${totalGastos}</div>
+//       <div class='text-danger'>-$${totalGastos}</div>
 //     </div>
-//     <div class="items">
+//     <div class='items'>
 //       <p><strong>Total</strong></p>
 //       <div><strong>$${Math.abs(totalBalance)}</strong></div>
 //     </div>`
-
+ 
 //   document.getElementById('contenedor-balance-total').innerHTML = srt;
 // }
-
+ 
 // pintarBalance(operaciones)
-
-
-
+ 
+ 
 //////////////
 // OPERACIONES
 //////////////
