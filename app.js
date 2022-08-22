@@ -24,6 +24,9 @@ const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
 const montoOperacion = document.getElementById('monto-operacion');
 
+
+
+
 const categoriaNuevaOperacion = document.getElementById(
   "categoria-nueva-operacion"
 );
@@ -75,8 +78,7 @@ btnReportes.addEventListener("click", () => {
 // -------------------------------- Ganancias --------------------------------
 // -------------------------------- Gastos --------------------------------
 // -------------------------------- Total --------------------------------
-
-
+ 
 const totalGanancias = arr =>
 arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
 prev + current.monto, 0)
@@ -84,7 +86,7 @@ prev + current.monto, 0)
 const totalGastos = arr =>
 arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
 prev + current.monto, 0);
-
+ 
 const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
 
 totalGanancias(operaciones);   
@@ -243,6 +245,9 @@ const imprimirOperaciones = (arr) => {
   const botonesEditar = document.querySelectorAll('.btn-editar');
   // console.log(botonesEditar);
 
+
+
+
   botonesEditar.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const opEditar = operaciones.filter(
@@ -250,9 +255,15 @@ const imprimirOperaciones = (arr) => {
       );
       editarOperacion(opEditar);
       // botonesEditar.addEventListener('click', () => {
+
+      // console.log(opEditar);
+      btnAgregarOperacionEditada.addEventListener('click', () => {
+
+
       
       // console.log(opEditar);
       btnAgregarOperacionEditada.addEventListener('click', () => {
+
         const operacionEditada = { ...opEditar[0] };
         operacionEditada.descripcion = editarDescripcion.value;
         operacionEditada.monto = editarMonto.value;
@@ -320,7 +331,9 @@ btnOcultarFiltros.addEventListener("click", () => {
  
 
 //-------------------------------- Filtros Tipo ---------------------------
-const selectFiltros = document.getElementById('tipo-filtros');
+
+// const selectFiltros = document.getElementById('tipo-filtros');
+
 
 selectFiltros.addEventListener('change', (e) => {
   if(e.target.value !== 'todos'){
@@ -335,7 +348,8 @@ selectFiltros.addEventListener('change', (e) => {
 
 //-------------------------------- Filtros categoria ---------------------------
 
-//const selectFiltros = document.getElementById("tipo-filtros");
+
+const selectFiltros = document.getElementById("tipo-filtros");
  
 //---filtros categoria--
 
@@ -359,6 +373,7 @@ selectFiltros.addEventListener('change', (e) => {
 //   }
 
 // })
+
 
 
 ////////////////////////// SECTION CATEGORIAS ////////////////////////////////
