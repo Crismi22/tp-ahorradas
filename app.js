@@ -81,7 +81,7 @@ btnReportes.addEventListener("click", () => {
  
 const totalGanancias = arr =>
 arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
-prev + current.monto, 0)
+prev + current.monto, 0);
 
 const totalGastos = arr =>
 arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
@@ -256,8 +256,7 @@ const imprimirOperaciones = (arr) => {
       editarOperacion(opEditar);
       // botonesEditar.addEventListener('click', () => {
 
-      // console.log(opEditar);
-      btnAgregarOperacionEditada.addEventListener('click', () => {
+
 
 
       
@@ -274,7 +273,7 @@ const imprimirOperaciones = (arr) => {
       });
     });
   });
-};
+}
 const btnAgregarOperacionEditada = document.getElementById(
   "btn-editar-operacion"
 );
