@@ -42,6 +42,13 @@ const editarMonto = document.getElementById('editar-monto-operacion');
 const editarTipo = document.getElementById('editar-tipo-operacion');
 const editarCategoriaOp = document.getElementById('editar-categoria-nueva-operacion');
 const editarFechaOp = document.getElementById('editar-fecha-operacion');
+
+
+//REPORTES
+const sinReportes = document.getElementById('sin-reportes');
+const conReportes = document.getElementById('con-reportes');
+
+
  
 ////////////////////////// HEADER ////////////////////////////////
  
@@ -72,13 +79,10 @@ btnReportes.addEventListener('click', () => {
 //////////////////////////////// SECTION BALANCE ////////////////////////////////
  
 //////////////
-// BALANCE - 
+// BALANCE
 //////////////
  
-// -------------------------------- Ganancias --------------------------------
-// -------------------------------- Gastos --------------------------------
-// -------------------------------- Total --------------------------------
-
+// -------------------------------- Ganancias / Gastos / Total --------------------------------
 
 const totalGanancias = (arr) => {
 let ganancias = arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
@@ -91,10 +95,6 @@ let gastos = arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, c
 prev + Number(current.monto), 0)
 return gastos
 };
-//LISTO
-
-// -------
-// -------
 
 const pintarBalance = (arr) => {
   const totalBalance = totalGanancias(arr) - totalGastos(arr);
@@ -408,6 +408,17 @@ filtroOrden.addEventListener('change', filtros)
 
 
 
+////////////////////////// SECTION REPORTES ////////////////////////////////
+
+const verReportes = (arr) => {
+  if (!arr.length) {
+    document.getElementById('sin-reportes').classList.remove("d-none");
+    document.getElementById('con-reportes').classList.add("d-none");
+  } else {
+    document.getElementById('sin-reportes').classList.add("d-none");
+    document.getElementById('con-reportes').classList.remove("d-none");
+  }
+}; //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
 
 
 
