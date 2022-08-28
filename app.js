@@ -5,19 +5,27 @@ const btnReportes = document.getElementById('btn-reportes');
 const btnNuevaOperacion = document.getElementById('btn-operacion');
 const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
 const btnCancelar = document.getElementById('btn-cancelar-operacion');
- 
+const btnAgregarOperacionEditada = document.getElementById('btn-editar-operacion');
+const btnCancelarEdicion = document.getElementById('btn-editar-cancelar-operacion');
+
+const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
+
 //  SECCIONES
 const balance = document.getElementById('balance');
 const categorias = document.getElementById('categorias');
 const reportes = document.getElementById('reportes');
- 
+
 //BALANCE
 // const montoGanancias = document.getElementById('monto-ganancias');
 // const montoGastos = document.getElementById('monto-gastos');
 // const montoTotal = document.getElementById('monto-total');
 
 //  OPERACIONES
-let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; //salta error
+// let operaciones = [] //deje este array comun para usar mientras no me funciona el local storage
+let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
+const obtenerOperaciones = () => {
+  return JSON.parse(localStorage.getItem('operaciones')) || [];
+}
 // console.log(operaciones)
 const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
@@ -29,18 +37,21 @@ const categoriaNuevaOperacion = document.getElementById(
 const fechaOperacion = document.getElementById('fecha-operacion');
 //  EDITAR OPERACIONES
 const editarOperacionSection = document.getElementById('editar-operacion');
-const editarDescripcion = document.getElementById(
-  'editar-descripcion-operacion'
-);
+const editarDescripcion = document.getElementById('editar-descripcion-operacion');
 const editarMonto = document.getElementById('editar-monto-operacion');
 const editarTipo = document.getElementById('editar-tipo-operacion');
-const editarCategoriaOp = document.getElementById(
-  'editar-categoria-nueva-operacion'
-);
+const editarCategoriaOp = document.getElementById('editar-categoria-nueva-operacion');
 const editarFechaOp = document.getElementById('editar-fecha-operacion');
+
+//REPORTES
+const sinReportes = document.getElementById('sin-reportes');
+const conReportes = document.getElementById('con-reportes');
+
+
  
+
 ////////////////////////// HEADER ////////////////////////////////
- 
+
 // -------------------------------- BTN Balance --------------------------------
 btnBalance.addEventListener('click', () => {
   balance.classList.remove('oculto');
@@ -48,7 +59,7 @@ btnBalance.addEventListener('click', () => {
   reportes.classList.add('oculto');
   nuevaOperacion.classList.add('oculto');
 });
- 
+
 // -------------------------------- BTN Categorías --------------------------------
 btnCategorias.addEventListener('click', () => {
   categorias.classList.remove('oculto');
@@ -56,7 +67,7 @@ btnCategorias.addEventListener('click', () => {
   reportes.classList.add('oculto');
   nuevaOperacion.classList.add('oculto');
 });
- 
+
 // -------------------------------- BTN Reportes --------------------------------
 btnReportes.addEventListener('click', () => {
   reportes.classList.remove('oculto');
@@ -64,55 +75,37 @@ btnReportes.addEventListener('click', () => {
   categorias.classList.add('oculto');
   nuevaOperacion.classList.add('oculto');
 });
- 
+
 //////////////////////////////// SECTION BALANCE ////////////////////////////////
- 
+
 //////////////
 // BALANCE
 //////////////
- 
-// -------------------------------- Ganancias --------------------------------
-// -------------------------------- Gastos --------------------------------
-// -------------------------------- Total --------------------------------
 
+// -------------------------------- Ganancias / Gastos / Total --------------------------------
 
-const totalGanancias = arr =>
-arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
-prev + current.monto, 0)
+const totalGanancias = (arr) => {
+  let ganancias = arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
+    prev + Number(current.monto), 0)
+  return ganancias
+}
 
-const totalGastos = arr =>
-arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
-prev + current.monto, 0);
-
-const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
-
-totalGanancias(operaciones);   
-totalGastos(operaciones);    
-// console.log(totalBalance);   
-
-// -------
-// -------
+const totalGastos = (arr) => {
+  let gastos = arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
+    prev + Number(current.monto), 0)
+  return gastos
+};
 
 const pintarBalance = (arr) => {
-  
-  const totalGanancias = arr =>
-  arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
-  prev + current.monto, 0)
-      
-  const totalGastos = arr =>
-  arr.filter(operacion => operacion.tipo === 'gasto').reduce((prev, current) =>
-  prev + current.monto, 0);
-  
-  const totalBalance = totalGanancias(operaciones) - totalGastos(operaciones);
-
+  const totalBalance = totalGanancias(arr) - totalGastos(arr);
   let str = `
     <div class="items">
       <p><strong>Ganancias</strong></p>
-      <div class="text-success"><strong>+$${totalGanancias(operaciones)}</strong></div>
+      <div class="text-success"><strong>+$${totalGanancias(arr)}</strong></div>
     </div>  
     <div class="items">
       <p><strong>Gastos</strong></p>
-      <div class="text-danger"><strong>-$${totalGastos(operaciones)}</strong></div>
+      <div class="text-danger"><strong>-$${totalGastos(arr)}</strong></div>
     </div>
     <div class="items">
       <p><strong>Total</strong></p>
@@ -129,20 +122,16 @@ pintarBalance(operaciones)
 //////////////
 // OPERACIONES
 //////////////
- 
+
 // -------------------------------- BTN Nueva Operación --------------------------------
 ////BOTON NUEVA OPERACION - seccion balance///
 btnNuevaOperacion.addEventListener('click', () => {
   balance.classList.add('oculto');
   nuevaOperacion.classList.remove('oculto');
 });
- 
+
 //AGREGAR NUEVA OPERACION//
- 
-//arreglo de operaciones vacio donde se van a guardar los datos | se guardan en ls
- 
-// let operaciones = JSON.parse(localStorage.getItem('operaciones')) || []; // LA COMENTE PORQUE LA SUBI ARRIBA CON LAS CONST
- 
+
 const verOperaciones = (arr) => {
   // console.log(!arr.length);
   if (!arr.length) {
@@ -153,7 +142,7 @@ const verOperaciones = (arr) => {
     document.getElementById('con-operaciones').classList.remove('oculto');
   }
 }; //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
- 
+
 // -------------------------------- BTN Agregar Operación --------------------------------
 //boton agregar | toma los valores de cada input y manda el objeto nuevo al array operacion cada vez que damos click
 btnAgregarOperacion.addEventListener('click', (e) => {
@@ -162,12 +151,12 @@ btnAgregarOperacion.addEventListener('click', (e) => {
   if (
     descripcionOperacion.value.trim().length == 0 ||
     montoOperacion.value == 0
-  ){
+  ) {
     alertify.error('Todos los campos deben ser completados, y el monto mayor a 0');
     return;
   }
- 
-  const crearOperaciones = {
+
+  const crearOperaciones = { //nuevaoperacion/operacion creada
     //nuevo objeto creado por usuario
     id: uuidv4(),
     descripcion: descripcionOperacion.value,
@@ -186,21 +175,30 @@ btnAgregarOperacion.addEventListener('click', (e) => {
   categoriaNuevaOperacion.value = 'seleccionar';
   fechaOperacion.valueAsDate = new Date();
   verOperaciones(operaciones); //al tener operaciones hechas nos quita la imagen principal y nos muestra los datos que ingresamos.
- 
- 
- 
+  localStorage.setItem('operaciones', JSON.stringify(operaciones));
+
+
   imprimirOperaciones(operaciones); //va transcribir los datos en la pantalla dentro de las respectivas columnas. mandamos el arreglo de operaciones.
   // console.log(crearOperaciones.fecha)
   alertify.message('Operación agregada con éxito');
 });
- 
+
+let opEditar = []
+
 const imprimirOperaciones = (arr) => {
   //funcion que va escribiendo en el html las nuevas operaciones
   document.getElementById('operaciones').innerHTML = ''; //para que elimine la ultima funcion - vista limpia
   let str = '';
   arr.forEach((operacion) => {
     // console.log(operacion)
-    const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
+    const {
+      id,
+      descripcion,
+      categoria,
+      fecha,
+      monto,
+      tipo
+    } = operacion;
     str =
       str +
       `
@@ -222,6 +220,7 @@ const imprimirOperaciones = (arr) => {
     document.getElementById('operaciones').innerHTML = str;
   });
   // -------------------------------- BTN Eliminar Operación --------------------------------
+
   const botonesEliminar = document.querySelectorAll('.btn-eliminar');
   botonesEliminar.forEach((btn) => {
     btn.addEventListener('click', (e) => {
@@ -232,41 +231,58 @@ const imprimirOperaciones = (arr) => {
       operaciones = JSON.parse(localStorage.getItem('operaciones'));
       imprimirOperaciones(operaciones);
       verOperaciones(operaciones);
-      //    alertify.message('Operación eliminada con éxito');
+      alertify.error('Operación eliminada con éxito');
     });
   });
-  // -------------------------------- BTN Editar Operación --------------------------------
   const botonesEditar = document.querySelectorAll('.btn-editar');
-  // console.log(botonesEditar);
+  // -------------------------------- BTN Editar Operación --------------------------------
   botonesEditar.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const opEditar = operaciones.filter(
+      opEditar = operaciones.filter(
         (operacion) => operacion.id === e.target.dataset.id
       );
-      editarOperacion(opEditar);
-      // botonesEditar.addEventListener('click', () => {
-      // console.log(opEditar);
-      btnAgregarOperacionEditada.addEventListener('click', () => {
-        const operacionEditada = { ...opEditar[0] };
-        operacionEditada.descripcion = editarDescripcion.value;
-        operacionEditada.monto = editarMonto.value;
-        operacionEditada.tipo = editarTipo.value;
-        operacionEditada.categoria = editarCategoriaOp.value;
-        operacionEditada.fecha = editarFechaOp.valueAsDate;
-        // console.log(operacionEditada);
-      });
+      editarOperacion(opEditar) // rellena el form y se encarga de mostrar esa ventana
+      // const operacionEditada = editarOperacion(opEditar);
+      //|||||||||||||al editar la primera funcion la duplica modificando la funcion que se ingreso mas reciente dejando ambas y sobreescribiendo una
     });
   });
 };
-const btnAgregarOperacionEditada = document.getElementById(
-  'btn-editar-operacion'
-);
-const btnCancelarEdicion = document.getElementById(
-  'btn-editar-cancelar-operacion'
-);
- 
+
+btnAgregarOperacionEditada.addEventListener('click', (e) => {
+  console.log(opEditar)
+
+  const operacionEditada = {
+    ...opEditar[0]
+  };
+  operacionEditada.descripcion = editarDescripcion.value;
+  operacionEditada.monto = editarMonto.value;
+  operacionEditada.tipo = editarTipo.value;
+  operacionEditada.categoria = editarCategoriaOp.value;
+  operacionEditada.fecha = editarFechaOp.value;
+
+  balance.classList.remove('oculto');
+  categorias.classList.add('oculto');
+  reportes.classList.add('oculto');
+  editarOperacionSection.classList.add('oculto');
+  const operacionActualizada = operaciones.map((operacion) =>
+    operacion.id === operacionEditada.id ? operacionEditada : operacion);
+
+  localStorage.setItem('operaciones', JSON.stringify(operacionActualizada));
+  operaciones = JSON.parse(localStorage.getItem('operaciones'));
+  imprimirOperaciones(operaciones)
+  alertify.message('Operación editada con éxito');
+});
+
 const editarOperacion = (arr) => {
-  const { descripcion, categoria, fecha, monto, tipo } = arr[0];
+  const {
+    descripcion,
+    categoria,
+    fecha,
+    monto,
+    tipo
+  } = {
+    ...arr[0]
+  };
   balance.classList.add('oculto');
   categorias.classList.add('oculto');
   reportes.classList.add('oculto');
@@ -277,14 +293,8 @@ const editarOperacion = (arr) => {
   editarCategoriaOp.value = categoria;
   editarFechaOp.valueAsDate = new Date(fecha);
 };
-// const creaOpEditada = operaciones.map((operacion) => operacion.id == id
-// ? editarOperacionSection
-// : operacion
-// )
-// localStorage.setItem('operaciones',JSON.stringify(creaOpEditada))
-// operaciones = JSON.parse(localStorage.getItem('operaciones'))
 
-// alertify.message('Operación editada con éxito');
+
 
 // -------------------------------- BTN Cancelar Edicion --------------------------------
 btnCancelarEdicion.addEventListener('click', () => {
@@ -294,57 +304,95 @@ btnCancelarEdicion.addEventListener('click', () => {
   editarOperacionSection.classList.add('oculto');
 });
 // -------------------------------- BTN Cancelar Operación --------------------------------
- 
+
 btnCancelar.addEventListener('click', () => {
   balance.classList.remove('oculto');
   nuevaOperacion.classList.add('oculto');
 });
- 
+
 // -------------------------------- BTN Ocultar Filtros --------------------------------
-//BOTON OCULTAR FILTROS
-const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
+
+
 const cajaFiltros = document.getElementById('caja-filtros');
- 
+
 btnOcultarFiltros.addEventListener('click', () => {
   cajaFiltros.classList.toggle('oculto');
 });
- 
-//-------------------------------- Filtros Tipo ---------------------------
-const selectFiltros = document.getElementById('tipo-filtros');
 
-selectFiltros.addEventListener('change', (e) => {
-  if(e.target.value !== 'todos'){
-    const xTipo = operaciones.filter(operacion => operacion.tipo === e.target.value)//nos retorna un nuevo arreglo que cumpla una condicion ya sea ganancia o gasto
-    localStorage.setItem('operaciones', xTipo)//guarda el arreglo con lo filtrado
-    imprimirOperaciones(xTipo)
-    // console.log(xTipo)
-  }else {
-    imprimirOperaciones(operaciones)
-  }
-})//NO FILTRA GASTO SOLO GANANCIA Y TODOS
+//-------------------------------- Filtros ---------------------------
+const filtroTipo = document.getElementById('tipo-filtros');
+const filtroCategoria = document.getElementById('filtro-categoria');
+const filtroFecha = document.getElementById('filtro-fecha');
+const filtroOrden = document.getElementById('filtro-ordenar');
+// selectFiltros.addEventListener('change', (e) => {
+//   if(e.target.value !== 'todos'){
+//     const xTipo = operaciones.filter(operacion => operacion.tipo === e.target.value)//nos retorna un nuevo arreglo que cumpla una condicion ya sea ganancia o gasto
+//     localStorage.setItem('operaciones', xTipo)//guarda el arreglo con lo filtrado
+//     imprimirOperaciones(xTipo)
+//     // console.log(xTipo)
+//   }else {
+//     imprimirOperaciones(operaciones)
+//   }
+// })//NO FILTRA GASTO SOLO GANANCIA Y TODOS
 
 //-------------------------------- Filtros categoria ---------------------------
-// const filtroCategorias = [
-//     {
- 
-//     }
-// ]
- 
-// -------------------------------- Input | Filtro Fecha --------------------------------
-////// FILTROS - FECHA ///// FUNCIONA!!!
-// inputsFecha.addEventListener('change', e => {
-//   if(e.target.valueAsDate !== new Date()){
-//       const filtroFecha = operaciones.filter(operaciones => new Date(operaciones.fecha) > e.target.valueAsDate )
-//       localStorage.setItem('fechaOperacion',filtroFecha)
-//       localStorage.setItem('fechaOperacion',JSON.stringify(filtroFecha))
-//       imprimirOperaciones(filtroFecha);
-//   }else{
-//       imprimirOperaciones(operaciones);
-//   }
+const filtros = (e) => {
+  const porCategoria = filtroCategoria.value;
+  const porTipo = filtroTipo.value;
+  const porOrden = filtroOrden.value
 
-// })
+  let operaciones = obtenerOperaciones();
 
- 
+  if (porCategoria !== 'TODAS') {
+    operaciones = operaciones.filter(operacion => operacion.categoria === porCategoria)
+  }
+
+  if (porTipo !== 'TODOS') {
+    operaciones = operaciones.filter(operacion => operacion.tipo === porTipo)
+  }
+
+  if (porOrden === 'MENOR') {
+    operaciones = operaciones.sort(
+      (a, b) => Number(a.monto) - Number(b.monto)
+    );
+  }
+  if (porOrden === 'MONTO') {
+    operaciones = operaciones.sort(
+      (a, b) => Number(b.monto) - Number(a.monto)
+    );
+  }
+  if (porOrden === 'A/Z') {
+    operaciones = operaciones.sort((a, b) => {
+      if (a.descripcion.toLowerCase() < b.descripcion.toLowerCase()) {
+        return -1
+      }
+    })
+  }
+  if (porOrden === 'Z/A') {
+    operaciones = operaciones.sort((a, b) => {
+      if (a.descripcion.toLowerCase() > b.descripcion.toLowerCase()) {
+        return -1
+      }
+    })
+  }
+  if (porOrden === 'MAS_RECIENTES') {
+    operaciones = operaciones.sort((a, b) =>
+      new Date(a.fecha) - new Date(b.fecha))
+  }
+  imprimirOperaciones(operaciones)
+  verOperaciones(operaciones)
+}; //REVISAR**************
+//***************************************************** */
+
+
+filtroCategoria.addEventListener('change', filtros)
+filtroTipo.addEventListener('change', filtros)
+filtroOrden.addEventListener('change', filtros)
+
+
+
+
+
 
 ////////////////////////// SECTION CATEGORIAS ////////////////////////////////
 
@@ -376,6 +424,17 @@ selectFiltros.addEventListener('change', (e) => {
 
 
 
+////////////////////////// SECTION REPORTES ////////////////////////////////
+
+const verReportes = (arr) => {
+  if (!arr.length) {
+    document.getElementById('sin-reportes').classList.remove("d-none");
+    document.getElementById('con-reportes').classList.add("d-none");
+  } else {
+    document.getElementById('sin-reportes').classList.add("d-none");
+    document.getElementById('con-reportes').classList.remove("d-none");
+  }
+}; //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
 
 
 
@@ -401,9 +460,10 @@ const inicializar = () => {
   inputsFecha.forEach((input) => {
     input.valueAsDate = new Date();
   });
- 
+
   verOperaciones(operaciones);
   imprimirOperaciones(operaciones);
+  obtenerOperaciones(operaciones);
   //agregar inicio de funcion nueva categoria para que se inicie al momento de abrir la pagina
 };
 
