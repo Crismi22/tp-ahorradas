@@ -400,27 +400,34 @@ filtroOrden.addEventListener('change', filtros)
 // VER SI HACEMOS LOS SELECT DE CATEGORIA EN HTML O JS - FALTA TERMINAR (imagen whatsapp 21/08)
 // const categoriaInput = document.getElementById('categoria-input');
 
-// const categoria = [
-//     'Comida',
-//     'Servicios',
-//     'Salidas',
-//     'Educación',
-//     'Transporte',
-//     'Trabajo',
-// ];
+// ARREGLO DE CATEGORIAS - lo que agreguemos en Categorías se tiene que completar en todos los selects
+const categoria = [
+    'Comida',
+    'Servicios',
+    'Salidas',
+    'Educación',
+    'Transporte',
+    'Trabajo',
+];
 
+const generarCategoria = () => {
+  const selects = document.getElementsByClassName('select-categoria');
+    for(let i = 0; i < selects.length; i++){
+      const select = selects[i];
+      if(select.classList.contains('filtro-categoria')){
+        select.innerHTML = '<option>Todas</option>'        
+      }
+      for(let j = 0; j < categoria.length; j++){
+        select.innerHTML += `<option value=${categoria[j]}>${categoria[j]}</option>`       
+        
+      }
+    }
+}
 
-
-// const generarCategoria = () => {
-//   const selects = document.getElementsByClassName('select-categoria');
-//     for(let i = 0; i < selects.length; i++){
-//       const select = selects[i];
-//       if(select.classList.contains('filtro-categoria'))
-//     }
-// }
-
-// generarCategoria()
+generarCategoria()
 // --------------------------------------------------------------------------------------
+
+
 
 
 
