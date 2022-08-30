@@ -400,6 +400,7 @@ filtroOrden.addEventListener('change', filtros)
 const btnAgregarCategoria = document.getElementById('btn-agregar-categoria');
 const categoriaInput = document.getElementById('categoria-input');
 
+
 // ARREGLO DE CATEGORIAS - lo que agreguemos en Categorías se tiene que completar en todos los selects
 let arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias')) || [
   {
@@ -428,7 +429,7 @@ let arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias')) || [
   },
 ];
 
-
+//para filtros
 const generarCategoria = () => {
   const selects = document.getElementsByClassName('select-categoria');
   for(let i = 0; i < selects.length; i++){
@@ -436,27 +437,32 @@ const generarCategoria = () => {
     if(select.classList.contains('filtro-categoria')){
         select.innerHTML = '<option>Todas</option>'        
       }
-      for(let j = 0; j < categoria.length; j++){
-        select.innerHTML += `<option value=${categoria[j]}>${categoria[j]}</option>`       
+      for(let j = 0; j < arrayCategoriasDefault.length; j++){
+        select.innerHTML += `<option value=${arrayCategoriasDefault[j]}>${arrayCategoriasDefault[j]}</option>`       
       }
     }
 }
 
 generarCategoria()
 
+const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
 const imprimirCategorias = (arr) => {
-  document.getElementById('arrayCategoriasDefault').innerHTML = '';
-  let str = `
+  let str = '';
+  arr.forEach((arrayCategoriasDefault) =>{
+    const {id, categoria} = arrayCategoriasDefault;
+    str = str += `
     <div class="d-flex justify-content-between mt-3 mb-2">
-      <div style="color:#00947e; background-color: #ebfffc;">${categoria}</div>
+      <div">${arrayCategoriasDefault}</div>
         <div>
           <a href="#" class="btn-editar-categoria me-2" data-id=${id}>Editar</a>
           <a href="#" class="btn-eliminar-categoria" data-id=${id}>Eliminar</a> 
         </div>
       </div>
     </div>`;
-  document.getElementById('arrayCategoriasDefault').innerHTML = str;
+  document.getElementById('arrayCategoriasDefault').innerHTML = str;  
+})
 }
+
 
 btnAgregarCategoria.addEventListener('click', () => {
   console.log(btnAgregarCategoria)
@@ -464,13 +470,16 @@ btnAgregarCategoria.addEventListener('click', () => {
     categoria: categoriaInput.value, 
     id: uuidv4()
   }
+  //sube el objeto nuevo al array categoriasdefault y lo muestra con el innerhtml. //||no funciona aun 
   arrayCategoriasDefault.push(nuevaCategoria)
   localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault))
+  arrayCategoriasDefault = JSON.parse(localStorage.getItem(categorias))
   imprimirCategorias(arrayCategoriasDefault)
+  listaDeCategorias.classList.remove('oculto')
 })
 
 
-// imprimirCategorias(arrayCategoriasDefault)
+//imprimirCategorias(arrayCategoriasDefault)
 
 
 
