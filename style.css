@@ -236,6 +236,9 @@ SECTION REPORTES
     padding-bottom: 2%;
 }
 
+.footer{
+    text-align: center;
+}
 
 /* RESPONSIVE// */
 @media screen and (max-width: 1024px) {
