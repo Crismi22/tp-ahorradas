@@ -397,34 +397,84 @@ filtroOrden.addEventListener('change', filtros)
 ////////////////////////// SECTION CATEGORIAS ////////////////////////////////
 
 // --------------------------------------------------------------------------------------
-// VER SI HACEMOS LOS SELECT DE CATEGORIA EN HTML O JS - FALTA TERMINAR (imagen whatsapp 21/08)
-// const categoriaInput = document.getElementById('categoria-input');
+const btnAgregarCategoria = document.getElementById('btn-agregar-categoria');
+const categoriaInput = document.getElementById('categoria-input');
 
 // ARREGLO DE CATEGORIAS - lo que agreguemos en Categorías se tiene que completar en todos los selects
-const categoria = [
-    'Comida',
-    'Servicios',
-    'Salidas',
-    'Educación',
-    'Transporte',
-    'Trabajo',
+let arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias')) || [
+  {
+    categoria: "Comida",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Servicios",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Salidas",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Educacion",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Transporte",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Trabajo",
+    id: uuidv4(),
+  },
 ];
+
 
 const generarCategoria = () => {
   const selects = document.getElementsByClassName('select-categoria');
-    for(let i = 0; i < selects.length; i++){
-      const select = selects[i];
-      if(select.classList.contains('filtro-categoria')){
+  for(let i = 0; i < selects.length; i++){
+    const select = selects[i];
+    if(select.classList.contains('filtro-categoria')){
         select.innerHTML = '<option>Todas</option>'        
       }
       for(let j = 0; j < categoria.length; j++){
         select.innerHTML += `<option value=${categoria[j]}>${categoria[j]}</option>`       
-        
       }
     }
 }
 
 generarCategoria()
+
+const imprimirCategorias = (arr) => {
+  document.getElementById('arrayCategoriasDefault').innerHTML = '';
+  let str = `
+    <div class="d-flex justify-content-between mt-3 mb-2">
+      <div style="color:#00947e; background-color: #ebfffc;">${categoria}</div>
+        <div>
+          <a href="#" class="btn-editar-categoria me-2" data-id=${id}>Editar</a>
+          <a href="#" class="btn-eliminar-categoria" data-id=${id}>Eliminar</a> 
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('arrayCategoriasDefault').innerHTML = str;
+}
+
+btnAgregarCategoria.addEventListener('click', () => {
+  console.log(btnAgregarCategoria)
+  const nuevaCategoria = {
+    categoria: categoriaInput.value, 
+    id: uuidv4()
+  }
+  arrayCategoriasDefault.push(nuevaCategoria)
+  localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault))
+  imprimirCategorias(arrayCategoriasDefault)
+})
+
+
+// imprimirCategorias(arrayCategoriasDefault)
+
+
+
+
 // --------------------------------------------------------------------------------------
 
 
