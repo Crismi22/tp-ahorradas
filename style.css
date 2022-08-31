@@ -1,7 +1,8 @@
 *{
     margin:0;
     padding: 0;
-    font-family: 'Playfair Display', serif;
+    /* font-family: 'Playfair Display', serif; */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .oculto{
@@ -19,14 +20,14 @@ HEADER
 .mi-nav{
     height: 14vh;
     padding: 20px;
-    font-family: 'Playfair Display', serif;
+    /* font-family: 'Playfair Display', serif; */
 }
 
 .navbar-titulo{
     display: flex ;
     align-items: center;
     font-size: 40px;
-    font-family: 'Playfair Display', serif;
+    /* font-family: 'Playfair Display', serif; */
     font-weight: 700;
 }
 
@@ -137,6 +138,7 @@ label{
 
 .mi-flex{
     display: flex;
+    flex-wrap: nowrap;
 }
 
 .font-size-item{
@@ -236,6 +238,9 @@ SECTION REPORTES
     padding-bottom: 2%;
 }
 
+.footer{
+    text-align: center;
+}
 
 /* RESPONSIVE// */
 @media screen and (max-width: 1024px) {
