@@ -85,20 +85,6 @@ btnReportes.addEventListener('click', () => {
   totalesPorMes(operaciones)
 });
 
-const totalesPorMes = arr => {
-  console.log(arr)
-  const mesesConOperaciones = [];
-  const meses = arr.map(operacion => operacion.fecha.split('/')[1])
-  console.log(meses)
-  const mesesSinRepetir = [... new Set(meses)]
-///////NO ME TRAE LOS MESES!!!
-  // for (let i = 0; i < mesesSinRepetir.length; i++) {
-  //   const operacionesPorMes = arr.filter(operacion => operacion.fefcha.split('/')[1] === mesesSinRepetir[i])
-  //   // if(mesesSinRepetir[i])
-  // }
-  // console.log(operacionesPorMes)
-}
-
 
 //////////////////////////////// SECTION BALANCE ////////////////////////////////
 
@@ -124,16 +110,16 @@ const pintarBalance = (arr) => {
   const totalBalance = totalGanancias(arr) - totalGastos(arr);
   let str = `
     <div class="items">
-      <p><strong>Ganancias</strong></p>
-      <div class="text-success"><strong>+$${totalGanancias(arr)}</strong></div>
+      <p>Ganancias</p>
+      <div class="text-success">+$${totalGanancias(arr)}</div>
     </div>  
     <div class="items">
-      <p><strong>Gastos</strong></p>
-      <div class="text-danger"><strong>-$${totalGastos(arr)}</strong></div>
+      <p>Gastos</p>
+      <div class="text-danger">-$${totalGastos(arr)}</div>
     </div>
-    <div class="items">
-      <p><strong>Total</strong></p>
-      <div><strong>$${Math.abs(totalBalance)}</strong></div>
+    <div class="items align-middle">
+      <p class="fs-5">Total</p>
+      <div class="fw-semibold">$${Math.abs(totalBalance)}</div>
     </div>`
 
   document.getElementById('contenedor-balance-total').innerHTML = str;
@@ -228,15 +214,13 @@ const imprimirOperaciones = (arr) => {
       `
         <div class='col-12'>
             <div id=${id} class = 'mi-flex row aling-items-start' >
-                <span class = 'col-3 font-size-item'> ${descripcion}</span>
-                <span class = 'col-3 font-size-item'> ${categoria}</span>
-                <span class = 'col-2 fecha'> ${fecha}</span>
-                <span class = 'col-2 font-size-item ${
-                  tipo == 'ganancia' ? 'green' : 'red'
-                }'> $${monto}</span>
+                <span class = 'col-3 font-size-item text-start fw-semibold'> ${descripcion}</span>
+                <span class = 'col-3 font-size-item text-start'> ${categoria}</span>
+                <span class = 'col-2 fecha text-end'> ${fecha}</span>
+                <span class = 'col-2 font-size-item text-end ${tipo == 'ganancia' ? 'green' : 'red'}'>$${monto}</span>
                 <span class = 'col-2 font-size-item'>
-                    <a class='btn-editar' data-id= ${id} href='#'>Editar</a>
-                    <a class='btn-eliminar' data-id=  ${id} href='#'>Eliminar</a>
+                    <a class='btn-editar' data-id=${id} href='#'>Editar</a>
+                    <a class='btn-eliminar' data-id=${id} href='#'>Eliminar</a>
                 </span>
             </div>
         </div>
@@ -521,22 +505,61 @@ imprimirCategorias(arrayCategoriasDefault)
 
 
 //-------------------------------- Resumen ---------------------------
+
+
 //-------------------------------- Totales por categorías ---------------------------
+
+
 //-------------------------------- Totales por mes ---------------------------
 
+const totalesPorMes = arr => {
+  const mesesSinRepetir = [... new Set(arr.map(operacion => 
+    operacion.fecha.split('-')[1]))].sort()
+    // ...new Set es la sintáxis del método para crear una nueva copia (spread operator) ...new es porque es un constructor
+    // .map devuelve un nuevo arr con lo que le pedimos en strings (x cada operacion le saque la posicion 1(la 0 es el dia, la 1 el mes y la 3 el año)), no modifica el arr original 
+    // new Set quita los repetidos
+    // .sort acomoda los nros de los meses por orden
+  
+  // Recorremos el arreglo de mesesSinRepetir y por cada mes vamos a filtrar los meses para obtener los montos
+  for (let i = 0; i < mesesSinRepetir.length; i++) {
+    const operacionesPorMes = arr.filter(operacion => 
+      operacion.fecha.split('-')[1] === mesesSinRepetir[i]);
+    //.split genera un nuevo arreglo que toma operacion.fecha: ["20", "05", "2022"] y le decimos que nos retorne la porsicion 1 [1] dándonos un "05"!!!
+    const porTipoGanancia = operacionesPorMes.filter(operacion => 
+      operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0);
+    // Devuelve el monto de ganancia de cada mes
+    const porTipoGasto = operacionesPorMes.filter(operacion => 
+      operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0);
+    // Devuelve el monto de gastos de cada mes
+    // console.log(porTipoGanancia)
+    // console.log(porTipoGasto)
+  }
+}
 
+// NO FUNCIONA!!!!!!!!!!!!!!!!!!
 
+// const pintarTotalesPorMes = (arr) => {
+//   const totalPorMesBalance = porTipoGanancia(arr) - porTipoGasto(arr);
+//   let str = `
+//     <div class="row align-items-start">
+//       <div class="col-3"> 
+//         <p class="fw-semibold text-start">${operacionesPorMes}</p>
+//       </div>
+//       <div class="col-3"> 
+//         <p class="fw-semibold text-end">${porTipoGanancia}</p>
+//       </div>
+//       <div class="col-3"> 
+//         <p class="fw-semibold text-end">${porTipoGasto}</p>
+//       </div>
+//       <div class="col-3"> 
+//         <p class="fw-semibold text-end">${Math.abs(totalPorMesBalance)}</p>
+//       </div>
+//     </div>
+//     `;
+//   document.getElementById('totales-por-mes').innerHTML = str;
+// };
 
-
-// const totalGanancias = (arr) => {
-//   let ganancias = arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
-//     prev + Number(current.monto), 0)
-//   return ganancias
-// }
-
-
-
-
+// pintarTotalesPorMes(arr)
 
 
 
