@@ -469,6 +469,11 @@ const imprimirCategorias = () => {
 }
 imprimirCategorias();
 
+//---Vaciar input categoria---
+const limpiarInputCategoria = () => {
+  categoriaInput.value = '';
+};
+//-------BTN agregar categoria ------
 btnAgregarCategoria.addEventListener('click', () => {
   console.log(btnAgregarCategoria)
   const nuevaCategoria = {
@@ -480,16 +485,41 @@ btnAgregarCategoria.addEventListener('click', () => {
   localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault))
   arrayCategoriasDefault = JSON.parse(localStorage.getItem(categorias))
   imprimirCategorias(arrayCategoriasDefault)
-  // listaDeCategorias.classList.remove('oculto')
+  limpiarInputCategoria() //al agregar la nueva categoria y hacer click en agregar se vacia el input.
+  alertify.message('Categoria agregada con éxito');
 })
 
 imprimirCategorias(arrayCategoriasDefault)
 
+// -------------------------------- BTN Eliminar Categoria --------------------------------
+const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
+console.log(btnsEliminarCategoria)
 
+// btnsEliminarCategoria.forEach((btn) => {
+//   btn.addEventListener('click', (e) => {
+//     const eliminarCategoriaOperacion = e.target.value //busca el valor de la categoria en las operaciones para eliminar
 
+//     const categoriaEliminada = arrayCategoriasDefault.filter(
+//       (categorias) =>categorias.id !== e.target.dataset.id
+//     );
+//     localStorage.setItem('arrayCategoriasDefault', JSON.stringify(categoriaEliminada));
+//     operaciones = JSON.parse(localStorage.getItem('arrayCategoriasDefault'));
+//     imprimirCategorias(arrayCategoriasDefault);
+//     alertify.error('Categoria eliminada con éxito');
+//   });
+// });
 
+// -------------------------------- BTN Editar Categoria --------------------------------
+const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
+const sectionEditarCategoria = document.getElementById('editar-categorias');
+console.log(btnsEditarCategoria)
 
-// --------------------------------------------------------------------------------------
+btnsEditarCategoria.addEventListener('click', () => {
+  sectionEditarCategoria.classList.remove('oculto');
+  categorias.classList.add('oculto');
+  
+
+});
 
 
 
