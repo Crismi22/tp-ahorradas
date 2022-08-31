@@ -452,6 +452,7 @@ let arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias')) || [
     id: uuidv4(),
   },
 ];
+localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //acá guarda los objetos dentro de una variable local 
 
 //para filtros
 const generarCategoria = () => {
@@ -462,31 +463,35 @@ const generarCategoria = () => {
         select.innerHTML = '<option>Todas</option>'        
       }
       for(let j = 0; j < arrayCategoriasDefault.length; j++){
-        select.innerHTML += `<option value=${arrayCategoriasDefault[j]}>${arrayCategoriasDefault[j]}</option>`       
+        select.innerHTML += `<option value=${arrayCategoriasDefault[j].categoria}>${arrayCategoriasDefault[j].categoria}</option>`       
       }
     }
 }
+generarCategoria();
 
-generarCategoria()
 
 const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
-const imprimirCategorias = (arr) => {
+const imprimirCategorias = () => {
   let str = '';
-  arr.forEach((arrayCategoriasDefault) =>{
-    const {id, categoria} = arrayCategoriasDefault;
-    str = str += `
-    <div class="d-flex justify-content-between mt-3 mb-2">
-      <div">${arrayCategoriasDefault}</div>
-        <div>
-          <a href="#" class="btn-editar-categoria me-2" data-id=${id}>Editar</a>
-          <a href="#" class="btn-eliminar-categoria" data-id=${id}>Eliminar</a> 
+  arr = JSON.parse(localStorage.getItem('categorias'));
+  if(arr != null){
+    arr.forEach((arrayCategoriasDefault) =>{
+      const {id, categoria} = arrayCategoriasDefault;
+      str = str += `
+        <div class='mi-flex justify-content-between aling-items-start'>
+          <div>${categoria}</div>
+          <div>
+            <a href="#" class="btn-editar-categoria me-2" data-id=${id}>Editar</a>
+            <a href="#" class="btn-eliminar-categoria" data-id=${id}>Eliminar</a> 
+          </div>
+          </div>
         </div>
-      </div>
-    </div>`;
-  document.getElementById('arrayCategoriasDefault').innerHTML = str;  
-})
+      `; 
+  })
+  document.getElementById('lista-categorias').innerHTML = str; 
+  }
 }
-
+imprimirCategorias();
 
 btnAgregarCategoria.addEventListener('click', () => {
   console.log(btnAgregarCategoria)
@@ -499,11 +504,10 @@ btnAgregarCategoria.addEventListener('click', () => {
   localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault))
   arrayCategoriasDefault = JSON.parse(localStorage.getItem(categorias))
   imprimirCategorias(arrayCategoriasDefault)
-  listaDeCategorias.classList.remove('oculto')
+  // listaDeCategorias.classList.remove('oculto')
 })
 
-
-//imprimirCategorias(arrayCategoriasDefault)
+imprimirCategorias(arrayCategoriasDefault)
 
 
 

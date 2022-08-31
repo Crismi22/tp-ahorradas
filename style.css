@@ -137,6 +137,7 @@ label{
 
 .mi-flex{
     display: flex;
+    flex-wrap: nowrap;
 }
 
 .font-size-item{
