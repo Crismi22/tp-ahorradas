@@ -7,7 +7,6 @@ const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
 const btnCancelar = document.getElementById('btn-cancelar-operacion');
 const btnAgregarOperacionEditada = document.getElementById('btn-editar-operacion');
 const btnCancelarEdicion = document.getElementById('btn-editar-cancelar-operacion');
-
 const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
 
 //  SECCIONES
@@ -31,10 +30,9 @@ const nuevaOperacion = document.getElementById('nueva-operacion');
 const descripcionOperacion = document.getElementById('descripcion-operacion');
 const montoOperacion = document.getElementById('monto-operacion');
 const tipoOperacion = document.getElementById('tipo-operacion');
-const categoriaNuevaOperacion = document.getElementById(
-  'categoria-nueva-operacion'
-);
+const categoriaNuevaOperacion = document.getElementById('categoria-nueva-operacion');
 const fechaOperacion = document.getElementById('fecha-operacion');
+
 //  EDITAR OPERACIONES
 const editarOperacionSection = document.getElementById('editar-operacion');
 const editarDescripcion = document.getElementById('editar-descripcion-operacion');
@@ -70,11 +68,37 @@ btnCategorias.addEventListener('click', () => {
 
 // -------------------------------- BTN Reportes --------------------------------
 btnReportes.addEventListener('click', () => {
+          // ------------ Ocultar secciones de balance y categorías  ------------
   reportes.classList.remove('oculto');
   balance.classList.add('oculto');
   categorias.classList.add('oculto');
   nuevaOperacion.classList.add('oculto');
+          // ------------ Ocultar contenedor CON/SIN reportes  ------------
+  if(!operaciones.length){
+    conReportes.classList.add('oculto')
+    sinReportes.classList.remove('oculto')
+  } else {
+    conReportes.classList.remove('oculto')
+    sinReportes.classList.add('oculto')
+  }
+          // ------------ Reportes - Totales por mes  ------------
+  totalesPorMes(operaciones)
 });
+
+const totalesPorMes = arr => {
+  console.log(arr)
+  const mesesConOperaciones = [];
+  const meses = arr.map(operacion => operacion.fecha.split('/')[1])
+  console.log(meses)
+  const mesesSinRepetir = [... new Set(meses)]
+///////NO ME TRAE LOS MESES!!!
+  // for (let i = 0; i < mesesSinRepetir.length; i++) {
+  //   const operacionesPorMes = arr.filter(operacion => operacion.fefcha.split('/')[1] === mesesSinRepetir[i])
+  //   // if(mesesSinRepetir[i])
+  // }
+  // console.log(operacionesPorMes)
+}
+
 
 //////////////////////////////// SECTION BALANCE ////////////////////////////////
 
@@ -491,17 +515,20 @@ btnAgregarCategoria.addEventListener('click', () => {
 
 ////////////////////////// SECTION REPORTES ////////////////////////////////
 
-const verReportes = (arr) => {
-  if (!arr.length) {
-    document.getElementById('sin-reportes').classList.remove("d-none");
-    document.getElementById('con-reportes').classList.add("d-none");
-  } else {
-    document.getElementById('sin-reportes').classList.add("d-none");
-    document.getElementById('con-reportes').classList.remove("d-none");
-  }
-}; //funcion que nos sirve para que cuando generemos operaciones nos muestre los datos y sino la imagen incial
+
+//-------------------------------- Resumen ---------------------------
+//-------------------------------- Totales por categorías ---------------------------
+//-------------------------------- Totales por mes ---------------------------
 
 
+
+
+
+// const totalGanancias = (arr) => {
+//   let ganancias = arr.filter(operacion => operacion.tipo === 'ganancia').reduce((prev, current) =>
+//     prev + Number(current.monto), 0)
+//   return ganancias
+// }
 
 
 
