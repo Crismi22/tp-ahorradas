@@ -567,7 +567,7 @@ const totalesPorMes = arr => {
     // console.log(porTipoGanancia)
     // console.log(porTipoGasto)
     totalPorMesBalance = porTipoGanancia - porTipoGasto
-    console.log(mesesSinRepetir)
+    // console.log(mesesSinRepetir)
    
     str += `
     <div class="row align-items-start">
@@ -589,7 +589,6 @@ const totalesPorMes = arr => {
   }
 }
 
-// NO FUNCIONA!!!!!!!!!!!!!!!!!!
 
 
 
