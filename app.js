@@ -485,7 +485,7 @@ const limpiarInputCategoria = () => {
 };
 //-------BTN agregar categoria ------
 btnAgregarCategoria.addEventListener('click', () => {
-  console.log(btnAgregarCategoria)
+  // console.log(btnAgregarCategoria)
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
     id: uuidv4()
