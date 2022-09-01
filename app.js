@@ -83,7 +83,7 @@ btnReportes.addEventListener('click', () => {
   }
           // ------------ Inicializaciones  ------------
   totalesPorMes(operaciones)
-  totalPorCategoria(operaciones, arrayCategoriasDefault)
+  totalesPorCategoria(operaciones, arrayCategoriasDefault)
 
 });
 
@@ -542,9 +542,20 @@ const sectionEditarCategoria = document.getElementById('editar-categorias');
 //-------------------------------- Totales por categorías ---------------------------
 
 const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
-  console.log(operaciones)
-  console.log(arrayCategoriasDefault)
+  arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
+    const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
+    const porCategoriaGanancia = porCategoria.filter(operacion => operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0)
+    const porCategoriaGasto = porCategoria.filter(operacion => operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0)
+        
+    console.log(`La categoria ${arrayCategoriasDefault.categoria} ganancia es de ${porCategoriaGanancia}`)
+    console.log(`La categoria ${arrayCategoriasDefault.categoria} gasto es de ${porCategoriaGasto}`)
+
+    
+  })
 } 
+
+
+
 
 //-------------------------------- Totales por mes ---------------------------
 
@@ -594,16 +605,6 @@ const totalesPorMes = arr => {
   document.getElementById('totales-por-mes').innerHTML = str;
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // -------------------------------- INICIALIZACION DE FUNCIONES --------------------------------
