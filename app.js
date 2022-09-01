@@ -485,7 +485,7 @@ const limpiarInputCategoria = () => {
 };
 //-------BTN agregar categoria ------
 btnAgregarCategoria.addEventListener('click', () => {
-  console.log(btnAgregarCategoria)
+  // console.log(btnAgregarCategoria)
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
     id: uuidv4()
@@ -595,6 +595,14 @@ const totalesPorMes = arr => {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 8c0238a88fe391d078523c3704f470c28a19125c
 
 
 
