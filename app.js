@@ -483,7 +483,7 @@ const limpiarInputCategoria = () => {
 };
 //-------BTN agregar categoria ------
 btnAgregarCategoria.addEventListener('click', () => {
-  console.log(btnAgregarCategoria)
+  // console.log(btnAgregarCategoria)
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
     id: uuidv4()
@@ -501,7 +501,7 @@ imprimirCategorias(arrayCategoriasDefault)
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
 const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
-console.log(btnsEliminarCategoria)
+// console.log(btnsEliminarCategoria)
 
 // btnsEliminarCategoria.forEach((btn) => {
 //   btn.addEventListener('click', (e) => {
@@ -520,14 +520,14 @@ console.log(btnsEliminarCategoria)
 // -------------------------------- BTN Editar Categoria --------------------------------
 const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
 const sectionEditarCategoria = document.getElementById('editar-categorias');
-console.log(btnsEditarCategoria)
+// console.log(btnsEditarCategoria)
 
-btnsEditarCategoria.addEventListener('click', () => {
-  sectionEditarCategoria.classList.remove('oculto');
-  categorias.classList.add('oculto');
+// btnsEditarCategoria.addEventListener('click', () => {
+//   sectionEditarCategoria.classList.remove('oculto');
+//   categorias.classList.add('oculto');
   
 
-});
+// });
 
 
 
@@ -543,6 +543,7 @@ btnsEditarCategoria.addEventListener('click', () => {
 //-------------------------------- Totales por mes ---------------------------
 
 const totalesPorMes = arr => {
+  let totalPorMesBalance = 0;
   const mesesSinRepetir = [... new Set(arr.map(operacion => 
     operacion.fecha.split('-')[1]))].sort()
     // ...new Set es la sintáxis del método para crear una nueva copia (spread operator) ...new es porque es un constructor
@@ -551,6 +552,8 @@ const totalesPorMes = arr => {
     // .sort acomoda los nros de los meses por orden
   
   // Recorremos el arreglo de mesesSinRepetir y por cada mes vamos a filtrar los meses para obtener los montos
+  document.getElementById('totales-por-mes').innerHTML = '';
+  let str = ''
   for (let i = 0; i < mesesSinRepetir.length; i++) {
     const operacionesPorMes = arr.filter(operacion => 
       operacion.fecha.split('-')[1] === mesesSinRepetir[i]);
@@ -563,33 +566,33 @@ const totalesPorMes = arr => {
     // Devuelve el monto de gastos de cada mes
     // console.log(porTipoGanancia)
     // console.log(porTipoGasto)
+    totalPorMesBalance = porTipoGanancia - porTipoGasto
+    // console.log(mesesSinRepetir)
+   
+    str += `
+    <div class="row align-items-start">
+      <div class="col-3"> 
+        <p class="fw-semibold text-start">${mesesSinRepetir[i]}</p>
+      </div>
+      <div class="col-3"> 
+        <p class="fw-semibold text-end">${porTipoGanancia}</p>
+      </div>
+      <div class="col-3"> 
+        <p class="fw-semibold text-end">${porTipoGasto}</p>
+      </div>
+      <div class="col-3"> 
+        <p class="fw-semibold text-end">${Math.abs(totalPorMesBalance)}</p>
+      </div>
+    </div>
+    `;
+  document.getElementById('totales-por-mes').innerHTML = str;
   }
 }
 
-// NO FUNCIONA!!!!!!!!!!!!!!!!!!
 
-// const pintarTotalesPorMes = (arr) => {
-//   const totalPorMesBalance = porTipoGanancia(arr) - porTipoGasto(arr);
-//   let str = `
-//     <div class="row align-items-start">
-//       <div class="col-3"> 
-//         <p class="fw-semibold text-start">${operacionesPorMes}</p>
-//       </div>
-//       <div class="col-3"> 
-//         <p class="fw-semibold text-end">${porTipoGanancia}</p>
-//       </div>
-//       <div class="col-3"> 
-//         <p class="fw-semibold text-end">${porTipoGasto}</p>
-//       </div>
-//       <div class="col-3"> 
-//         <p class="fw-semibold text-end">${Math.abs(totalPorMesBalance)}</p>
-//       </div>
-//     </div>
-//     `;
-//   document.getElementById('totales-por-mes').innerHTML = str;
-// };
 
-// pintarTotalesPorMes(arr)
+
+
 
 
 
