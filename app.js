@@ -81,8 +81,10 @@ btnReportes.addEventListener('click', () => {
     conReportes.classList.remove('oculto')
     sinReportes.classList.add('oculto')
   }
-          // ------------ Reportes - Totales por mes  ------------
+          // ------------ Inicializaciones  ------------
   totalesPorMes(operaciones)
+  totalPorCategoria(operaciones, arrayCategoriasDefault)
+
 });
 
 
@@ -539,6 +541,10 @@ const sectionEditarCategoria = document.getElementById('editar-categorias');
 
 //-------------------------------- Totales por categorías ---------------------------
 
+const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+  console.log(operaciones)
+  console.log(arrayCategoriasDefault)
+} 
 
 //-------------------------------- Totales por mes ---------------------------
 
@@ -588,11 +594,6 @@ const totalesPorMes = arr => {
   document.getElementById('totales-por-mes').innerHTML = str;
   }
 }
-
-
-
-
-
 
 
 
