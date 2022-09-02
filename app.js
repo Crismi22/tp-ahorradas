@@ -121,10 +121,20 @@ const pintarBalance = (arr) => {
       </div>
       <div class="items align-middle">
       <p class="fs-5">Total</p>
-      <div class="fw-semibold">$${Math.abs(totalBalance)}</div>
+      <div class="fw-semibold">$${totalBalance}</div>
     </div>`
 
   document.getElementById('contenedor-balance-total').innerHTML = str;
+
+  const pintarColorTotalBalance = (arr) =>{
+    if(arr >= 1){
+    document.getElementById('totalBalance').classList.add('green');
+    }else if (arr <= -1){
+    document.getElementById('totalBalance').classList.add('red');
+    }
+  }
+
+  pintarColorTotalBalance(arr)
 }
 
 pintarBalance(operaciones)
@@ -221,9 +231,10 @@ const imprimirOperaciones = (arr) => {
                 <span class = 'col-2 fecha text-end'> ${fecha}</span>
                 <span class = 'col-2 font-size-item text-end ${tipo == 'ganancia' ? 'green' : 'red'}'>$${monto}</span>
                 <span class = 'col-2 font-size-item'>
-                <a class='btn-editar' data-id=${id} href='#'>Editar</a>
-                    <a class='btn-eliminar' data-id=${id} href='#'>Eliminar</a>
-                </span>
+                <div class='d-flex flex-column'>
+                  <a class='btn-editar text-end' data-id=${id} href='#'>Editar</a>
+                  <a class='btn-eliminar text-end' data-id=${id} href='#'>Eliminar</a>
+                </div>
             </div>
         </div>
         `;
@@ -492,23 +503,19 @@ btnAgregarCategoria.addEventListener('click', () => {
   alertify.message('Categoria agregada con éxito');
 })
 
-<<<<<<< HEAD
-imprimirCategorias(arrayCategoriasDefault)
-=======
   imprimirCategorias(arrayCategoriasDefault)
+
 // -------------------------------- BTN cancelar Categoria --------------------------------
+
   btnVolverVista1.addEventListener('click', () => {
     sectionEditarCategoria.classList.add('oculto');
     categorias.classList.add('oculto'); 
     balance.classList.remove('oculto');
   })
 
->>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
-
 // -------------------------------- BTN Eliminar Categoria --------------------------------
 const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
 // console.log(btnsEliminarCategoria)
-<<<<<<< HEAD
 
 // btnsEliminarCategoria.forEach((btn) => {
 //   btn.addEventListener('click', (e) => {
@@ -523,34 +530,6 @@ const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria
 //     alertify.error('Categoria eliminada con éxito');
 //   });
 // });
-
-// -------------------------------- BTN Editar Categoria --------------------------------
-const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
-const sectionEditarCategoria = document.getElementById('editar-categorias');
-// console.log(btnsEditarCategoria)
-
-// btnsEditarCategoria.addEventListener('click', () => {
-//   sectionEditarCategoria.classList.remove('oculto');
-//   categorias.classList.add('oculto');
-=======
-btnsEliminarCategoria.forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-   const aliminado = arrayCategoriasDefault.filter(
-    (categorias) => categorias.id !== e.target.dataset.id
-    );
-  localStorage.setItem('categorias', JSON.stringify(aliminado));
-  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
-  imprimirCategorias()
-  generarCategoria()
-  alertify.error('Categoria eliminada con éxito');
-  })
-})
-//hay que apretar f5 para actualizar el eliminado en los selects
-//asi tambien para actualizar con nuevas categorias
-//no permite agregar mas de una categoria sin actualizar
-//no permite eliminar dos categorias seguidas
-
- 
 
 //-------------------------------- BTN Editar Categoria --------------------------------
   const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
@@ -570,18 +549,7 @@ btnsEliminarCategoria.forEach((btn) => {
     sectionEditarCategoria.classList.add('oculto');
     categorias.classList.remove('oculto'); 
   })
-  
-  
->>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
-  
-
-// });
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
+ 
 
 ////////////////////////// SECTION REPORTES ////////////////////////////////
 
@@ -591,17 +559,10 @@ btnsEliminarCategoria.forEach((btn) => {
 
 //-------------------------------- Totales por categorías ---------------------------
 
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+  let str = ''
   let totalesPorCategoriaBalance = 0;
   document.getElementById('totales-por-categoria').innerHTML = '';
-  let str = ''
   arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
     const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
     const porCategoriaGanancia = porCategoria.filter(operacion => operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0)
@@ -610,41 +571,29 @@ const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
     //console.log(`La categoria ${arrayCategoriasDefault.categoria} gasto es de ${porCategoriaGasto}`)    
     totalesPorCategoriaBalance = porCategoriaGanancia - porCategoriaGasto;
 
-    str += `
-    <div class="row align-items-start">
-    <div class="col-3"> 
-        <p class="fw-semibold text-start">${arrayCategoriasDefault.categoria}</p>
+    if(porCategoriaGanancia > 0 || porCategoriaGasto > 0){
+      str += `
+      <div class="row align-items-start">
+        <div class="col-3"> 
+          <p class="fw-semibold text-start">${arrayCategoriasDefault.categoria}</p>
+        </div>
+        <div class="col-3"> 
+          <p class="text-end text-success">+$${porCategoriaGanancia}</p>
+        </div>
+        <div class="col-3"> 
+          <p class="text-end text-danger">-$${porCategoriaGasto}</p>
+        </div>
+        <div class="col-3"> 
+          <p class="text-end">$${totalesPorCategoriaBalance}</p>
+        </div>
       </div>
-      <div class="col-3"> 
-        <p class="text-end text-success">+$${porCategoriaGanancia}</p>
-      </div>
-      <div class="col-3"> 
-        <p class="text-end text-danger">-$${porCategoriaGasto}</p>
-      </div>
-      <div class="col-3"> 
-        <p class="text-end">$${Math.abs(totalesPorCategoriaBalance)}</p>
-      </div>
-    </div>
-    `;
+      `;
+    }
+
   document.getElementById('totales-por-categoria').innerHTML = str;
-
+    
   })
-} 
-<<<<<<< HEAD
-=======
-
-// const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
-//   console.log(operaciones)
-//   console.log(arrayCategoriasDefault)
-// } 
-
-
-
-
-
->>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
-
-
+}  
 
 
 //-------------------------------- Totales por mes ---------------------------
@@ -653,32 +602,22 @@ const totalesPorMes = arr => {
   let totalPorMesBalance = 0;
   const mesesSinRepetir = [... new Set(arr.map(operacion => 
     operacion.fecha.split('-')[1]))].sort()
-    // ...new Set es la sintáxis del método para crear una nueva copia (spread operator) ...new es porque es un constructor
-    // .map devuelve un nuevo arr con lo que le pedimos en strings (x cada operacion le saque la posicion 1(la 0 es el dia, la 1 el mes y la 3 el año)), no modifica el arr original 
-    // new Set quita los repetidos
-    // .sort acomoda los nros de los meses por orden
   
-  // Recorremos el arreglo de mesesSinRepetir y por cada mes vamos a filtrar los meses para obtener los montos
   document.getElementById('totales-por-mes').innerHTML = '';
   let str = ''
   for (let i = 0; i < mesesSinRepetir.length; i++) {
     const operacionesPorMes = arr.filter(operacion => 
       operacion.fecha.split('-')[1] === mesesSinRepetir[i]);
-    //.split genera un nuevo arreglo que toma operacion.fecha: ["20", "05", "2022"] y le decimos que nos retorne la porsicion 1 [1] dándonos un "05"!!!
     const porTipoGanancia = operacionesPorMes.filter(operacion => 
       operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0);
-    // Devuelve el monto de ganancia de cada mes
     const porTipoGasto = operacionesPorMes.filter(operacion => 
       operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0);
-    // Devuelve el monto de gastos de cada mes
-    // console.log(porTipoGanancia)
-    // console.log(porTipoGasto)
+
     totalPorMesBalance = porTipoGanancia - porTipoGasto
-    // console.log(mesesSinRepetir)
    
     str += `
     <div class="row align-items-start">
-    <div class="col-3"> 
+      <div class="col-3"> 
         <p class="fw-semibold text-start">${mesesSinRepetir[i]}</p>
       </div>
       <div class="col-3"> 
@@ -688,16 +627,14 @@ const totalesPorMes = arr => {
         <p class="text-end text-danger">-$${porTipoGasto}</p>
       </div>
       <div class="col-3"> 
-        <p class="text-end">$${Math.abs(totalPorMesBalance)}</p>
+        <p class="text-end">$${totalPorMesBalance}</p>
       </div>
     </div>
     `;
+
   document.getElementById('totales-por-mes').innerHTML = str;
   }
-<<<<<<< HEAD
 }
-=======
->>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
