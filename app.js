@@ -334,16 +334,7 @@ const filtroTipo = document.getElementById('tipo-filtros');
 const filtroCategoria = document.getElementById('filtro-categoria');
 const filtroFecha = document.getElementById('filtro-fecha');
 const filtroOrden = document.getElementById('filtro-ordenar');
-// selectFiltros.addEventListener('change', (e) => {
-//   if(e.target.value !== 'todos'){
-//     const xTipo = operaciones.filter(operacion => operacion.tipo === e.target.value)//nos retorna un nuevo arreglo que cumpla una condicion ya sea ganancia o gasto
-//     localStorage.setItem('operaciones', xTipo)//guarda el arreglo con lo filtrado
-//     imprimirOperaciones(xTipo)
-//     // console.log(xTipo)
-//   }else {
-//     imprimirOperaciones(operaciones)
-//   }
-// })//NO FILTRA GASTO SOLO GANANCIA Y TODOS
+
 
 //-------------------------------- Filtros categoria ---------------------------
 const filtros = (e) => {
@@ -505,13 +496,12 @@ generarCategoria();
 
   imprimirCategorias(arrayCategoriasDefault)
 // -------------------------------- BTN cancelar Categoria --------------------------------
-  // btnVolverVista1.forEach((e) => {
-  //   btnVolverVista1.addEventListener('click', (e) => {
-  //     sectionEditarCategoria.classList.add('oculto');
-  //     categorias.classList.add('oculto'); 
-  //     balance.classList.remove('oculto');
-  //   })
-  // });
+  btnVolverVista1.addEventListener('click', () => {
+    sectionEditarCategoria.classList.add('oculto');
+    categorias.classList.add('oculto'); 
+    balance.classList.remove('oculto');
+  })
+
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
 const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
@@ -519,16 +509,19 @@ const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria
 btnsEliminarCategoria.forEach((btn) => {
   btn.addEventListener('click', (e) => {
    const aliminado = arrayCategoriasDefault.filter(
-    (categoria) => categoria.id !== e.target.dataset.id
+    (categorias) => categorias.id !== e.target.dataset.id
     );
   localStorage.setItem('categorias', JSON.stringify(aliminado));
   arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
   imprimirCategorias()
   generarCategoria()
+  alertify.error('Categoria eliminada con éxito');
   })
 })
 //hay que apretar f5 para actualizar el eliminado en los selects
 //asi tambien para actualizar con nuevas categorias
+//no permite agregar mas de una categoria sin actualizar
+//no permite eliminar dos categorias seguidas
 
  
 
@@ -543,22 +536,20 @@ btnsEliminarCategoria.forEach((btn) => {
       sectionEditarCategoria.classList.remove('oculto');
       categorias.classList.add('oculto');
     })
-  }
-  )
+  })
+
 // -------------------------------- BTN cancelar edicion Categoria --------------------------------
-  // btnCancelarEdicionCategoria.forEach((btn) => {
-  //   btn.addEventListener('click', (e) => {
-  //     sectionEditarCategoria.classList.add('oculto');
-  //     categorias.classList.remove('oculto'); 
-  //   } )
-  // })
+  btnCancelarEdicionCategoria.addEventListener('click', () => {
+    sectionEditarCategoria.classList.add('oculto');
+    categorias.classList.remove('oculto'); 
+  })
   
   
   
 
 
 
-// generarCategoria();
+
 
 ////////////////////////// SECTION REPORTES ////////////////////////////////
 
