@@ -495,6 +495,9 @@ generarCategoria();
   })
 
   imprimirCategorias(arrayCategoriasDefault)
+
+
+
 // -------------------------------- BTN cancelar Categoria --------------------------------
   btnVolverVista1.addEventListener('click', () => {
     sectionEditarCategoria.classList.add('oculto');
@@ -530,13 +533,38 @@ btnsEliminarCategoria.forEach((btn) => {
   const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
   const sectionEditarCategoria = document.getElementById('editar-categorias');
   console.log(btnsEditarCategoria)
+  const inputEditarCategoria = document.getElementById('editar-categoria');
+  const btnAgregarCategoriaEditada = document.getElementById('btn-editar-categoria');
 
+//----BTN que lleva a editar categoria ----//
   btnsEditarCategoria.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       sectionEditarCategoria.classList.remove('oculto');
       categorias.classList.add('oculto');
-    })
-  })
+      categoriasEditadas = arrayCategoriasDefault.filter(
+        (categorias) => categorias.id === e.target.dataset.id
+      );
+      categoriaParaEditar(categoriasEditadas)
+    });
+  });
+  btnAgregarCategoriaEditada.addEventListener('click', () => {
+    console.log(categoriasEditadas)
+
+    const nuevasCategorias = {
+      ...categoriasEditadas[0]
+    };
+    nuevasCategorias.value;
+    categorias.classList.remove('oculto');
+    sectionEditarCategoria.classList.add('oculto');
+    const actualizada = arrayCategoriasDefault.map(
+      (categorias) => categorias.id === categoriasEditadas.id ? categoriasEditadas : categorias);
+
+    localStorage.setItem('categorias', JSON.stringify(actualizada));
+    arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+    imprimirCategorias(arrayCategoriasDefault)
+    alertify.message('Categoria editada');
+  });
+ 
 
 // -------------------------------- BTN cancelar edicion Categoria --------------------------------
   btnCancelarEdicionCategoria.addEventListener('click', () => {
