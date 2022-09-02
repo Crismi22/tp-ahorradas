@@ -334,16 +334,7 @@ const filtroTipo = document.getElementById('tipo-filtros');
 const filtroCategoria = document.getElementById('filtro-categoria');
 const filtroFecha = document.getElementById('filtro-fecha');
 const filtroOrden = document.getElementById('filtro-ordenar');
-// selectFiltros.addEventListener('change', (e) => {
-//   if(e.target.value !== 'todos'){
-//     const xTipo = operaciones.filter(operacion => operacion.tipo === e.target.value)//nos retorna un nuevo arreglo que cumpla una condicion ya sea ganancia o gasto
-//     localStorage.setItem('operaciones', xTipo)//guarda el arreglo con lo filtrado
-//     imprimirOperaciones(xTipo)
-//     // console.log(xTipo)
-//   }else {
-//     imprimirOperaciones(operaciones)
-//   }
-// })//NO FILTRA GASTO SOLO GANANCIA Y TODOS
+
 
 //-------------------------------- Filtros categoria ---------------------------
 const filtros = (e) => {
@@ -408,6 +399,7 @@ filtroOrden.addEventListener('change', filtros)
 
 // --------------------------------------------------------------------------------------
 const btnAgregarCategoria = document.getElementById('btn-agregar-categoria');
+const btnVolverVista1 = document.getElementById('btn-regresar');
 const categoriaInput = document.getElementById('categoria-input');
 
 
@@ -445,6 +437,7 @@ const generarCategoria = () => {
   const selects = document.getElementsByClassName('select-categoria');
   for(let i = 0; i < selects.length; i++){
     const select = selects[i];
+    select.innerHTML = '';
     if(select.classList.contains('filtro-categoria')){
         select.innerHTML = '<option>Todas</option>'        
       }
@@ -499,11 +492,23 @@ btnAgregarCategoria.addEventListener('click', () => {
   alertify.message('Categoria agregada con éxito');
 })
 
+<<<<<<< HEAD
 imprimirCategorias(arrayCategoriasDefault)
+=======
+  imprimirCategorias(arrayCategoriasDefault)
+// -------------------------------- BTN cancelar Categoria --------------------------------
+  btnVolverVista1.addEventListener('click', () => {
+    sectionEditarCategoria.classList.add('oculto');
+    categorias.classList.add('oculto'); 
+    balance.classList.remove('oculto');
+  })
+
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
 const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
 // console.log(btnsEliminarCategoria)
+<<<<<<< HEAD
 
 // btnsEliminarCategoria.forEach((btn) => {
 //   btn.addEventListener('click', (e) => {
@@ -527,11 +532,56 @@ const sectionEditarCategoria = document.getElementById('editar-categorias');
 // btnsEditarCategoria.addEventListener('click', () => {
 //   sectionEditarCategoria.classList.remove('oculto');
 //   categorias.classList.add('oculto');
+=======
+btnsEliminarCategoria.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+   const aliminado = arrayCategoriasDefault.filter(
+    (categorias) => categorias.id !== e.target.dataset.id
+    );
+  localStorage.setItem('categorias', JSON.stringify(aliminado));
+  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+  imprimirCategorias()
+  generarCategoria()
+  alertify.error('Categoria eliminada con éxito');
+  })
+})
+//hay que apretar f5 para actualizar el eliminado en los selects
+//asi tambien para actualizar con nuevas categorias
+//no permite agregar mas de una categoria sin actualizar
+//no permite eliminar dos categorias seguidas
+
+ 
+
+//-------------------------------- BTN Editar Categoria --------------------------------
+  const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
+  const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
+  const sectionEditarCategoria = document.getElementById('editar-categorias');
+  console.log(btnsEditarCategoria)
+
+  btnsEditarCategoria.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      sectionEditarCategoria.classList.remove('oculto');
+      categorias.classList.add('oculto');
+    })
+  })
+
+// -------------------------------- BTN cancelar edicion Categoria --------------------------------
+  btnCancelarEdicionCategoria.addEventListener('click', () => {
+    sectionEditarCategoria.classList.add('oculto');
+    categorias.classList.remove('oculto'); 
+  })
+  
+  
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
   
 
 // });
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 ////////////////////////// SECTION REPORTES ////////////////////////////////
 
@@ -541,6 +591,13 @@ const sectionEditarCategoria = document.getElementById('editar-categorias');
 
 //-------------------------------- Totales por categorías ---------------------------
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
   let totalesPorCategoriaBalance = 0;
   document.getElementById('totales-por-categoria').innerHTML = '';
@@ -573,6 +630,19 @@ const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
 
   })
 } 
+<<<<<<< HEAD
+=======
+
+// const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+//   console.log(operaciones)
+//   console.log(arrayCategoriasDefault)
+// } 
+
+
+
+
+
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 
 
@@ -624,7 +694,10 @@ const totalesPorMes = arr => {
     `;
   document.getElementById('totales-por-mes').innerHTML = str;
   }
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
