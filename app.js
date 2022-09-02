@@ -118,8 +118,8 @@ const pintarBalance = (arr) => {
     <div class="items">
       <p>Gastos</p>
       <div class="text-danger">-$${totalGastos(arr)}</div>
-    </div>
-    <div class="items align-middle">
+      </div>
+      <div class="items align-middle">
       <p class="fs-5">Total</p>
       <div class="fw-semibold">$${Math.abs(totalBalance)}</div>
     </div>`
@@ -221,7 +221,7 @@ const imprimirOperaciones = (arr) => {
                 <span class = 'col-2 fecha text-end'> ${fecha}</span>
                 <span class = 'col-2 font-size-item text-end ${tipo == 'ganancia' ? 'green' : 'red'}'>$${monto}</span>
                 <span class = 'col-2 font-size-item'>
-                    <a class='btn-editar' data-id=${id} href='#'>Editar</a>
+                <a class='btn-editar' data-id=${id} href='#'>Editar</a>
                     <a class='btn-eliminar' data-id=${id} href='#'>Eliminar</a>
                 </span>
             </div>
@@ -405,35 +405,35 @@ const categoriaInput = document.getElementById('categoria-input');
 
 // ARREGLO DE CATEGORIAS - lo que agreguemos en Categorías se tiene que completar en todos los selects
 let arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias')) || [
-    {
-      categoria: "Comida",
-      id: uuidv4(),
-    },
-    {
-      categoria: "Servicios",
-      id: uuidv4(),
-    },
-    {
-      categoria: "Salidas",
-      id: uuidv4(),
-    },
-    {
-      categoria: "Educacion",
-      id: uuidv4(),
-    },
-    {
-      categoria: "Transporte",
-      id: uuidv4(),
-    },
-    {
-      categoria: "Trabajo",
-      id: uuidv4(),
-    },
-  ];
+  {
+    categoria: "Comida",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Servicios",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Salidas",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Educacion",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Transporte",
+    id: uuidv4(),
+  },
+  {
+    categoria: "Trabajo",
+    id: uuidv4(),
+  },
+];
 localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //acá guarda los objetos dentro de una variable local 
 
 //para filtros
-  const generarCategoria = () => {
+const generarCategoria = () => {
   const selects = document.getElementsByClassName('select-categoria');
   for(let i = 0; i < selects.length; i++){
     const select = selects[i];
@@ -445,21 +445,20 @@ localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //ac
         select.innerHTML += `<option value=${arrayCategoriasDefault[j].categoria}>${arrayCategoriasDefault[j].categoria}</option>`       
       }
     }
-  }
+}
 generarCategoria();
 
 
-  const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
-
-  const imprimirCategorias = () => {
+const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
+const imprimirCategorias = () => {
   let str = '';
   arr = JSON.parse(localStorage.getItem('categorias'));
   if(arr != null){
     arr.forEach((arrayCategoriasDefault) =>{
       const {id, categoria} = arrayCategoriasDefault;
       str = str += `
-        <div class='mi-flex justify-content-between aling-items-start'>
-          <div class="estilo-categorias">${categoria}</div>
+      <div class='mi-flex justify-content-between aling-items-start'>
+          <div>${categoria}</div>
           <div>
             <a href="#" class="btn-editar-categoria me-2" data-id=${id}>Editar</a>
             <a href="#" class="btn-eliminar-categoria" data-id=${id}>Eliminar</a> 
@@ -470,15 +469,15 @@ generarCategoria();
   })
   document.getElementById('lista-categorias').innerHTML = str; 
   }
-  }
-  imprimirCategorias();
+}
+imprimirCategorias();
 
 //---Vaciar input categoria---
-  const limpiarInputCategoria = () => {
+const limpiarInputCategoria = () => {
   categoriaInput.value = '';
-  };
+};
 //-------BTN agregar categoria ------
-  btnAgregarCategoria.addEventListener('click', () => {
+btnAgregarCategoria.addEventListener('click', () => {
   // console.log(btnAgregarCategoria)
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
@@ -489,11 +488,13 @@ generarCategoria();
   localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault))
   arrayCategoriasDefault = JSON.parse(localStorage.getItem(categorias))
   imprimirCategorias(arrayCategoriasDefault)
-  limpiarInputCategoria()
-   //al agregar la nueva categoria y hacer click en agregar se vacia el input.
+  limpiarInputCategoria() //al agregar la nueva categoria y hacer click en agregar se vacia el input.
   alertify.message('Categoria agregada con éxito');
-  })
+})
 
+<<<<<<< HEAD
+imprimirCategorias(arrayCategoriasDefault)
+=======
   imprimirCategorias(arrayCategoriasDefault)
 
 
@@ -505,10 +506,36 @@ generarCategoria();
     balance.classList.remove('oculto');
   })
 
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
 const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
 // console.log(btnsEliminarCategoria)
+<<<<<<< HEAD
+
+// btnsEliminarCategoria.forEach((btn) => {
+//   btn.addEventListener('click', (e) => {
+//     const eliminarCategoriaOperacion = e.target.value //busca el valor de la categoria en las operaciones para eliminar
+
+//     const categoriaEliminada = arrayCategoriasDefault.filter(
+//       (categorias) =>categorias.id !== e.target.dataset.id
+//     );
+//     localStorage.setItem('arrayCategoriasDefault', JSON.stringify(categoriaEliminada));
+//     operaciones = JSON.parse(localStorage.getItem('arrayCategoriasDefault'));
+//     imprimirCategorias(arrayCategoriasDefault);
+//     alertify.error('Categoria eliminada con éxito');
+//   });
+// });
+
+// -------------------------------- BTN Editar Categoria --------------------------------
+const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
+const sectionEditarCategoria = document.getElementById('editar-categorias');
+// console.log(btnsEditarCategoria)
+
+// btnsEditarCategoria.addEventListener('click', () => {
+//   sectionEditarCategoria.classList.remove('oculto');
+//   categorias.classList.add('oculto');
+=======
 btnsEliminarCategoria.forEach((btn) => {
   btn.addEventListener('click', (e) => {
    const aliminado = arrayCategoriasDefault.filter(
@@ -573,11 +600,16 @@ btnsEliminarCategoria.forEach((btn) => {
   })
   
   
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
   
 
+// });
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 ////////////////////////// SECTION REPORTES ////////////////////////////////
 
@@ -587,22 +619,47 @@ btnsEliminarCategoria.forEach((btn) => {
 
 //-------------------------------- Totales por categorías ---------------------------
 
+<<<<<<< HEAD
+=======
 
 
 
 
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+  let totalesPorCategoriaBalance = 0;
+  document.getElementById('totales-por-categoria').innerHTML = '';
+  let str = ''
   arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
     const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
     const porCategoriaGanancia = porCategoria.filter(operacion => operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0)
     const porCategoriaGasto = porCategoria.filter(operacion => operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0)
-        
-    console.log(`La categoria ${arrayCategoriasDefault.categoria} ganancia es de ${porCategoriaGanancia}`)
-    console.log(`La categoria ${arrayCategoriasDefault.categoria} gasto es de ${porCategoriaGasto}`)
+    // console.log(`La categoria ${arrayCategoriasDefault.categoria} ganancia es de ${porCategoriaGanancia}`)
+    //console.log(`La categoria ${arrayCategoriasDefault.categoria} gasto es de ${porCategoriaGasto}`)    
+    totalesPorCategoriaBalance = porCategoriaGanancia - porCategoriaGasto;
 
-    
+    str += `
+    <div class="row align-items-start">
+    <div class="col-3"> 
+        <p class="fw-semibold text-start">${arrayCategoriasDefault.categoria}</p>
+      </div>
+      <div class="col-3"> 
+        <p class="text-end text-success">+$${porCategoriaGanancia}</p>
+      </div>
+      <div class="col-3"> 
+        <p class="text-end text-danger">-$${porCategoriaGasto}</p>
+      </div>
+      <div class="col-3"> 
+        <p class="text-end">$${Math.abs(totalesPorCategoriaBalance)}</p>
+      </div>
+    </div>
+    `;
+  document.getElementById('totales-por-categoria').innerHTML = str;
+
   })
 } 
+<<<<<<< HEAD
+=======
 
 // const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
 //   console.log(operaciones)
@@ -613,6 +670,7 @@ const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
 
 
 
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 
 
@@ -648,23 +706,26 @@ const totalesPorMes = arr => {
    
     str += `
     <div class="row align-items-start">
-      <div class="col-3"> 
+    <div class="col-3"> 
         <p class="fw-semibold text-start">${mesesSinRepetir[i]}</p>
       </div>
       <div class="col-3"> 
-        <p class="fw-semibold text-end">${porTipoGanancia}</p>
+        <p class="text-end text-success">+$${porTipoGanancia}</p>
       </div>
       <div class="col-3"> 
-        <p class="fw-semibold text-end">${porTipoGasto}</p>
+        <p class="text-end text-danger">-$${porTipoGasto}</p>
       </div>
       <div class="col-3"> 
-        <p class="fw-semibold text-end">${Math.abs(totalPorMesBalance)}</p>
+        <p class="text-end">$${Math.abs(totalPorMesBalance)}</p>
       </div>
     </div>
     `;
   document.getElementById('totales-por-mes').innerHTML = str;
-    }
   }
+<<<<<<< HEAD
+}
+=======
+>>>>>>> 83af839ec11c7a2098f8cbbd497e30cea5950ad5
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
