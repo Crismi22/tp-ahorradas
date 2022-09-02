@@ -569,6 +569,9 @@ btnsEliminarCategoria.forEach((btn) => {
 //-------------------------------- Totales por categorías ---------------------------
 
 
+
+
+
 const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
   arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
     const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
@@ -581,10 +584,15 @@ const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
     
   })
 } 
+
 // const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
 //   console.log(operaciones)
 //   console.log(arrayCategoriasDefault)
 // } 
+
+
+
+
 
 
 
@@ -638,18 +646,6 @@ const totalesPorMes = arr => {
   document.getElementById('totales-por-mes').innerHTML = str;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
