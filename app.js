@@ -656,6 +656,19 @@ const totalesPorMes = arr => {
   document.getElementById('totales-por-mes').innerHTML = str;
     }
   }
+<<<<<<< HEAD
+=======
+}
+
+
+
+
+
+
+
+
+
+>>>>>>> a17c73316d9a16e8e23ac780a63d1a4b19edd163
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // -------------------------------- INICIALIZACION DE FUNCIONES --------------------------------
