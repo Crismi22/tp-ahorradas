@@ -413,35 +413,35 @@ const categoriaInput = document.getElementById('categoria-input');
 
 // ARREGLO DE CATEGORIAS - lo que agreguemos en Categorías se tiene que completar en todos los selects
 let arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias')) || [
-  {
-    categoria: "Comida",
-    id: uuidv4(),
-  },
-  {
-    categoria: "Servicios",
-    id: uuidv4(),
-  },
-  {
-    categoria: "Salidas",
-    id: uuidv4(),
-  },
-  {
-    categoria: "Educacion",
-    id: uuidv4(),
-  },
-  {
-    categoria: "Transporte",
-    id: uuidv4(),
-  },
-  {
-    categoria: "Trabajo",
-    id: uuidv4(),
-  },
-];
+    {
+      categoria: "Comida",
+      id: uuidv4(),
+    },
+    {
+      categoria: "Servicios",
+      id: uuidv4(),
+    },
+    {
+      categoria: "Salidas",
+      id: uuidv4(),
+    },
+    {
+      categoria: "Educacion",
+      id: uuidv4(),
+    },
+    {
+      categoria: "Transporte",
+      id: uuidv4(),
+    },
+    {
+      categoria: "Trabajo",
+      id: uuidv4(),
+    },
+  ];
 localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //acá guarda los objetos dentro de una variable local 
 
 //para filtros
-const generarCategoria = () => {
+  const generarCategoria = () => {
   const selects = document.getElementsByClassName('select-categoria');
   for(let i = 0; i < selects.length; i++){
     const select = selects[i];
@@ -452,12 +452,13 @@ const generarCategoria = () => {
         select.innerHTML += `<option value=${arrayCategoriasDefault[j].categoria}>${arrayCategoriasDefault[j].categoria}</option>`       
       }
     }
-}
+  }
 generarCategoria();
 
 
-const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
-const imprimirCategorias = () => {
+  const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
+
+  const imprimirCategorias = () => {
   let str = '';
   arr = JSON.parse(localStorage.getItem('categorias'));
   if(arr != null){
@@ -465,7 +466,7 @@ const imprimirCategorias = () => {
       const {id, categoria} = arrayCategoriasDefault;
       str = str += `
         <div class='mi-flex justify-content-between aling-items-start'>
-          <div>${categoria}</div>
+          <div class="estilo-categorias">${categoria}</div>
           <div>
             <a href="#" class="btn-editar-categoria me-2" data-id=${id}>Editar</a>
             <a href="#" class="btn-eliminar-categoria" data-id=${id}>Eliminar</a> 
@@ -476,15 +477,15 @@ const imprimirCategorias = () => {
   })
   document.getElementById('lista-categorias').innerHTML = str; 
   }
-}
-imprimirCategorias();
+  }
+  imprimirCategorias();
 
 //---Vaciar input categoria---
-const limpiarInputCategoria = () => {
+  const limpiarInputCategoria = () => {
   categoriaInput.value = '';
-};
+  };
 //-------BTN agregar categoria ------
-btnAgregarCategoria.addEventListener('click', () => {
+  btnAgregarCategoria.addEventListener('click', () => {
   // console.log(btnAgregarCategoria)
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
@@ -495,43 +496,86 @@ btnAgregarCategoria.addEventListener('click', () => {
   localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault))
   arrayCategoriasDefault = JSON.parse(localStorage.getItem(categorias))
   imprimirCategorias(arrayCategoriasDefault)
-  limpiarInputCategoria() //al agregar la nueva categoria y hacer click en agregar se vacia el input.
+  limpiarInputCategoria()
+   //al agregar la nueva categoria y hacer click en agregar se vacia el input.
   alertify.message('Categoria agregada con éxito');
-})
+  })
 
-imprimirCategorias(arrayCategoriasDefault)
+  imprimirCategorias(arrayCategoriasDefault)
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
-const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
+  const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
 // console.log(btnsEliminarCategoria)
+  // const eliminarCategoria = (arr, e, operaciones) => {
+  // const buscarCategoria = arr.find(
+  //   (categorias) = categorias.id === e.target.dataset.id
+  // ).categoria
+  // const eliminarCategoria = arr.filter(
+  //   (categorias) => categorias.id !== e.target.dataset.id
+  // );
+  // const eliminarOperacionVinculada = operaciones.filter(
+  //   (operaciones) => operaciones.categoria !== buscarCategoria
+  // );
+  // console.log(eliminarOperacionVinculada)
+  // listaDeoperacionesActualizada(eliminarCategoria, eliminarOperacionVinculada)
+  // };
+  // const listaDeoperacionesActualizada = (arrayCategoriasDefault, operaciones) => {
+  // localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault));
+  // imprimirCategorias(categorias);
+  // generarCategoria(categorias);
+  // localStorage.setItem('operaciones', JSON.stringify(operaciones));
+  // operaciones = JSON.parse(localStorage.getItem('operaciones'));
+  // imprimirOperaciones(operaciones);
+  // verOperaciones(operaciones);
+  // };
 
-// btnsEliminarCategoria.forEach((btn) => {
-//   btn.addEventListener('click', (e) => {
-//     const eliminarCategoriaOperacion = e.target.value //busca el valor de la categoria en las operaciones para eliminar
+  // btnsEliminarCategoria.forEach((btn) => {
+  //   btn.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     eliminarCategoria(categorias, e, operaciones);
+  //   })
+  // }
 
-//     const categoriaEliminada = arrayCategoriasDefault.filter(
-//       (categorias) =>categorias.id !== e.target.dataset.id
-//     );
-//     localStorage.setItem('arrayCategoriasDefault', JSON.stringify(categoriaEliminada));
-//     operaciones = JSON.parse(localStorage.getItem('arrayCategoriasDefault'));
-//     imprimirCategorias(arrayCategoriasDefault);
-//     alertify.error('Categoria eliminada con éxito');
-//   });
-// });
+  // )
 
-// -------------------------------- BTN Editar Categoria --------------------------------
-const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
-const sectionEditarCategoria = document.getElementById('editar-categorias');
-// console.log(btnsEditarCategoria)
+  // imprimirCategorias(categorias);
 
-// btnsEditarCategoria.addEventListener('click', () => {
-//   sectionEditarCategoria.classList.remove('oculto');
-//   categorias.classList.add('oculto');
+  btnsEliminarCategoria.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const categoriaParaEliminar = e.target.value //busca el valor de la categoria en las operaciones para eliminar
+
+      const categoriaEliminada = arrayCategoriasDefault.filter(
+        (categorias) =>categorias.id !== e.target.dataset.id
+      );
+      localStorage.setItem('arrayCategoriasDefault', JSON.stringify(categoriaEliminada));
+      arrayCategoriasDefault = JSON.parse(localStorage.getItem('arrayCategoriasDefault'));
+      imprimirCategorias(arrayCategoriasDefault);
+      generarCategoria(categorias);
+      alertify.error('Categoria eliminada con éxito');
+  });
+});
+
+//-------------------------------- BTN Editar Categoria --------------------------------
+  const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
+  const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
+  const sectionEditarCategoria = document.getElementById('editar-categorias');
+  console.log(btnsEditarCategoria)
+
+  btnsEditarCategoria.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      sectionEditarCategoria.classList.remove('oculto');
+      categorias.classList.add('oculto');
+    })
+  }
+  )
+
+  
+  
   
 
-// });
 
 
+// generarCategoria();
 
 ////////////////////////// SECTION REPORTES ////////////////////////////////
 
@@ -541,10 +585,10 @@ const sectionEditarCategoria = document.getElementById('editar-categorias');
 
 //-------------------------------- Totales por categorías ---------------------------
 
-const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
-  console.log(operaciones)
-  console.log(arrayCategoriasDefault)
-} 
+// const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+//   console.log(operaciones)
+//   console.log(arrayCategoriasDefault)
+// } 
 
 //-------------------------------- Totales por mes ---------------------------
 
@@ -592,8 +636,8 @@ const totalesPorMes = arr => {
     </div>
     `;
   document.getElementById('totales-por-mes').innerHTML = str;
+    }
   }
-}
 
 
 

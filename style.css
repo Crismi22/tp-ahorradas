@@ -198,6 +198,15 @@ SECTION CATEGORIAS
     padding-bottom: 1%;
 }
 
+.estilo-categorias{
+    font-size: 1rem;
+    color: rgb(228 215 240);
+    background-color: rgb(108 117 125);
+    padding: 3px;
+    border-radius: 3px;
+    margin: .3em;
+}
+
 .contenedor-nueva-categoria{
     display: flex;
     width: 100%;
