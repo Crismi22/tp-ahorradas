@@ -83,7 +83,7 @@ btnReportes.addEventListener('click', () => {
   }
           // ------------ Inicializaciones  ------------
   totalesPorMes(operaciones)
-  totalPorCategoria(operaciones, arrayCategoriasDefault)
+  totalesPorCategoria(operaciones, arrayCategoriasDefault)
 
 });
 
@@ -408,6 +408,7 @@ filtroOrden.addEventListener('change', filtros)
 
 // --------------------------------------------------------------------------------------
 const btnAgregarCategoria = document.getElementById('btn-agregar-categoria');
+const btnVolverVista1 = document.getElementById('btn-regresar');
 const categoriaInput = document.getElementById('categoria-input');
 
 
@@ -445,6 +446,7 @@ localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //ac
   const selects = document.getElementsByClassName('select-categoria');
   for(let i = 0; i < selects.length; i++){
     const select = selects[i];
+    select.innerHTML = '';
     if(select.classList.contains('filtro-categoria')){
         select.innerHTML = '<option>Todas</option>'        
       }
@@ -502,58 +504,33 @@ generarCategoria();
   })
 
   imprimirCategorias(arrayCategoriasDefault)
+// -------------------------------- BTN cancelar Categoria --------------------------------
+  // btnVolverVista1.forEach((e) => {
+  //   btnVolverVista1.addEventListener('click', (e) => {
+  //     sectionEditarCategoria.classList.add('oculto');
+  //     categorias.classList.add('oculto'); 
+  //     balance.classList.remove('oculto');
+  //   })
+  // });
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
-  const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
+const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
 // console.log(btnsEliminarCategoria)
-  // const eliminarCategoria = (arr, e, operaciones) => {
-  // const buscarCategoria = arr.find(
-  //   (categorias) = categorias.id === e.target.dataset.id
-  // ).categoria
-  // const eliminarCategoria = arr.filter(
-  //   (categorias) => categorias.id !== e.target.dataset.id
-  // );
-  // const eliminarOperacionVinculada = operaciones.filter(
-  //   (operaciones) => operaciones.categoria !== buscarCategoria
-  // );
-  // console.log(eliminarOperacionVinculada)
-  // listaDeoperacionesActualizada(eliminarCategoria, eliminarOperacionVinculada)
-  // };
-  // const listaDeoperacionesActualizada = (arrayCategoriasDefault, operaciones) => {
-  // localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault));
-  // imprimirCategorias(categorias);
-  // generarCategoria(categorias);
-  // localStorage.setItem('operaciones', JSON.stringify(operaciones));
-  // operaciones = JSON.parse(localStorage.getItem('operaciones'));
-  // imprimirOperaciones(operaciones);
-  // verOperaciones(operaciones);
-  // };
+btnsEliminarCategoria.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+   const aliminado = arrayCategoriasDefault.filter(
+    (categoria) => categoria.id !== e.target.dataset.id
+    );
+  localStorage.setItem('categorias', JSON.stringify(aliminado));
+  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+  imprimirCategorias()
+  generarCategoria()
+  })
+})
+//hay que apretar f5 para actualizar el eliminado en los selects
+//asi tambien para actualizar con nuevas categorias
 
-  // btnsEliminarCategoria.forEach((btn) => {
-  //   btn.addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     eliminarCategoria(categorias, e, operaciones);
-  //   })
-  // }
-
-  // )
-
-  // imprimirCategorias(categorias);
-
-  btnsEliminarCategoria.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const categoriaParaEliminar = e.target.value //busca el valor de la categoria en las operaciones para eliminar
-
-      const categoriaEliminada = arrayCategoriasDefault.filter(
-        (categorias) =>categorias.id !== e.target.dataset.id
-      );
-      localStorage.setItem('arrayCategoriasDefault', JSON.stringify(categoriaEliminada));
-      arrayCategoriasDefault = JSON.parse(localStorage.getItem('arrayCategoriasDefault'));
-      imprimirCategorias(arrayCategoriasDefault);
-      generarCategoria(categorias);
-      alertify.error('Categoria eliminada con éxito');
-  });
-});
+ 
 
 //-------------------------------- BTN Editar Categoria --------------------------------
   const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
@@ -568,7 +545,13 @@ generarCategoria();
     })
   }
   )
-
+// -------------------------------- BTN cancelar edicion Categoria --------------------------------
+  // btnCancelarEdicionCategoria.forEach((btn) => {
+  //   btn.addEventListener('click', (e) => {
+  //     sectionEditarCategoria.classList.add('oculto');
+  //     categorias.classList.remove('oculto'); 
+  //   } )
+  // })
   
   
   
@@ -585,10 +568,27 @@ generarCategoria();
 
 //-------------------------------- Totales por categorías ---------------------------
 
+
+const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+  arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
+    const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
+    const porCategoriaGanancia = porCategoria.filter(operacion => operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0)
+    const porCategoriaGasto = porCategoria.filter(operacion => operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0)
+        
+    console.log(`La categoria ${arrayCategoriasDefault.categoria} ganancia es de ${porCategoriaGanancia}`)
+    console.log(`La categoria ${arrayCategoriasDefault.categoria} gasto es de ${porCategoriaGasto}`)
+
+    
+  })
+} 
 // const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
 //   console.log(operaciones)
 //   console.log(arrayCategoriasDefault)
 // } 
+
+
+
+
 
 //-------------------------------- Totales por mes ---------------------------
 
@@ -638,8 +638,6 @@ const totalesPorMes = arr => {
   document.getElementById('totales-por-mes').innerHTML = str;
     }
   }
-
-
 
 
 
