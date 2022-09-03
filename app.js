@@ -137,7 +137,7 @@ const pintarBalance = (arr) => {
   pintarColorTotalBalance(arr)
 }
 
-pintarBalance(operaciones)
+
 
 
 
@@ -267,6 +267,7 @@ const imprimirOperaciones = (arr) => {
       //|||||||||||||al editar la primera funcion la duplica modificando la funcion que se ingreso mas reciente dejando ambas y sobreescribiendo una
     });
   });
+  pintarBalance(operaciones);
 };
 
 btnAgregarOperacionEditada.addEventListener('click', (e) => {
@@ -457,7 +458,8 @@ localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //ac
       }
     }
   }
-generarCategoria();
+  generarCategoria();
+ 
 
 
   const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
@@ -482,6 +484,7 @@ generarCategoria();
   document.getElementById('lista-categorias').innerHTML = str; 
   }
   }
+  
   imprimirCategorias();
 
 //---Vaciar input categoria---
@@ -490,7 +493,6 @@ generarCategoria();
   };
 //-------BTN agregar categoria ------
   btnAgregarCategoria.addEventListener('click', () => {
-  // console.log(btnAgregarCategoria)
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
     id: uuidv4()
@@ -504,8 +506,8 @@ generarCategoria();
    //al agregar la nueva categoria y hacer click en agregar se vacia el input.
   alertify.message('Categoria agregada con éxito');
   })
-
   imprimirCategorias(arrayCategoriasDefault)
+  generarCategoria(arrayCategoriasDefault);
 
 
 
@@ -532,9 +534,8 @@ btnsEliminarCategoria.forEach((btn) => {
   alertify.error('Categoria eliminada con éxito');
   })
 })
-//hay que apretar f5 para actualizar el eliminado en los selects
+
 //si se agrega una categoria y se quiere eliminar otra primero hay que dar f5
-//asi tambien para actualizar con nuevas categorias
 //no permite agregar mas de una categoria sin actualizar
 //no permite eliminar dos categorias seguidas
 
@@ -544,9 +545,8 @@ btnsEliminarCategoria.forEach((btn) => {
   const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
   const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
   const sectionEditarCategoria = document.getElementById('editar-categorias');
-  console.log(btnsEditarCategoria)
   const inputEditarCategoria = document.getElementById('editar-categoria');
-  const btnAgregarCategoriaEditada = document.getElementById('btn-editar-categoria');
+  const btnGuardarCategoriaEditada = document.getElementById('btn-guardar-categoria');
 
 //----BTN que lleva a editar categoria ----//
   btnsEditarCategoria.forEach((btn) => {
@@ -559,7 +559,7 @@ btnsEliminarCategoria.forEach((btn) => {
       categoriaParaEditar(categoriasEditadas)
     });
   });
-  btnAgregarCategoriaEditada.addEventListener('click', () => {
+  btnGuardarCategoriaEditada.addEventListener('click', () => {
     console.log(categoriasEditadas)
 
     const nuevasCategorias = {
@@ -679,10 +679,11 @@ const inicializar = () => {
   inputsFecha.forEach((input) => {
     input.valueAsDate = new Date();
   });
-
+  pintarBalance(operaciones) //inicializa aca para no tener que apretar f5 para que actualice. NO FUNCIONA
   verOperaciones(operaciones);
   imprimirOperaciones(operaciones);
   obtenerOperaciones(operaciones);
+
   //agregar inicio de funcion nueva categoria para que se inicie al momento de abrir la pagina
 };
 
