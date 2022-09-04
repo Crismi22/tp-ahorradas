@@ -20,9 +20,8 @@ const reportes = document.getElementById('reportes');
 // const montoTotal = document.getElementById('monto-total');
 
 //  OPERACIONES
-
+// let operaciones = [] //deje este array comun para usar mientras no me funciona el local storage
 let operaciones = JSON.parse(localStorage.getItem('operaciones')) || [];
-
 const obtenerOperaciones = () => {
   return JSON.parse(localStorage.getItem('operaciones')) || [];
 }
@@ -153,7 +152,7 @@ btnNuevaOperacion.addEventListener('click', () => {
   nuevaOperacion.classList.remove('oculto');
 });
 
-//---------------------------------AGREGAR NUEVA OPERACION//
+//AGREGAR NUEVA OPERACION//
 
 const verOperaciones = (arr) => {
   // console.log(!arr.length);
@@ -265,7 +264,6 @@ const imprimirOperaciones = (arr) => {
         (operacion) => operacion.id === e.target.dataset.id
       );
       editarOperacion(opEditar) // rellena el form y se encarga de mostrar esa ventana
-      
     });
   });
   pintarBalance(operaciones);
@@ -319,7 +317,6 @@ const editarOperacion = (arr) => {
 
 
 
-
 // -------------------------------- BTN Cancelar Edicion --------------------------------
 btnCancelarEdicion.addEventListener('click', () => {
   balance.classList.remove('oculto');
@@ -355,7 +352,7 @@ const filtros = () => {
   const porCategoria = filtroCategoria.value;
   const porTipo = filtroTipo.value;
   const porOrden = filtroOrden.value
-  // const filtroFecha = filtroFecha.value
+  const filtroFecha = filtroFecha.value
 
   let operaciones = obtenerOperaciones();
 
@@ -412,11 +409,12 @@ const filtros = () => {
       (operacion) => new Date(operacion.fecha) >= new Date(filtroFecha)
     );
   }
-  imprimirOperaciones(operaciones);
-  verOperaciones(operaciones);
+  imprimirOperaciones(operaciones)
+  verOperaciones(operaciones)
 };
+//***************************************************** */
 
-filtroFecha.addEventListener("change", filtros);
+filtroFecha.addEventListener('change', filtros);
 filtroCategoria.addEventListener('change', filtros)
 filtroTipo.addEventListener('change', filtros)
 filtroOrden.addEventListener('change', filtros)
@@ -479,7 +477,7 @@ localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //ac
   }
   generarCategoria();
  
-
+  let categoriasAEditar = []; //array para guardar categorias editadas
 
   const listaDeCategorias = document.getElementById('lista-categoria');//div vacio donde se van a mostrar las categorias
 
@@ -503,7 +501,7 @@ localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault)); //ac
   document.getElementById('lista-categorias').innerHTML = str; 
   }
   }
-  
+
   imprimirCategorias();
 
 //---Vaciar input categoria---
@@ -558,50 +556,89 @@ btnsEliminarCategoria.forEach((btn) => {
 //no permite agregar mas de una categoria sin actualizar
 //no permite eliminar dos categorias seguidas
 
+ 
 
+//-------------------------------- BTN Editar Categoria --------------------------------
 
-
-  //-------------------------------- BTN Editar Categoria --------------------------------
-  const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
-  const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
-  const sectionEditarCategoria = document.getElementById('editar-categorias');
-  const inputEditarCategoria = document.getElementById('editar-categoria');
-  const btnGuardarCategoriaEditada = document.getElementById('btn-guardar-categoria');
+const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
+const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
+const sectionEditarCategoria = document.getElementById('editar-categorias');
+const inputEditarCategoria = document.getElementById('editar-categoria');
+const btnGuardarCategoriaEditada = document.getElementById('btn-guardar-categoria');
 
 //----BTN que lleva a editar categoria ----//
-  btnsEditarCategoria.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      sectionEditarCategoria.classList.remove('oculto');
-      categorias.classList.add('oculto');
-      const categoriaEditada = arrayCategoriasDefault.filter(
-        (categorias) => categorias.id === e.target.dataset.id
-      ); //busca el categoria que coincida con el id dek btn
-      categoriaEditada.forEach((nombre) => {
-        id = nombre.id
-        inputEditarCategoria.value = nombre.categoria
-      });
-    }); //guardar categoria editada y pushearlo
+btnsEditarCategoria.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    sectionEditarCategoria.classList.remove('oculto');
+    categorias.classList.add('oculto');
+    categoriasAEditar = arrayCategoriasDefault.filter(
+      (categorias) => categorias.id === e.target.dataset.id 
+      
+    );
+    editarCategoria(categoriasAEditar)
+    console.log(categoriasAEditar)
   });
-    // let categoriaEditada = 
-    // categoriaEditada.forEach((nombre) => {
-    // id = nombre.id
-    // inputEditarCategoria.value = nombre.categoria
-    // });
+});
+
+btnGuardarCategoriaEditada.addEventListener('click', (e) => {
+ 
+  const categoriaActualizada = {...categoriasAEditar[0]}
+
+  categoriaActualizada.categoria = inputEditarCategoria.value;
+  sectionEditarCategoria.classList.add('oculto');
+  categorias.classList.remove('oculto');
+
+  const guardarCategoria = arrayCategoriasDefault.map((categorias) => 
+  categorias.id === categoriaActualizada.id ? categoriaActualizada : categorias);
+
+ 
+  localStorage.setItem('categorias', JSON.stringify(guardarCategoria));
+  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+  imprimirCategorias(arrayCategoriasDefault);
+  generarCategoria(arrayCategoriasDefault); //actualizar categorias editadas en diferentes select
+  alertify.message('Categoria editada con éxito');
+
+});
+
+const editarCategoria = () => {
+  const categoriaActualizada = {...editarCategoria}
+  categoriaActualizada.categoria = inputEditarCategoria.value
+  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+};
+
+
+// btnsEditarCategoria.forEach((btn) => {
+//   btn.addEventListener('click', (e) => {
+//     sectionEditarCategoria.classList.remove('oculto');
+//     categorias.classList.add('oculto');
+//     const categoriaEditada = arrayCategoriasDefault.filter(
+//       (categorias) => categorias.id === e.target.dataset.id
+//     ); //busca el categoria que coincida con el id dek btn
+//     categoriaEditada.forEach((nombre) => {
+//       id = nombre.id
+//       inputEditarCategoria.value = nombre.categoria
+//     });
+//   }); //guardar categoria editada y pushearlo
+// });
+//   // let categoriaEditada = 
+//   // categoriaEditada.forEach((nombre) => {
+//   // id = nombre.id
+//   // inputEditarCategoria.value = nombre.categoria
+//   // });
+
+
+// btnGuardarCategoriaEditada.addEventListener('click', (e) => { //mandar la edicion y mostrar pagina de categorias
+//   arrayCategoriasDefault.push(categoriaEditada)
+//   console.log(btnGuardarCategoriaEditada)
+//   categorias.classList.remove('oculto');
+//   sectionEditarCategoria.classList.add('oculto');
   
 
-  btnGuardarCategoriaEditada.addEventListener('click', (e) => { //mandar la edicion y mostrar pagina de categorias
-    arrayCategoriasDefault.push(categoriaEditada)
-    console.log(btnGuardarCategoriaEditada)
-    categorias.classList.remove('oculto');
-    sectionEditarCategoria.classList.add('oculto');
-    
-
-    localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault));
-    arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
-    imprimirCategorias(arrayCategoriasDefault);
-    generarCategoria(arrayCategoriasDefault); //actualizar categorias editadas en diferentes select
-  })
-
+//   localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault));
+//   arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+//   imprimirCategorias(arrayCategoriasDefault);
+//   generarCategoria(arrayCategoriasDefault); //actualizar categorias editadas en diferentes select
+// })
  
 
 // -------------------------------- BTN cancelar edicion Categoria --------------------------------
@@ -709,6 +746,7 @@ const inicializar = () => {
   verOperaciones(operaciones);
   imprimirOperaciones(operaciones);
   obtenerOperaciones(operaciones);
+  generarCategoria(arrayCategoriasDefault);
 
   //agregar inicio de funcion nueva categoria para que se inicie al momento de abrir la pagina
 };
