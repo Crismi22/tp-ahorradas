@@ -82,8 +82,10 @@ btnReportes.addEventListener('click', () => {
     sinReportes.classList.add('oculto')
   }
           // ------------ Inicializaciones  ------------
-  totalesPorMes(operaciones)
-  totalesPorCategoria(operaciones, arrayCategoriasDefault)
+  imprimirResumenCategorias(JSON.parse(localStorage.getItem('operaciones')));
+  imprimirMesMayorGananciaYGasto(JSON.parse(localStorage.getItem('operaciones')));
+  imprimirTotalesPorMes(operaciones)
+  imprimirTotalesPorCategoria(operaciones, arrayCategoriasDefault)
 
 });
 
@@ -584,15 +586,135 @@ btnsEliminarCategoria.forEach((btn) => {
     categorias.classList.remove('oculto'); 
   })
 
-////////////////////////// SECTION REPORTES ////////////////////////////////
+                                      ////////////////////////// SECTION REPORTES ////////////////////////////////
 
 
-//-------------------------------- Resumen ---------------------------
+                                      //-------------------------------- Resumen ---------------------------
+
+                                      
+// PASO 1 - agarrar el array de operaciones (actualizado en el localStorage)
+// PASO 2 - hacer un filter por categoria por ganancia
+// PASO 3 - cuando estan todas las ganancias hacerle un sort para ordenarlas de mayor a menor
+// PASO 4 - La mayor ganancia va a quedar en la posicion 0 de ese nuevo array y esa posicion la pintamos
+                                      
+                                      
+const imprimirResumenCategorias = (operaciones) => {
+
+                                              // -- Categoría con mayor ganancia --       
+  
+  const categoriaMayorGanancia = operaciones.filter((operacion) => operacion.tipo === 'ganancia').sort((a, b) => b.monto - a.monto);
+  if (categoriaMayorGanancia.length > 0) {
+    document.getElementById('categoria-mayor-ganancia').innerHTML = `
+      <div class="col-6">
+        <p class="text-start fw-semibold">Categoría con mayor ganancia</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end">${categoriaMayorGanancia[0].categoria}</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end green">$${categoriaMayorGanancia[0].monto}</p>
+      </div>
+      `;
+    }
+
+                                              // -- Categoría con mayor gasto --
+
+  const categoriaMayorGasto = operaciones.filter((operacion) => operacion.tipo === 'gasto').sort((a, b) => b.monto - a.monto);
+  if (categoriaMayorGasto.length > 0) {
+    document.getElementById('categoria-mayor-gasto').innerHTML = `
+      <div class="col-6">
+        <p class="text-start fw-semibold">Categoría con mayor gasto</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end">${categoriaMayorGasto[0].categoria}</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end red">$${categoriaMayorGasto[0].monto}</p>
+      </div>
+      `;
+    }
+  console.log(categoriaMayorGasto)
+};
+
+                                              // -- Categoría con mayor balance --
+// FUNCION SIN REALIZAR DEBIDO A QUE EL MONTO QUE DA POR RESULTADO EL BALANCE PUEDE SER POSITIVO O NEGATIVO
+
+                                              
+const imprimirMesMayorGananciaYGasto = (operaciones) => {
+  const resumenMes = operaciones.sort((a, b) => b.monto - a.monto);
+  
+                                                // -- Mes con mayor ganancia --
+  const mesMayorGanancia = resumenMes.filter((operacion) => operacion.tipo === 'ganancia');
+  if (mesMayorGanancia.length > 0) {
+    document.getElementById('mes-mayor-ganancia').innerHTML = `
+      <div class="col-6">
+        <p class="text-start fw-semibold">Mes con mayor ganancia</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end">${new Date(mesMayorGanancia[0].fecha).getMonth() + 1}/${new Date(mesMayorGanancia[0].fecha).getFullYear()}</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end green">$${mesMayorGanancia[0].monto}</p>
+      </div>
+    `;
+  }
+
+                                                // -- Mes con mayor gasto --
+  const mesMayorGasto = resumenMes.filter((operacion) => operacion.tipo === 'gasto');
+  if (mesMayorGasto.length > 0) {
+    document.getElementById('mes-mayor-gasto').innerHTML = `
+      <div class="col-6">
+        <p class="text-start fw-semibold">Mes con mayor gasto</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end">${new Date(mesMayorGasto[0].fecha).getMonth() + 1}/${new Date(mesMayorGasto[0].fecha).getFullYear()}</p>
+      </div>
+      <div class="col-3">
+        <p class="text-end red">$${mesMayorGasto[0].monto}</p>
+      </div>
+    `;
+  }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // const filtroMeses = [... new Set(arr.map(operacion => 
+  //   operacion.fecha.split('-')[1]))].sort()
+
+  // for (let i = 0; i < filtroMeses.length; i++) {
+  //   const filtroOperacionesPorMes = resumenMes.filter((operacion) => operacion.fecha.split('-')[1] === filtroMeses[i]);  
+  //   const porTipoGanancia = operacionesPorMes.filter(operacion => 
+  //     operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0);
+  //   const porTipoGasto = operacionesPorMes.filter(operacion => 
+  //     operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0);
+      
+      
+  // // const mesMayorGanancia = resumenMes.filter((operacion) => operacion.tipo === 'ganancia');
+  // if (mesMayorGanancia.length > 0) {
+  //   document.getElementById('mes-mayor-ganancia').innerHTML = `
+  //     <div class="col-6">
+  //       <p class="text-start fw-semibold">Mes con mayor ganancia</p>
+  //     </div>
+  //     <div class="col-3">
+  //       <p class="text-end">${new Date(mesMayorGanancia[0].fecha).getMonth() + 1}/${new Date(mesMayorGanancia[0].fecha).getFullYear()}</p>
+  //     </div>
+  //     <div class="col-3">
+  //       <p class="text-end green">$${mesMayorGanancia[0].monto}</p>
+  //     </div>
+  //   `;
+  // }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  
+
+
+
+                                         
 
 
 //-------------------------------- Totales por categorías ---------------------------
 
-const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
+const imprimirTotalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
   let str = ''
   let totalesPorCategoriaBalance = 0;
   document.getElementById('totales-por-categoria').innerHTML = '';
@@ -631,10 +753,17 @@ const totalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
 
 //-------------------------------- Totales por mes ---------------------------
 
-const totalesPorMes = arr => {
+const imprimirTotalesPorMes = arr => {
   let totalPorMesBalance = 0;
   const mesesSinRepetir = [... new Set(arr.map(operacion => 
-    operacion.fecha.split('-')[1]))].sort()
+
+  //   `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}`)
+  //   ),
+  // ].sort();
+
+    operacion.fecha.split('-')[1])
+    )
+  ].sort()
   
   document.getElementById('totales-por-mes').innerHTML = '';
   let str = ''
@@ -649,27 +778,27 @@ const totalesPorMes = arr => {
     totalPorMesBalance = porTipoGanancia - porTipoGasto
    
     str += `
-    <div class="row align-items-start">
-      <div class="col-3"> 
-        <p class="fw-semibold text-start">${mesesSinRepetir[i]}</p>
+      <div class="row align-items-start">
+        <div class="col-3"> 
+          <p class="fw-semibold text-start">${mesesSinRepetir[i]}</p>
+        </div>
+        <div class="col-3"> 
+          <p class="text-end text-success">+$${porTipoGanancia}</p>
+        </div>
+        <div class="col-3"> 
+          <p class="text-end text-danger">-$${porTipoGasto}</p>
+        </div>
+        <div class="col-3"> 
+          <p class="text-end">$${totalPorMesBalance}</p>
+        </div>
       </div>
-      <div class="col-3"> 
-        <p class="text-end text-success">+$${porTipoGanancia}</p>
-      </div>
-      <div class="col-3"> 
-        <p class="text-end text-danger">-$${porTipoGasto}</p>
-      </div>
-      <div class="col-3"> 
-        <p class="text-end">$${totalPorMesBalance}</p>
-      </div>
-    </div>
-    `;
-
-  document.getElementById('totales-por-mes').innerHTML = str;
+      `;
+        
+    document.getElementById('totales-por-mes').innerHTML = str;
   }
 }
-
-
+    
+    
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // -------------------------------- INICIALIZACION DE FUNCIONES --------------------------------
 ////////////////////////////////////////////////////////////////////////////////////////////////
