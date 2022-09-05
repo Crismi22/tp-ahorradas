@@ -8,10 +8,7 @@ const btnCancelar = document.getElementById('btn-cancelar-operacion');
 const btnAgregarOperacionEditada = document.getElementById('btn-editar-operacion');
 const btnCancelarEdicion = document.getElementById('btn-editar-cancelar-operacion');
 const btnOcultarFiltros = document.getElementById('btn-ocultar-filtros');
-const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
-const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
-const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
-const btnGuardarCategoriaEditada = document.getElementById('btn-guardar-categoria');
+
 
 //  SECCIONES
 const balance = document.getElementById('balance');
@@ -500,6 +497,7 @@ const limpiarInputCategoria = () => {
 };
 
 // -------------------------------- BTN agregar categoria --------------------------------
+
 btnAgregarCategoria.addEventListener('click', () => {
   const nuevaCategoria = {
     categoria: categoriaInput.value, 
@@ -526,6 +524,8 @@ btnVolverVista1.addEventListener('click', () => {
 })
 
 // -------------------------------- BTN Eliminar Categoria --------------------------------
+const btnsEliminarCategoria = document.querySelectorAll('.btn-eliminar-categoria');
+
 btnsEliminarCategoria.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     const aliminado = arrayCategoriasDefault.filter(
@@ -540,25 +540,35 @@ btnsEliminarCategoria.forEach((btn) => {
 })
  
 // -------------------------------- BTN Editar Categoria --------------------------------
+
+const btnsEditarCategoria = document.querySelectorAll('.btn-editar-categoria');
+const btnCancelarEdicionCategoria = document.getElementById('btn-cancelar-categoria');
+const btnGuardarCategoriaEditada = document.getElementById('btn-guardar-categoria');
+
+//----BTN que lleva a editar categoria ----//
 btnsEditarCategoria.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     sectionEditarCategoria.classList.remove('oculto');
     categorias.classList.add('oculto');
     categoriasAEditar = arrayCategoriasDefault.filter(
-      (categorias) => categorias.id === e.target.dataset.id       
+      (categorias) => categorias.id === e.target.dataset.id 
+      
     );
     editarCategoria(categoriasAEditar)
+    console.log(categoriasAEditar)
   });
 });
 
 btnGuardarCategoriaEditada.addEventListener('click', (e) => {
+ 
   const categoriaActualizada = {...categoriasAEditar[0]}
+
   categoriaActualizada.categoria = inputEditarCategoria.value;
   sectionEditarCategoria.classList.add('oculto');
   categorias.classList.remove('oculto');
 
   const guardarCategoria = arrayCategoriasDefault.map((categorias) => 
-    categorias.id === categoriaActualizada.id ? categoriaActualizada : categorias);
+  categorias.id === categoriaActualizada.id ? categoriaActualizada : categorias);
 
  
   localStorage.setItem('categorias', JSON.stringify(guardarCategoria));
@@ -566,6 +576,7 @@ btnGuardarCategoriaEditada.addEventListener('click', (e) => {
   imprimirCategorias(arrayCategoriasDefault);
   generarCategoria(arrayCategoriasDefault); //actualizar categorias editadas en diferentes select
   alertify.message('Categoria editada con éxito');
+
 });
 
 const editarCategoria = () => {
@@ -573,6 +584,7 @@ const editarCategoria = () => {
   categoriaActualizada.categoria = inputEditarCategoria.value
   arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
 };
+
 
 
                                                 // -------------------------------- BTN cancelar edicion Categoria --------------------------------
