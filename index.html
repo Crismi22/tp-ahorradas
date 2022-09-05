@@ -166,7 +166,7 @@
         <div class="contenedor-nueva-operacion">
           <div class="row d-flex justify-content-center">
             <div class="col-sm-9 col-md-7">
-              <div class="card card-contenedor ">
+              <div class="card card-contenedor">
                 <div class="card-body">
                   <h2 class="fw-bolder fs-1">Nueva operación</h2>
                   <div class="margen-filas">
@@ -246,28 +246,41 @@
 
 
                                     <!-- //////////////////////////////// SECTION CATEGORIAS ////////////////////////////////  -->
- 
-      <section class="oculto" id="categorias">
+      
+      <section class="oculto" id="categorias">        
         <div class="contenedor-section">
-          <div class="col-sm-12 col-md-8 card-contenedor-categorias-reportes">
-            <div class="card card-contenedor">
-              <div class="card-body card-balance">
-                <h5 class="card-title card-subtitulo-categorias-reporte">Categorías</h5>
-                <div>
-                  <h6 class="fw-semibold">Nombre</h6>
-                  <label for="categoria-input"></label>
-                </div>
-                <div class="contenedor-nueva-categoria">
-                  <div class="contenedor-categoria-input">
-                    <input class="carga-categoria select-categoria" type="text" id="categoria-input">
+          <div class="row"  style="width: 1010px">
+            <div class="col-sm-12 col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card-contenedor">
+                    <div class="card" style="width: 100%;">
+                      <div class="card-body">                                    
+                              <!-- <section class="oculto" id="categorias">
+                              <div class="contenedor-section">
+                                <div class="col-sm-12 col-md-8 card-contenedor-categorias-reportes">
+                                  <div class="card card-contenedor">
+                                    <div class="card-body card-balance"> -->
+                        <h5 class="card-title card-subtitulo-categorias-reporte">Categorías</h5>
+                        <div>
+                          <h6 class="fw-semibold">Nombre</h6>
+                          <label for="categoria-input"></label>
+                        </div>
+                        <div class="contenedor-nueva-categoria">
+                          <div class="contenedor-categoria-input">
+                            <input class="carga-categoria select-categoria" type="text" id="categoria-input">
+                          </div>
+                          <div class="agregar-categoria" style="display: contents;">
+                            <button id="btn-agregar-categoria" type="button" class="btn btn-secondary btn-sm btn-agregar-categoria">Agregar</button>
+                            <button id="btn-regresar" type="button" class="btn btn-light btn-sm btn-agregar-categoria">cancelar</button>
+                          </div>  
+                        </div>
+                        <div id="lista-categorias">
+                          <!-- //donde se van a mostrar las categorias ingresadas x el usuario -->
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="agregar-categoria" style="display: contents;">
-                    <button id="btn-agregar-categoria" type="button" class="btn btn-secondary btn-sm btn-agregar-categoria">Agregar</button>
-                    <button id="btn-regresar" type="button" class="btn btn-light btn-sm btn-agregar-categoria">cancelar</button>
-                  </div>  
-                </div>
-                <div id="lista-categorias">
-                  <!-- //donde se van a mostrar las categorias ingresadas x el usuario -->
                 </div>
               </div>
             </div>
@@ -306,138 +319,129 @@
                                     <!-- //////////////////////////////// SECTION REPORTES ////////////////////////////////  -->
  
  
-      <section class="oculto" id="reportes">
+      <section class="oculto" id="reportes">        
         <div class="contenedor-section">
-          <div class="col-sm-12 col-md-4 card-contenedor-categorias-reportes">
-            <div class="card card-contenedor">
-              <div class="card-body">
-                <h2 class="card-title card-subtitulo-categorias-reporte">Reportes</h2>
+          <div class="row"  style="width: 1010px">
+            <div class="col-sm-12 col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card-contenedor">
+                    <div class="card" style="width: 100%;">
+                      <div class="card-body">     
+                        <h2 class="card-title card-subtitulo-categorias-reporte">Reportes</h2>
 
-                <!-- ---------------------------- Contenedor SIN REPORTES ---------------------------- -->
-                <div class="contenedor-img-reportes" id="sin-reportes">
-                  <img class="img-reportes" src="./assets/imagenes/img-reporte.svg" alt="calculadora">
-                  <h4 class="reportes-operaciones">Operaciones insuficientes</h4>
-                  <p>Prueba agregando más operaciones</p>
+                        <!-- ---------------------------- Contenedor SIN REPORTES ---------------------------- -->
+                        <div class="contenedor-img-reportes" id="sin-reportes">
+                          <img class="img-reportes" src="./assets/imagenes/img-reporte.svg" alt="calculadora">
+                          <h4 class="reportes-operaciones">Operaciones insuficientes</h4>
+                          <p>Prueba agregando más operaciones</p>
+                        </div>
+
+                          <!-- ---------------------------- Contenedor CON REPORTES ---------------------------- -->
+                            
+                        <div class="container text-center" id="con-reportes">
+
+                                                  <!-- ////// RESUMEN ////// -->
+                          <section class="container container-section-reportes">
+                            <h4 class="text-start fw-semibold">Resumen</h4>
+                                                  <!-- Categoría con mayor ganancia -->
+                            <div class="container">
+                              <div id="categoria-mayor-ganancia" class="row align-items-start">                        
+                                  <!-- div vacío-->                      
+                              </div>
+                            </div>
+                            
+                                                  <!-- Categoría con mayor gasto -->
+                            <div class="container">
+                              <div id="categoria-mayor-gasto" class="row align-items-start">
+                                <!-- div vacío-->
+                              </div>
+                            </div>
+                                                    <!-- Categoría con mayor balance -->
+                            <!-- FUNCION SIN REALIZAR DEBIDO A QUE EL MONTO QUE DA POR RESULTADO EL BALANCE PUEDE SER POSITIVO O NEGATIVO -->
+                            <!-- <div class="container">
+                              <div class="row align-items-start">
+                                <div class="col-6">
+                                  <p class="text-start fw-semibold">Categoría con mayor balance</p>
+                                </div>
+                                <div class="col-3">
+                                  <p class="text-end">...</p>
+                                </div>
+                                <div class="col-3">
+                                  <p class="text-end">...</p>
+                                </div>
+                              </div>
+                            </div> -->
+                                                    <!-- Mes con mayor ganancia -->
+                            <div class="container">
+                              <div id="mes-mayor-ganancia" class="row align-items-start">
+                              <!-- div vacío-->
+                              </div>
+                            </div>
+                                                    <!-- Mes con mayor gasto -->
+                            <div class="container">
+                              <div id="mes-mayor-gasto" class="row align-items-start">
+                                <!-- div vacío-->
+                              </div>
+                            </div>
+                          </section>
+
+
+                                                    <!-- ////// TOTALES POR CATEGORIA ////// -->
+                          <section class="container container-section-reportes">
+                            <h4 class="text-start fw-semibold">Totales por categorías</h4>
+                                                    <!-- Totales por categorías -->  
+                            <div class="container">
+                              <div class="row align-items-start">
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-start">Categoría</p>
+                                </div>
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-end">Ganancias</p>
+                                </div>
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-end">Gastos</p>
+                                </div>
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-end">Balance</p>
+                                </div>
+                              </div>
+                              <div id="totales-por-categoria">
+                                <!-- div vacío-->
+                              </div>
+                            </div>  
+                          </section>
+                          
+                          
+                                                    <!-- ////// TOTALES POR MES ////// -->
+                          <section class="container container-section-reportes">
+                            <h4 class="text-start fw-semibold">Totales por mes</h4>
+                                                    <!-- Totales por mes -->  
+                            <div class="container">
+                              <div class="row align-items-start">
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-start">Mes</p>
+                                </div>
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-end">Ganancias</p>
+                                </div>
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-end">Gastos</p>
+                                </div>
+                                <div class="col-3"> 
+                                  <p class="fw-semibold text-end">Balance</p>
+                                </div>
+                              </div>
+                            </div>  
+                            <div id="totales-por-mes"> <!-- class="operaciones-colum" -->
+                              <!-- div vacío-->
+                            </div>
+                          </section>
+                        </div>              
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                  <!-- ---------------------------- Contenedor CON REPORTES ---------------------------- -->
-                    
-                <div class="container text-center" id="con-reportes">
-
-                                          <!-- ////// RESUMEN ////// -->
-                  <section class="container container-section-reportes">
-                    <h4 class="text-start fw-semibold">Resumen</h4>
-                                          <!-- Categoría con mayor ganancia -->
-                    <div class="container">
-                      <div id="categoria-mayor-ganancia" class="row align-items-start">                        
-                           <!-- div vacio para que se vaya mostrando los totales -->                      
-                      </div>
-                    </div>
-                    
-                                           <!-- Categoría con mayor gasto -->
-                    <div class="container">
-                      <div id="categoria-mayor-gasto" class="row align-items-start">
-                        <!-- div vacio para que se vaya mostrando los totales -->
-                      </div>
-                    </div>
-                                            <!-- Categoría con mayor balance -->
-                    <!-- FUNCION SIN REALIZAR DEBIDO A QUE EL MONTO QUE DA POR RESULTADO EL BALANCE PUEDE SER POSITIVO O NEGATIVO -->
-                    <!-- <div class="container">
-                      <div class="row align-items-start">
-                        <div class="col-6">
-                          <p class="text-start fw-semibold">Categoría con mayor balance</p>
-                        </div>
-                        <div class="col-3">
-                          <p class="text-end">...</p>
-                        </div>
-                        <div class="col-3">
-                          <p class="text-end">...</p>
-                        </div>
-                      </div>
-                    </div> -->
-                                            <!-- Mes con mayor ganancia -->
-                    <div class="container">
-                      <div id="mes-mayor-ganancia" class="row align-items-start">
-                        <!-- <div class="col-6">
-                          <p class="text-start fw-semibold">Mes con mayor ganancia</p>
-                        </div>
-                        <div class="col-3">
-                          <p class="text-end">...</p>
-                        </div>
-                        <div class="col-3">
-                          <p class="text-end">...</p>
-                        </div> -->
-                      </div>
-                    </div>
-                                            <!-- Mes con mayor gasto -->
-                    <div class="container">
-                      <div id="mes-mayor-gasto" class="row align-items-start">
-                        <!-- <div class="col-6">
-                          <p class="text-start fw-semibold">Mes con mayor gasto</p>
-                        </div>
-                        <div class="col-3">
-                          <p class="text-end">...</p>
-                        </div>
-                        <div class="col-3">
-                          <p class="text-end">...</p>
-                        </div> -->
-                      </div>
-                    </div>
-                  </section>
-
-
-                                            <!-- ////// TOTALES POR CATEGORIA ////// -->
-                  <section class="container container-section-reportes">
-                    <h4 class="text-start fw-semibold">Totales por categorías</h4>
-                                            <!-- Totales por categorías -->  
-                    <div class="container">
-                      <div class="row align-items-start">
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-start">Categoría</p>
-                        </div>
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-end">Ganancias</p>
-                        </div>
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-end">Gastos</p>
-                        </div>
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-end">Balance</p>
-                        </div>
-                      </div>
-                      <div id="totales-por-categoria">
-                        <!-- div vacio para que se vaya mostrando los totales -->
-                      </div>
-                    </div>  
-                  </section>
-                  
-                  
-                                            <!-- ////// TOTALES POR MES ////// -->
-                  <section class="container container-section-reportes">
-                    <h4 class="text-start fw-semibold">Totales por mes</h4>
-                                            <!-- Totales por mes -->  
-                    <div class="container">
-                      <div class="row align-items-start">
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-start">Mes</p>
-                        </div>
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-end">Ganancias</p>
-                        </div>
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-end">Gastos</p>
-                        </div>
-                        <div class="col-3"> 
-                          <p class="fw-semibold text-end">Balance</p>
-                        </div>
-                      </div>
-                    </div>  
-                    <div id="totales-por-mes"> <!-- class="operaciones-colum" -->
-                      <!-- div vacio para que se vaya mostrando los totales guardadas -->
-                    </div>
-                  </section>
-                                    
-                  
               </div>
             </div>
           </div>
