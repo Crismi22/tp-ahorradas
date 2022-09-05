@@ -227,14 +227,14 @@ const imprimirOperaciones = (arr) => {
     str =
       str +
       `
-        <div class='col-12'>
-          <div id=${id} class = 'mi-flex row aling-items-start' >
-            <span class = 'col-3 font-size-item text-start fw-semibold'> ${descripcion}</span>
-            <span class = 'col-3 font-size-item text-start'> ${categoria}</span>
-            <span class = 'col-2 fecha text-end'> ${fecha}</span>
-            <span class = 'col-2 font-size-item text-end ${tipo == 'ganancia' ? 'green' : 'red'}'>$${monto}</span>
+        <div class='col-12 operaciones-margin'>
+          <div id=${id} class = 'mi-flex row aling-items-start listado-operaciones' >
+            <span class = 'col-3 font-size-item text-start fw-semibold operacion-descripcion'> ${descripcion}</span>
+            <span class = 'col-3 font-size-item text-start operacion-categoria'> ${categoria}</span>
+            <span class = 'col-2 fecha text-end operacion-fecha'> ${fecha}</span>
+            <span class = 'col-2 font-size-item text-end monto-tamanio ${tipo == 'ganancia' ? 'green' : 'red'}'>$${monto}</span>
             <span class = 'col-2 font-size-item'>
-            <div class='d-flex flex-column'>
+            <div class='contenedor-btn-editar btn-chico'>
               <a class='btn-editar text-end' data-id=${id} href='#'>Editar</a>
               <a class='btn-eliminar text-end' data-id=${id} href='#'>Eliminar</a>
             </div>
