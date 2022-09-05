@@ -58,8 +58,9 @@ SECTION GENERAL
 }
 
 .card-contenedor-categorias-reportes{
-    /* justify-content: center; */
+    justify-content: center;
     margin: auto;
+    width: 100%;
 }
 
 .card-subtitulo-categorias-reporte{
@@ -271,6 +272,11 @@ SECTION REPORTES
 
 .container-section-reportes{
     margin-bottom: 10%;
+}
+
+.reportes{
+    width: 120vh;
+    align-items: center;
 }
 
 .footer{
