@@ -58,8 +58,9 @@ SECTION GENERAL
 }
 
 .card-contenedor-categorias-reportes{
-    /* justify-content: center; */
+    justify-content: center;
     margin: auto;
+    width: 100%;
 }
 
 .card-subtitulo-categorias-reporte{
@@ -220,14 +221,14 @@ SECTION CATEGORIAS
     padding-bottom: 1%;
 }
 
-/* .estilo-categorias{
+.estilo-categorias{
     font-size: 1rem;
     color: rgb(228 215 240);
     background-color: rgb(108 117 125);
     padding: 3px;
     border-radius: 3px;
     margin: .3em;
-} */
+}
 
 .contenedor-nueva-categoria{
     display: flex;
@@ -273,61 +274,37 @@ SECTION REPORTES
     margin-bottom: 10%;
 }
 
+.reportes{
+    width: 120vh;
+    align-items: center;
+}
+
 .footer{
     text-align: center;
 }
 
 /* RESPONSIVE// */
 
-@media screen and (max-width: 480px){
-    .descripcion-operaciones{
-        display: none;
+@media (max-width: 768px) and (min-width: 425px) {
+    .mi-nav{
+        height: 16vh;
+        justify-content: unset;
     }
-    
-    .listado-operaciones{
-        flex-direction: row;
-        flex-wrap: wrap;
+    .navbar-titulo{
+        font-size: 35px;
+        align-items: flex-end;
+        margin-top: -20px;
     }
-
-    .operacion-descripcion{
-        width: 50%;
-    }
-
-    .operacion-categoria{
-        width: 50%;
-        text-align: end !important;
-    }
-
-    .operacion-fecha{
-        display: none;
-    }
-
-    .monto-tamanio{
-        font-size: 1.3em;
-        width: 50%;
-        text-align: left !important;
-    }
-    
-    .operaciones-margin{
-        margin-bottom: 5%;
-    }
-
-    .btn-chico{
-        width: 50%;
-    }
-
-    .contenedor-btn-editar{
-        display: flex;
+    .card-contenedor-categorias-reportes, .card-contenedor{
+        width: 98%;
+        justify-content: center;
     }
 }
 
-@media screen and (min-width:481px) and (max-width: 819px){
-
-}
 
 @media screen and (max-width: 1024px) {
     .navbar-collapses{
-        background-color: #212529;
+        background-color: rgb(83 50 83);
         position: relative;
         z-index: 1;
         margin-left: 60%;
