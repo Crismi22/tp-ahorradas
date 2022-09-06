@@ -97,7 +97,7 @@ btnReportes.addEventListener('click', () => {
   
   // ......... Inicializaciones ......... 
   imprimirResumenCategorias(JSON.parse(localStorage.getItem('operaciones')));
-  imprimirMesMayorGananciaYGasto(JSON.parse(localStorage.getItem('operaciones')));
+  // imprimirMesMayorGananciaYGasto(JSON.parse(localStorage.getItem('operaciones')));
   imprimirTotalesPorMes(operaciones)
   imprimirTotalesPorCategoria(operaciones, arrayCategoriasDefault)
 });
@@ -592,18 +592,7 @@ btnCancelarEdicionCategoria.addEventListener('click', () => {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//////////////////////////////// RESUMEN ////////////////////////////////
- ////////////////////////// SECTION REPORTES ////////////////////////////////
-
-
-                                      //-------------------------------- Resumen ---------------------------
-
-                                      
-// PASO 1 - agarrar el array de operaciones (actualizado en el localStorage)
-// PASO 2 - hacer un filter por categoria por ganancia
-// PASO 3 - cuando estan todas las ganancias hacerle un sort para ordenarlas de mayor a menor
-// PASO 4 - La mayor ganancia va a quedar en la posicion 0 de ese nuevo array y esa posicion la pintamos
-                                      
+//////////////////////////////// RESUMEN ////////////////////////////////                                      
                                       
 const imprimirResumenCategorias = (operaciones) => {
 
@@ -648,144 +637,53 @@ console.log(categoriaMayorGasto)
 
 
   
-const imprimirMesMayorGananciaYGasto = (operaciones) => {
-const resumenMes = operaciones.sort((a, b) => b.monto - a.monto);
-
-    // -- Mes con mayor ganancia --
-const mesMayorGanancia = resumenMes.filter((operacion) => operacion.tipo === 'ganancia');
-if (mesMayorGanancia.length > 0) {
-document.getElementById('mes-mayor-ganancia').innerHTML = `
-<div class="col-6">
-<p class="text-start fw-semibold">Mes con mayor ganancia</p>
-</div>
-<div class="col-3">
-<p class="text-end">${new Date(mesMayorGanancia[0].fecha).getMonth() + 1}/${new Date(mesMayorGanancia[0].fecha).getFullYear()}</p>
-</div>
-<div class="col-3">
-<p class="text-end green">$${mesMayorGanancia[0].monto}</p>
-</div>
-`;
-}
-
-    // -- Mes con mayor gasto --
-const mesMayorGasto = resumenMes.filter((operacion) => operacion.tipo === 'gasto');
-if (mesMayorGasto.length > 0) {
-document.getElementById('mes-mayor-gasto').innerHTML = `
-<div class="col-6">
-<p class="text-start fw-semibold">Mes con mayor gasto</p>
-</div>
-<div class="col-3">
-<p class="text-end">${new Date(mesMayorGasto[0].fecha).getMonth() + 1}/${new Date(mesMayorGasto[0].fecha).getFullYear()}</p>
-</div>
-<div class="col-3">
-<p class="text-end red">$${mesMayorGasto[0].monto}</p>
-</div>
-`;
-}
-
-}
-
-//-------------------------------- Totales por categorías ---------------------------
-
-
 
 //////////////////////////////// TOTALES POR CATEGORIA ////////////////////////////////
 
 
 const imprimirTotalesPorCategoria = (operaciones, arrayCategoriasDefault) => {
-let str = ''
-let totalesPorCategoriaBalance = 0;
-document.getElementById('totales-por-categoria').innerHTML = '';
-arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
-const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
-const porCategoriaGanancia = porCategoria.filter(operacion => operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0)
-const porCategoriaGasto = porCategoria.filter(operacion => operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0)
-// console.log(`La categoria ${arrayCategoriasDefault.categoria} ganancia es de ${porCategoriaGanancia}`)
-//console.log(`La categoria ${arrayCategoriasDefault.categoria} gasto es de ${porCategoriaGasto}`)    
-totalesPorCategoriaBalance = porCategoriaGanancia - porCategoriaGasto;
+  let str = ''
+  let totalesPorCategoriaBalance = 0;
+  document.getElementById('totales-por-categoria').innerHTML = '';
+  arrayCategoriasDefault.forEach(arrayCategoriasDefault => {
+    const porCategoria = operaciones.filter(operacion => operacion.categoria === arrayCategoriasDefault.categoria)
+    const porCategoriaGanancia = porCategoria.filter(operacion => operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0)
+    const porCategoriaGasto = porCategoria.filter(operacion => operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0)
+    totalesPorCategoriaBalance = porCategoriaGanancia - porCategoriaGasto;
+  
+    if(porCategoriaGanancia > 0 || porCategoriaGasto > 0){
+    str += `
+    <div class="row align-items-start">
+    <div class="col-3"> 
+    <p class="fw-semibold text-start">${arrayCategoriasDefault.categoria}</p>
+    </div>
+    <div class="col-3"> 
+    <p class="text-end text-success">+$${porCategoriaGanancia}</p>
+    </div>
+    <div class="col-3"> 
+    <p class="text-end text-danger">-$${porCategoriaGasto}</p>
+    </div>
+    <div class="col-3"> 
+    <p class="text-end">$${totalesPorCategoriaBalance}</p>
+    </div>
+    </div>
+    `;
+    }
 
-if(porCategoriaGanancia > 0 || porCategoriaGasto > 0){
-str += `
-<div class="row align-items-start">
-<div class="col-3"> 
-<p class="fw-semibold text-start">${arrayCategoriasDefault.categoria}</p>
-</div>
-<div class="col-3"> 
-<p class="text-end text-success">+$${porCategoriaGanancia}</p>
-</div>
-<div class="col-3"> 
-<p class="text-end text-danger">-$${porCategoriaGasto}</p>
-</div>
-<div class="col-3"> 
-<p class="text-end">$${totalesPorCategoriaBalance}</p>
-</div>
-</div>
-`;
-}
+  document.getElementById('totales-por-categoria').innerHTML = str;
 
-document.getElementById('totales-por-categoria').innerHTML = str;
-
-})
+  })
 }  
 
+//////////////////////////////// TOTALES POR MES ////////////////////////////////
 
-//-------------------------------- Totales por mes ---------------------------
-
-const imprimirTotalesPorMes = arr => {
-
-let totalPorMesBalance = 0;
-const mesesSinRepetir = [... new Set(arr.map(operacion => 
-
-//   `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}`)
-//   ),
-// ].sort();
-
-operacion.fecha.split('-')[1])
-)
-].sort()
-
-document.getElementById('totales-por-mes').innerHTML = '';
-let str = ''
-for (let i = 0; i < mesesSinRepetir.length; i++) {
-const operacionesPorMes = arr.filter(operacion => 
-operacion.fecha.split('-')[1] === mesesSinRepetir[i]);
-const porTipoGanancia = operacionesPorMes.filter(operacion => 
-operacion.tipo === 'ganancia').reduce((count, current) => count + Number(current.monto) ,0);
-const porTipoGasto = operacionesPorMes.filter(operacion => 
-operacion.tipo === 'gasto').reduce((count, current) => count + Number(current.monto) ,0);
-
-totalPorMesBalance = porTipoGanancia - porTipoGasto
-
-str += `
-<div class="row align-items-start">
-<div class="col-3"> 
-<p class="fw-semibold text-start">${mesesSinRepetir[i]}</p>
-</div>
-<div class="col-3"> 
-<p class="text-end text-success">+$${porTipoGanancia}</p>
-</div>
-<div class="col-3"> 
-<p class="text-end text-danger">-$${porTipoGasto}</p>
-</div>
-<div class="col-3"> 
-<p class="text-end">$${totalPorMesBalance}</p>
-</div>
-</div>
-`;
-
-document.getElementById('totales-por-mes').innerHTML = str;
-}
-}
-
-
-
+const imprimirTotalesPorMes = arr => { 
   let totalPorMesBalance = 0
   let totalMes = []
   let str = ''
   const mesesSinRepetir = [... new Set(arr.map(operacion => 
     `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}`)),].sort();
     
-  // document.getElementById('totales-por-mes').innerHTML = '';
     for (let i = 0; i < mesesSinRepetir.length; i++) {
       const operacionesPorMes = arr.filter(operacion => 
         `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}` === mesesSinRepetir[i]);
@@ -814,12 +712,52 @@ document.getElementById('totales-por-mes').innerHTML = str;
       `;
         
     document.getElementById('totales-por-mes').innerHTML = str;
+    
+      const nuevoObjeto = {
+        mes: mesesSinRepetir[i],
+        ganancia: porTipoGanancia,
+        gasto: porTipoGasto,
+        balance: totalPorMesBalance,
+      };
+      totalMes.push(nuevoObjeto);
+      
   }
+  
+
+        // -------------------------------- Mes con mayor ganancia / gasto --------------------------------
+    const mesMayorGanancia = totalMes.filter((operacion) => operacion.ganancia).sort(function(a, b){return b.ganancia - a.gananacia})
+    document.getElementById('mes-mayor-ganancia').innerHTML = `
+    <div class="col-6">
+    <p class="text-start fw-semibold">Mes con mayor ganancia</p>
+    </div>
+    <div class="col-3">
+    <p class="text-end">${mesMayorGanancia[0].mes}</p>
+    </div>
+    <div class="col-3">
+    <p class="text-end green">$${mesMayorGanancia[0].ganancia}</p>
+    </div>
+    `;
+
+    const mesMayorGasto = totalMes.filter((operacion) => operacion.gasto).sort(function(a, b){return b.gasto - a.gasto})
+    document.getElementById('mes-mayor-gasto').innerHTML = `
+    <div class="col-6">
+    <p class="text-start fw-semibold">Mes con mayor gasto</p>
+    </div>
+    <div class="col-3">
+    <p class="text-end">${mesMayorGanancia[0].mes}</p>
+    </div>
+    <div class="col-3">
+    <p class="text-end red">$${mesMayorGasto[0].gasto}</p>
+    </div>
+    `;
+  
+    
+    imprimirOperaciones(operaciones);
 }
 
+
+
     
-// -------------------------------- Mes con mayor ganancia --------------------------------
-// -------------------------------- Mes con mayor gasto --------------------------------
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
