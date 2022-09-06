@@ -559,24 +559,9 @@ btnsEditarCategoria.forEach((btn) => {
     // console.log(categoriaAEditar)
   });
 });
-console.log(categoriaAEditar)
+// console.log(categoriaAEditar)
 
-
-
-  
-
-
-const editarCategoria = (categoria) => {
-  console.log(categoria)
-  
-
-  
-  // const categoriaActualizada = {...editarCategoria}
-  // categoriaActualizada.categoria = inputEditarCategoria.value
-  // arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
-};
 btnGuardarCategoriaEditada.addEventListener('click', (e) => {
-  console.log(categoriaAEditar)
   let categoriaEditada = {
     categoria: inputEditarCategoria.value,
     id : categoriaAEditar.id
@@ -594,7 +579,7 @@ btnGuardarCategoriaEditada.addEventListener('click', (e) => {
 })
  
 
-                                                // -------------------------------- BTN cancelar edicion Categoria --------------------------------
+// -------------------------------- BTN cancelar edicion Categoria --------------------------------
 btnCancelarEdicionCategoria.addEventListener('click', () => {
   sectionEditarCategoria.classList.add('oculto');
   categorias.classList.remove('oculto'); 
