@@ -467,7 +467,7 @@ const generarCategoria = () => {
 }
 generarCategoria();
  
-let categoriasAEditar = []; //array para guardar categorias editadas
+let categoriaAEditar = {}; //array para guardar categorias editadas
 
 const imprimirCategorias = () => {
   let str = '';
@@ -550,42 +550,49 @@ btnsEditarCategoria.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     sectionEditarCategoria.classList.remove('oculto');
     categorias.classList.add('oculto');
-    categoriasAEditar = arrayCategoriasDefault.filter(
-      (categorias) => categorias.id === e.target.dataset.id 
+     categoriaAEditar = arrayCategoriasDefault.find(
+      (categoria) => categoria.id === e.target.dataset.id 
       
     );
-    editarCategoria(categoriasAEditar)
-    console.log(categoriasAEditar)
+    inputEditarCategoria.value = categoriaAEditar.categoria
+    // editarCategoria(categoriaAEditar)
+    // console.log(categoriaAEditar)
   });
 });
+console.log(categoriaAEditar)
 
+
+
+  
+
+
+const editarCategoria = (categoria) => {
+  console.log(categoria)
+  
+
+  
+  // const categoriaActualizada = {...editarCategoria}
+  // categoriaActualizada.categoria = inputEditarCategoria.value
+  // arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+};
 btnGuardarCategoriaEditada.addEventListener('click', (e) => {
- 
-  const categoriaActualizada = {...categoriasAEditar[0]}
-
-  categoriaActualizada.categoria = inputEditarCategoria.value;
+  console.log(categoriaAEditar)
+  let categoriaEditada = {
+    categoria: inputEditarCategoria.value,
+    id : categoriaAEditar.id
+  };
+  arrayCategoriasDefault = arrayCategoriasDefault.filter((item) =>
+    item.id !== categoriaAEditar.id
+  )
+  arrayCategoriasDefault.push(categoriaEditada)
+  localStorage.setItem('categorias', JSON.stringify(arrayCategoriasDefault));
+  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
+  imprimirCategorias(arrayCategoriasDefault)
   sectionEditarCategoria.classList.add('oculto');
   categorias.classList.remove('oculto');
-
-  const guardarCategoria = arrayCategoriasDefault.map((categorias) => 
-  categorias.id === categoriaActualizada.id ? categoriaActualizada : categorias);
-
- 
-  localStorage.setItem('categorias', JSON.stringify(guardarCategoria));
-  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
-  imprimirCategorias(arrayCategoriasDefault);
-  generarCategoria(arrayCategoriasDefault); //actualizar categorias editadas en diferentes select
   alertify.message('Categoria editada con éxito');
-
-});
-
-const editarCategoria = () => {
-  const categoriaActualizada = {...editarCategoria}
-  categoriaActualizada.categoria = inputEditarCategoria.value
-  arrayCategoriasDefault = JSON.parse(localStorage.getItem('categorias'));
-};
-
-
+})
+ 
 
                                                 // -------------------------------- BTN cancelar edicion Categoria --------------------------------
 btnCancelarEdicionCategoria.addEventListener('click', () => {
