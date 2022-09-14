@@ -285,15 +285,18 @@ SECTION REPORTES
 
 /* RESPONSIVE// */
 
-@media (max-width: 768px) and (min-width: 425px) {
+@media (max-width: 768px) {
     .mi-nav{
         height: 16vh;
         justify-content: unset;
+        padding: 0;
+    }
+    .container-fluid{
+        justify-content: flex-start !important;
     }
     .navbar-titulo{
         font-size: 35px;
         align-items: flex-end;
-        margin-top: -20px;
     }
     .card-contenedor-categorias-reportes, .card-contenedor{
         width: 98%;
@@ -302,7 +305,7 @@ SECTION REPORTES
 }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023px) {
     .navbar-collapses{
         background-color: rgb(83 50 83);
         position: relative;
